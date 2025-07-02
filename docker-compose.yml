@@ -1,0 +1,27 @@
+services:
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    command: mongod --noauth  
+  backend:
+    build:
+      context: ./Server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./Server:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./Client
+    ports:
+      - "80:80"
+
+volumes:
+  mongo_data:
