@@ -1,9 +1,9 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-const UsersRoute = require('./src/routes/UsersRoutes')
-
+const express = require('express');
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const UsersRoute = require('./src/routes/UsersRoutes');
+const TaskRoute = require('./src/routes/TaskRoutes');
 const PORT = 5000;
 
 mongoose.connect('mongodb://mongo:27017/mainDateBase')
@@ -21,3 +21,4 @@ app.listen(PORT, () => {
 })
 
 app.use('/api/users', UsersRoute)
+app.use('/api/task', TaskRoute)

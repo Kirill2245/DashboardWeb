@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
-const UsersSchema = new mongoose.Schema({
+const UsersSchema = new Schema({
     name: String,
     fullName: String,
     email: {
@@ -13,6 +13,26 @@ const UsersSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    taskList:{
+        type: Array,
+        default: []
+    },
+    friendList:{
+        type: Array,
+        default: []
+    },
+    invoiceList:{
+        type: Array,
+        default: []
+    },
+    eventList:{
+        type: Array,
+        default: []
+    },
+    chatList:{
+        type: Array,
+        default: []
     }
 });
 UsersSchema.pre('save', async function(next) {
