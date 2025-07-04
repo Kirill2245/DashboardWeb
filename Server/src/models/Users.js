@@ -33,7 +33,11 @@ const UsersSchema = new Schema({
     chatList:{
         type: Array,
         default: []
-    }
+    },
+    productList:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+    }]
 });
 UsersSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();

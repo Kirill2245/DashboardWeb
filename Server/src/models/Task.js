@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const currentDate = new Date();
+
 const TaskSchema = new Schema({
     name:{
         type:String
@@ -32,5 +33,6 @@ const TaskSchema = new Schema({
         default: 0
     }
 });
+
 const Task = mongoose.model('Task', TaskSchema)
 module.exports = Task
