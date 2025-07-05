@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const Users = require('../models/Users');
 const Product = require('../models/Product');
 const upload = require('../settings/uploadConfig');
+const fs = require('fs');
+const path = require('path');
 
 const addProduct = async (req, res) => {
     try {
         upload.single('image')(req, res, async function(err) {
-        // 1. Обработка ошибок загрузки файла
+
         if (err) {
             return res.status(400).json({ 
             success: false,
@@ -15,16 +17,16 @@ const addProduct = async (req, res) => {
             });
         }
 
-        // 2. Логирование входящих данных для отладки
+
         console.log('Received data:', {
             body: req.body,
             file: req.file ? req.file.filename : 'No file uploaded'
         });
 
-        // 3. Деструктуризация с проверкой
+
         const { name, brand, price, negotiable, descriptions, userId } = req.body;
 
-        // 4. Валидация полей
+
         const missingFields = [];
         if (!name) missingFields.push('name');
         if (!brand) missingFields.push('brand');
@@ -40,16 +42,14 @@ const addProduct = async (req, res) => {
             });
         }
 
-        // 5. Проверка формата данных
+
         const validationErrors = {};
         
-        // Проверка price
         const priceValue = parseFloat(price);
         if (isNaN(priceValue)) {
             validationErrors.price = 'Must be a valid number';
         }
 
-        // Проверка userId
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             validationErrors.userId = 'Invalid user ID format';
         }
@@ -62,7 +62,6 @@ const addProduct = async (req, res) => {
             });
         }
 
-        // 6. Проверка существования пользователя
         const userExists = await Users.exists({ _id: userId });
         if (!userExists) {
             return res.status(404).json({
@@ -71,7 +70,6 @@ const addProduct = async (req, res) => {
             });
         }
 
-        // 7. Создание продукта
         const productData = {
             name,
             brand,
@@ -84,13 +82,13 @@ const addProduct = async (req, res) => {
 
         const newProduct = await Product.create(productData);
         
-        // 8. Обновление пользователя
+
         await Users.findByIdAndUpdate(
             userId,
             { $addToSet: { productList: newProduct._id } }
         );
 
-        // 9. Форматирование ответа
+
         const responseData = {
             ...newProduct.toObject(),
             price: parseFloat(newProduct.price.toString())
@@ -113,5 +111,51 @@ const addProduct = async (req, res) => {
         });
     }
 };
+const dealateProduct = async (req, res) => {
+    try{
+        const {idProduct} = req.body;
+        if (!mongoose.Types.ObjectId.isValid(idProduct)) {
+            return res.status(400).json({ message: 'Invalid task ID format' });
+        }
+        const product = await Product.findById(idProduct);
+        
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
 
-module.exports = { addProduct };
+        const deletedProduct = await Product.findByIdAndDelete(idProduct);
+
+        if (product.image) {
+            const imagePath = path.join(__dirname, '../../public', product.image);
+            
+            fs.unlink(imagePath, (err) => {
+                if (err) {
+                    console.error('Error deleting image file:', err);
+                } else {
+                    console.log('Image file deleted successfully:', product.image);
+                }
+            });
+        }
+
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        await Users.updateMany(
+            { productList: idProduct },
+            { $pull: { productList: idProduct } }
+        );
+
+        res.status(200).json({
+            message: 'Product deleted and removed from all users',
+            deletedProduct
+        });
+    }
+    catch (error){
+        console.error('Error deleting product:', error);
+        res.status(500).json({ 
+            message: 'Server error', 
+            error: error.message 
+        })
+    }
+};
+module.exports = { addProduct, dealateProduct };
