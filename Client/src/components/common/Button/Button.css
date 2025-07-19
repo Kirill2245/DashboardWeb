@@ -10,3 +10,14 @@
     font-size: 16px;
     font-weight: 600;
 }
+.reset{
+    width: 502px;
+    height: 50px;
+    text-align: center;
+    background-color:#605BFF ;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+}

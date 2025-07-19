@@ -6,7 +6,7 @@ const Autorization = () =>{
     return(
         <>
             {showLogin ? 
-                <Login /> : 
+                <Login onSwitchToLogin={() => setShowLogin(false)}/> : 
                 <SignUp onSwitchToLogin={() => setShowLogin(true)} />
             }
         </>

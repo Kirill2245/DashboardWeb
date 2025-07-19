@@ -1,0 +1,13 @@
+.login{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    gap: 11.39%;
+    box-sizing: border-box;
+    background-color: #FAFAFA;
+}
+.mainImage{
+    width: 647px;
+    height: 602px;
+}
