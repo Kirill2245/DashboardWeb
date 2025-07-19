@@ -1,6 +1,8 @@
-const Users = require('../models/Users')
+const Users = require('../models/Users');
 const Task = require('../models/Task');
+const Product = require('../models/Product');
 const mongoose = require('mongoose');
+
 const index = (req, res) => {
     Users.find()
     .then(response => {
@@ -121,6 +123,47 @@ const getTask = async (req, res) => {
     }
 };
 
+const getProduct = async (req, res) => {
+    try{
+        const { userId } = req.body; 
+
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required in request body' });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: 'Invalid user ID format' });
+        }
+
+        const user = await Users.findById(userId).select('productList');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (!user.productList || user.productList.length === 0) {
+            return res.status(200).json({ 
+                message: 'User has no tasks',
+                product: []
+            });
+        }
+
+        const product = await Product.find({
+            _id: { $in: user.productList }
+        });
+
+        return res.status(200).json({ product });
+    }
+    catch(error){
+        console.error('Error fetching products:', error);
+        return res.status(500).json({ 
+            success: false,
+            message: 'Server error while fetching products',
+            error: error.message 
+        });
+    }
+};
+
 module.exports = {
-    index, signUp, login, deleteAllUsers, getTask
+    index, signUp, login, deleteAllUsers, getTask, getProduct
 }

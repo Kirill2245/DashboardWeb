@@ -7,5 +7,6 @@ router.post('/signup', UsersController.signUp);
 router.post('/login', UsersController.login);
 router.delete('/delete-all', UsersController.deleteAllUsers);
 router.post('/gettask', UsersController.getTask);
+router.post('/getproduct', UsersController.getProduct);
 
 module.exports =  router

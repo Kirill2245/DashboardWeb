@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const currentDate = new Date();
 
 const ProductSchema = new Schema({
     name:{
@@ -25,6 +26,22 @@ const ProductSchema = new Schema({
     },
     image:{
         type:String
+    },
+    numberSales:{
+        type:Number,
+        default:0
+    },
+    numberOrders:{
+        type:Number,
+        default:0
+    },
+    numberCancel:{
+        type:Number,
+        default:0
+    },
+    date:{
+        type:Date,
+        default:currentDate
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,

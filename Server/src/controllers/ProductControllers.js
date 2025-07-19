@@ -11,9 +11,9 @@ const addProduct = async (req, res) => {
 
         if (err) {
             return res.status(400).json({ 
-            success: false,
-            error: err.message,
-            type: 'FILE_UPLOAD_ERROR'
+                success: false,
+                error: err.message,
+                type: 'FILE_UPLOAD_ERROR'
             });
         }
 
@@ -156,6 +156,19 @@ const dealateProduct = async (req, res) => {
             message: 'Server error', 
             error: error.message 
         })
+        if (req.file) {
+            const fs = require('fs');
+            const path = require('path');
+            const filePath = path.join(__dirname, '../public', req.file.path);
+            fs.unlink(filePath, () => {});
+        }
+
+        res.status(500).json({ 
+            success: false,
+            message: 'Server error', 
+            error: error.message 
+        });
     }
 };
+
 module.exports = { addProduct, dealateProduct };
