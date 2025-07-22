@@ -1,0 +1,39 @@
+.contain{
+    width: 166.98px;
+    height: 43px;
+    display: flex;
+    margin-top: 45px;
+    margin-left: 25px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+.containImage{
+    width: 45px;
+    height: 43px;
+    border-radius: 12px;
+    background-size: cover;
+}
+.text{
+    width: 67px;
+    height: 31px;
+    margin-left: 10px;
+    margin-right: 27.67px;
+}
+.text p:last-of-type{
+    font-size: 10px;
+    width: 60px;
+    height: 14px;
+    opacity: 0.5;
+    margin-top: 1px;
+}
+.text p {
+    font-size: 12px;
+    margin: 0;
+    width: 67px;
+    height: 16px;
+    font-weight: 600;
+}
+.logo{
+    width: 17.32px;
+    height: 16.67px;
+}

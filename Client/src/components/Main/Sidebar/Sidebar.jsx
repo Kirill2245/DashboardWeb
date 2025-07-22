@@ -1,10 +1,10 @@
+import Button  from '@common/Button/Button.jsx';
 import Menu from './Menu/Menu';
 import Profile from './Profile/Profile';
 import styles from './styles.module.css';
-import Update from './Update/Update';
 import logo from '@image/Logo.svg'
 
-const Sidebar = () => {
+const Sidebar = ({isOut}) => {
     return(
         <section className= {styles.section}>
             <div className= {styles.contain}>
@@ -12,8 +12,8 @@ const Sidebar = () => {
                 <h3>Base</h3>
             </div>
             <Menu/>
-            <Update/>
-            <Profile/>
+            <Button text = "Upgrade Now" styles = "update"/>
+            <Profile name="test" fullname= "1" isOut={isOut}/>
         </section>
     )
 };

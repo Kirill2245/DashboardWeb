@@ -1,27 +1,35 @@
-import ButtonMenu from '../../../common/ButtonMenu/ButtonMenu';
+import ButtonMenu from '@common/ButtonMenu/ButtonMenu';
 import styles from './styles.module.css';
 import dashboard from '@image/Category.svg';
-import analytics from '@image/Chart.svg';
-import invoice from '@image/Ticket.svg';
-import schedule from '@image/Document.svg';
-import calendar from '@image/Calendar.svg';
-import messages from '@image/Activity.svg';
-import notification from '@image/Notification.svg';
-import setting from '@image/Setting.svg';
 import dashboardActive from '@image/CategoryA.svg';
+import analytics from '@image/Chart.svg';
+import analyticsActive from '@image/ChartA.svg';
+import invoice from '@image/Ticket.svg';
+import invoiceActive from '@image/TicketA.svg';
+import schedule from '@image/Document.svg';
+import scheduleActive from '@image/DocumentA.svg';
+import calendar from '@image/Calendar.svg';
+import calendarActive from '@image/CalendarA.svg';
+import messages from '@image/Activity.svg';
+import messagesActive from '@image/ActivityA.svg';
+import notification from '@image/Notification.svg';
+import notificationActive from '@image/Notification.svg';
+import setting from '@image/Setting.svg';
+import settingActive from '@image/SettingA.svg';
+
 import { useState } from 'react';
 const Menu = () => {
     const [activeIndex, setActiveIndex] = useState(null);
 
     const buttons = [
-        { text: "Dashboard", image: dashboard , imageActive: dashboardActive },
-        { text: "Analytics", image: analytics , imageActive: analytics},
-        { text: "Invoice", image: invoice , imageActive: invoice},
-        { text: "Schedule", image: schedule , imageActive: schedule},
-        { text: "Calendar", image: calendar , imageActive: calendar},
-        { text: "Messages", image: messages , imageActive: messages},
-        { text: "Notification", image: notification , imageActive: notification},
-        { text: "Settings", image: setting , imageActive: setting}
+        { text: "Dashboard", image: dashboard , imageActive: dashboardActive, flag: false },
+        { text: "Analytics", image: analytics , imageActive: analyticsActive, flag: false },
+        { text: "Invoice", image: invoice , imageActive: invoiceActive, flag: false },
+        { text: "Schedule", image: schedule , imageActive: scheduleActive, flag: false },
+        { text: "Calendar", image: calendar , imageActive: calendarActive, flag: false },
+        { text: "Messages", image: messages , imageActive: messagesActive, flag: true },
+        { text: "Notification", image: notification , imageActive: notificationActive, flag: false },
+        { text: "Settings", image: setting , imageActive: settingActive, flag: false }
     ];
 
     return (
@@ -32,7 +40,7 @@ const Menu = () => {
                     text={button.text}
                     image={activeIndex === index ? button.imageActive : button.image}
                     active={activeIndex === index}
-                    flag={false}
+                    flag={button.flag}
                     onClick={() => setActiveIndex(index)}
                 />
             ))}

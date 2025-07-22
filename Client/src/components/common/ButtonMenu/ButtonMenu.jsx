@@ -1,7 +1,7 @@
 
 import styles from './styles.module.css';
 import imageActive from '@image/Rectangle.svg';
-const ButtonMenu = ({image, text , active, flag, onClick }) => {
+const ButtonMenu = ({image, text , active, flag, onClick, count = 12 }) => {
 
     return(
         <>
@@ -13,13 +13,14 @@ const ButtonMenu = ({image, text , active, flag, onClick }) => {
                             <img src={image} className={styles.logo} />
                         </div>
                         <p>{text}</p>
+                        {(flag && count != 0 ) &&(<div className = {styles.message}><p>{count}</p></div>)}
                     </div>
                 ):
                 (
                     <div className={styles.containNoActive} onClick={onClick}>
                         <img src = {image}></img>
                         <p>{text}</p>
-                        {flag ? (<div></div>):(<div></div>)}
+                        {(flag && count != 0) && (<div className = {styles.message}><p>{count}</p></div>)}
                     </div>
                 )
             }

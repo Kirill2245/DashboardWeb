@@ -1,10 +1,10 @@
 import Sidebar from './Sidebar/Sidebar';
 import styles from './styles.module.css';
 
-const Main = () => {
+const Main = ({isOut}) => {
     return(
         <main className= {styles.main}>
-            <Sidebar/>
+            <Sidebar isOut={isOut}/>
         </main>
     );
 }

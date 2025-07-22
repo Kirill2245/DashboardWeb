@@ -14,7 +14,7 @@ function App() {
           (!main ? 
             (<Confirim isMain = {() => isMain(true)}/>):
             (
-              <Main/>
+              <Main isOut={() => isLogin(false)}/>
             )
           )
       }

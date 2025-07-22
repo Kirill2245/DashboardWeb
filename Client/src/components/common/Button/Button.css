@@ -32,3 +32,17 @@
     color: white;
     background-color: #605BFF;
 }
+.update{
+    width: 138px;
+    height: 33px;
+    text-align: center;
+    background-color:#605BFF ;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: auto;
+}
