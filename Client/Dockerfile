@@ -1,12 +1,22 @@
-
-FROM node:22 AS builder
+FROM node:22 AS development
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build  
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
 
-FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html  
+FROM node:22 AS builder
+WORKDIR /app
+COPY --from=development /app .
+
+COPY vite.config.js .
+COPY src/ ./src/
+COPY public/ ./public/
+RUN npm run build  # Теперь не требует SSL-файлов
+
+FROM nginx:alpine AS production
+COPY --from=builder /app/dist /usr/share/nginx/html
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

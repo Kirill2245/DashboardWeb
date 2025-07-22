@@ -4,7 +4,7 @@ import ButtonLogo from '@common/ButtonLogo/ButtonLogo'
 import logoGoogle from '@image/logoGoogle.svg'
 import logoFacebook from '@image/logoFacebook.svg'
 import LogForm from './LogForm/LogForm'
-const LogMain = ({onSwitchToLogin , isRecover}) => {
+const LogMain = ({onSwitchToLogin , isRecover, isLogin}) => {
     return(
         <section className= {styles.form}>
             <img src = {logo} className = {styles.logo}></img>
@@ -18,7 +18,7 @@ const LogMain = ({onSwitchToLogin , isRecover}) => {
                 <p>Or</p>
                 <div className = {styles.line}></div>
             </div>
-            <LogForm isRecover={isRecover}/>
+            <LogForm isRecover={isRecover} isLogin={isLogin}/>
             <aside className = {styles.textLogin}><p>Don’t have account yet?  </p><span onClick={onSwitchToLogin}>New Account</span></aside>
         </section>
     )

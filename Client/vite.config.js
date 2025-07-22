@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { fileURLToPath } from 'url'
+// import fs from 'fs'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
@@ -16,8 +17,18 @@ export default defineConfig({
       '@': path.resolve(__dirname, '.src'),
       '@components': path.resolve(__dirname, '.src/components'),
       '@image': path.resolve(__dirname, './src/assets/image'),
-      '@common': path.resolve(__dirname, './src/components/common')
+      '@common': path.resolve(__dirname, './src/components/common'),
+      '@api':path.resolve(__dirname, './src/api'),
+      '@lib':path.resolve(__dirname, './src/lib')
     }
+  },
+  server: {
+    // https: {
+    //   key: fs.readFileSync(path.resolve(__dirname, './ssl/key.pem')),
+    //   cert: fs.readFileSync(path.resolve(__dirname, './ssl/cert.pem'))
+    // },
+    host: '0.0.0.0',
+    port: 3000
   },
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.webp']
 })
