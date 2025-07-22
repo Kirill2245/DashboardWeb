@@ -4,7 +4,7 @@ import logoGoogle from '@image/logoGoogle.svg'
 import logoFacebook from '@image/logoFacebook.svg'
 import styles from './styles.module.css'
 import SignForm from '../SIgnForm/SIgnForm'
-const SignMain = ({ onSwitchToLogin }) => {
+const SignMain = ({ onSwitchToLogin, isSign }) => {
     return(
 
         <section className = {styles.form}>
@@ -19,7 +19,7 @@ const SignMain = ({ onSwitchToLogin }) => {
                     <p>Or</p>
                     <div className = {styles.line}></div>
                 </div>
-                <SignForm/>
+                <SignForm isSign={isSign}/>
                 <aside className = {styles.textLogin}><p>Already have an account?</p><span onClick={onSwitchToLogin}>Log in</span></aside>
             </section>
     )

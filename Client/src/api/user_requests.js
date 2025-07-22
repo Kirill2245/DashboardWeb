@@ -18,3 +18,14 @@ export const fetch_login = async (data) => {
         throw error;
     }
 }
+
+export const fetch_signUp = async (data) => {
+    try{
+        const response = await api.post('/users/signup', data)
+        return response.data
+    }
+    catch(error) {
+        console.error('Ошибка при авторизации:', error.response?.data || error.message);
+        throw error;
+    }
+}
