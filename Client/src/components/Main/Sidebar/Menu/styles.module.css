@@ -1,0 +1,6 @@
+.contain{
+    width: 193px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
