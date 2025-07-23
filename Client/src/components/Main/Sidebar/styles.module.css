@@ -3,6 +3,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: white;
 }
 .contain{
     width: 111px;
@@ -14,6 +15,7 @@
     margin-left: 53px;
     margin-right: 54px;
     margin-bottom: 38px;
+    cursor: pointer;
 }
 .contain h3{
     width: 54px;
@@ -24,6 +26,28 @@
     color: #030229;
 }
 .contain img{
+    width: 42px;
+    height: 42px;
+}
+
+.collapsedSection{
+    width: 80px;
+    height: 94vh;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 30px 30px 30px 30px;
+    border-radius: 10px;
+}
+.collapsedContain{
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    height: 77px;
+    align-items: center;
+    margin: 35px 15px 38px 15px;
+}
+.collapsedContain img{
     width: 42px;
     height: 42px;
 }

@@ -1,0 +1,20 @@
+.imgContainActive{
+    position: relative;
+    width: 53px;
+    height: 48px;
+}
+.logo {
+    position: absolute;
+    top: 12px;    
+    right: 1px;   
+    bottom: 12px; 
+    left: 28px;   
+    width: 24px;  
+    height: 24px; 
+    max-width: calc(100% - 29px); 
+    max-height: calc(100% - 24px); 
+    object-fit: contain; 
+}
+.imgContain{
+    margin-left: 30px;
+}

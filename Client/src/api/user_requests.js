@@ -29,3 +29,14 @@ export const fetch_signUp = async (data) => {
         throw error;
     }
 }
+
+export const fetch_user = async (data) => {
+    try{
+        const response = await api.post('/users/userall', data)
+        return response.data
+    }
+    catch(error) {
+        console.error('Ошибка получения данных:', error.response?.data || error.message);
+        throw error;
+    }
+}

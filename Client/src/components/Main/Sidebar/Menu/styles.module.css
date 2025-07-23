@@ -4,3 +4,10 @@
     flex-direction: column;
     gap: 30px;
 }
+.CollapsedContain{
+    width: 64px;
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

@@ -32,8 +32,26 @@
     width: 67px;
     height: 16px;
     font-weight: 600;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 }
 .logo{
     width: 17.32px;
     height: 16.67px;
+}
+.collapsedContain{
+    width: 45px;
+    height: 80.33px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20.67px;
+    margin:190px 16px 30.67px 19px;
+}
+.collapsedContain div{
+    width: 45px;
+    height: 43px;
+    border-radius: 12px;
+    background-size: cover;
 }

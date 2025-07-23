@@ -18,9 +18,15 @@ import setting from '@image/Setting.svg';
 import settingActive from '@image/SettingA.svg';
 
 import { useState } from 'react';
-const Menu = () => {
+import ImageMenu from '../../../common/ImageMenu/ImageMenu';
+const Menu = ({isCollapsed = false, onButtonClick}) => {
     const [activeIndex, setActiveIndex] = useState(null);
-
+    const handleButtonClick = (index) => {
+        return () => {
+            setActiveIndex(index)
+            onButtonClick(index)
+        }
+    };
     const buttons = [
         { text: "Dashboard", image: dashboard , imageActive: dashboardActive, flag: false },
         { text: "Analytics", image: analytics , imageActive: analyticsActive, flag: false },
@@ -33,18 +39,31 @@ const Menu = () => {
     ];
 
     return (
-        <div className={styles.contain}>
-            {buttons.map((button, index) => (
-                <ButtonMenu
-                    key={button.text}
-                    text={button.text}
-                    image={activeIndex === index ? button.imageActive : button.image}
-                    active={activeIndex === index}
-                    flag={button.flag}
-                    onClick={() => setActiveIndex(index)}
-                />
-            ))}
-        </div>
+        <>
+            {!isCollapsed ? 
+                (
+                <div className={styles.contain}>
+                    {buttons.map((button, index) => (
+                        <ButtonMenu
+                            key={button.text}
+                            text={button.text}
+                            image={activeIndex === index ? button.imageActive : button.image}
+                            active={activeIndex === index}
+                            flag={button.flag}
+                            onClick={handleButtonClick(index)}
+                        />
+                    ))}
+                </div>
+                ):
+                (
+                <div className={styles.CollapsedContain}>
+                    {buttons.map((button, index) => (
+                        <ImageMenu key={button.text} image={activeIndex === index ? button.imageActive : button.image} active={activeIndex === index} onClick={handleButtonClick(index)}/>
+                    ))}
+                </div>
+                )
+            }
+        </>
     );
 };
 

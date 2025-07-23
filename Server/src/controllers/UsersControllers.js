@@ -59,13 +59,30 @@ const login = async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-            res.json({ message: 'Login successful', user: { id: user._id, email: user.email } 
+            res.json({ message: 'Login successful', user: { id: user._id, email: user.email } , success: true
         });} 
     catch (error) {
         res.status(500).json({ message: 'Login failed', error: error.message });
     }
 };
+const userAll = async (req, res) => {
+    try{
+        const { id } = req.body;
+        if (!id) {
+            return res.status(400).json({ message: 'ID is required' });
+        }
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid ID format' });
+        }
+        const user = await Users.findById(id);
+        if (!user){
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({user: user , success: true})
+    }
+    catch(error){res.status(500).json({ message: 'Search failed', error: error.message });}
+}
 const deleteAllUsers = async (res) => {
     try {
         const result = await Users.deleteMany({});
@@ -165,5 +182,5 @@ const getProduct = async (req, res) => {
 };
 
 module.exports = {
-    index, signUp, login, deleteAllUsers, getTask, getProduct
+    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll
 }

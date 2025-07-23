@@ -5,14 +5,18 @@ import visible from '@image/visible.png'
 import { useEffect, useState } from 'react';
 import { validateEmail } from '@lib/validatators.js';
 import { fetch_login } from '@api/user_requests.js';
+
 const LogForm = ({isRecover, isLogin}) => {
     const [Password, setPassword] = useState('');
     const [Email, setEmail] = useState('')
     const [VisiblePassword, swapVisible] = useState(false);
     const [data, setData] = useState(null);
+    const [rememberMe, setRememberMe] = useState(false);
+
     const onclickVisible = () => {
         swapVisible(!VisiblePassword)
     }
+
     const req_login = async (e) => {  
         e.preventDefault(); 
         if (!validateEmail(Email)) {
@@ -21,6 +25,15 @@ const LogForm = ({isRecover, isLogin}) => {
         }
         
         try {
+            if (rememberMe) {
+                localStorage.setItem('rememberedEmail', Email);
+                localStorage.setItem('rememberedPassword', Password);
+            } else {
+                localStorage.removeItem('rememberedEmail');
+                localStorage.removeItem('rememberedPassword');
+            }
+            
+            console.log('Отправка данных:', { Email, Password});
             const data = {
                 email: Email,
                 password: Password
@@ -28,19 +41,29 @@ const LogForm = ({isRecover, isLogin}) => {
             console.log(data)
             const response = await fetch_login(data);  
             setData(response);
+
         } 
         catch (err) {
             console.error("Ошибка при входе:", err);
         }
     };
 
-
     useEffect(() => {
-        if (data?.message === 'Login successful') {
-            console.log('Успешный вход:', data);
+        const savedEmail = localStorage.getItem('rememberedEmail');
+        const savedPassword = localStorage.getItem('rememberedPassword');
+        
+        if (savedEmail && savedPassword) {
+            setEmail(savedEmail);
+            setPassword(savedPassword);
+            setRememberMe(true);
+        }
+        if (data?.success) {
+            console.log('Успешный вход:', data , data.user.id);
             isLogin(); 
+            localStorage.setItem('rememberedId',data.user.id)
         }
     }, [data,isLogin]);
+
     return(
             <form onSubmit={req_login}>
                 <label className= {styles.input}>
@@ -70,7 +93,11 @@ const LogForm = ({isRecover, isLogin}) => {
                 </label>
                 <div className = {styles.contain}>
                     <label>
-                        <input type='checkbox'/>
+                        <input 
+                            type='checkbox'
+                            checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                        />
                         Remember me
                     </label>
                     <span onClick={isRecover}>Reset Password?</span>
