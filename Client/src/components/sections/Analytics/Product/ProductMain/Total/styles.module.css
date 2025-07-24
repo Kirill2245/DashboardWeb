@@ -10,6 +10,10 @@
     display: flex;
     margin: 19px 21.5px 0 19px;
 }
+.section img{
+    width: 64px;
+    height: 64px;
+}
 .textContain{
     width: 103px;
     height: 52px;

@@ -17,3 +17,7 @@
     flex-direction: column;
     gap:30px;
 }
+.containTotal{
+    display: flex;
+    gap: 29.5px;
+}
