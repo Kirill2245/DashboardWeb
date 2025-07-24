@@ -1,0 +1,52 @@
+.calendarPositioner {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
+    z-index: 1000;
+}
+
+.calendarWrapper {
+    position: absolute;
+    top: 5px;
+    left: -104px;
+    animation: fadeIn 0.2s ease-out;
+    width: max-content;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.container{
+    position: relative; 
+    display: inline-block; 
+}
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 136px;
+    height: 40px;
+    font-size: 14px;
+    color: #010025;
+    font-weight: 400;
+    border: none;
+    background-color: white;
+    border-radius: 10px;
+}
+.button img{
+    width: 8px;
+    height: 6.67px;
+    margin-left: 8px;
+}
+.calendarWrapper :global(.react-datepicker) {
+    border: 1px solid #d9d9d9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+}
+.calendarWrapper :global(.react-datepicker__header) {
+    background-color: #f0f2f5;
+    border-bottom: none;
+}

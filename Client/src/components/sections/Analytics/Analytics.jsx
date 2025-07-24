@@ -1,10 +1,10 @@
-import styles from './styles.module.css';
+import Product from './Product/Product';
 
 const Analytics = () => {
     return(
-        <section className= {styles.section}>
-            <>AAA</>
-        </section>
+        <>
+            <Product/>
+        </>
     );
 };
 

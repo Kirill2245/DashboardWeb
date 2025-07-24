@@ -46,3 +46,47 @@
     margin-right: 40px;
     margin-top: auto;
 }
+.product{
+    width: 101px;
+    height: 40px;
+    border: none;
+    background-color: white;
+    text-align: center;
+    color: #030229;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.customer{
+    width: 101px;
+    height: 40px;
+    border: none;
+    background-color: white;
+    text-align: center;
+    color: #030229;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.customerActive{
+    width: 101px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #605BFF;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+.productActive{
+    width: 101px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #605BFF;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}

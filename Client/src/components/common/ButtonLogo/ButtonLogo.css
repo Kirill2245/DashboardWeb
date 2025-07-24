@@ -26,3 +26,17 @@
     border: none;
     border-radius: 10px;
 }
+.addProduct{
+    width: 144.55px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background-color: #605BFF;
+}

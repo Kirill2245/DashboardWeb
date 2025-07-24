@@ -1,0 +1,19 @@
+.main{
+    display: flex;
+    width: 100%;
+    gap: 30px;
+}
+.containOne{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap:31px;
+}
+.containTwo{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+}
