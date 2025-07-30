@@ -5,6 +5,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 .section div{
     display: flex;

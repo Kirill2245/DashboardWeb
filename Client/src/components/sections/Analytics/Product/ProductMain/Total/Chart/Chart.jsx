@@ -76,7 +76,7 @@ const ChartProduct = ({date = [], flag = true}) => {
                             <filter id="shadow1" x="-50%" y="-50%" width="200%" height="200%">
                                 <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" />
                                 <feOffset dx="-1" dy="2.9" result="offsetblur" />
-                                <feFlood floodColor="#FFD66B" />
+                                <feFlood floodColor="#ffd56b6b" />
                                 <feComposite in2="offsetblur" operator="in" />
                                 <feMerge>
                                     <feMergeNode />
@@ -85,7 +85,6 @@ const ChartProduct = ({date = [], flag = true}) => {
                             </filter>
                         </defs>
                         <g transform={`translate(${margin.left}, ${margin.top})`}>
-
                             <path
                                 d={`${lineGenerator(date)} L ${width - margin.left - margin.right} ${height - margin.top} L ${margin.left} ${height - margin.top} Z`}
                                 fill="url(#diagonalGradient1)"

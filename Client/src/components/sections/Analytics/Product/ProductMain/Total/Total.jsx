@@ -1,5 +1,5 @@
 import styles from './styles.module.css';
-import Chart from './Total/Chart.jsx';
+import Chart from './Chart/Chart.jsx';
 const Total = ({date, flag = true , image}) => {
     return(
         <>

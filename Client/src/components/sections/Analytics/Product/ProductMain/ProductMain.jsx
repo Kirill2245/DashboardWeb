@@ -5,6 +5,9 @@ import {rangeDate} from '@lib/rangeDate.js'
 import Total from './Total/Total';
 import icon from '@image/icon-grup.svg'
 import icon1 from '@image/icon1.png'
+import TopSelling from './TopSelling/TopSelling';
+import ProductAdd from './ProductAdd/ProductAdd';
+import ProductSales from './ProductSales/ProductSales';
 const ProductMain = ({startDate, endDate}) => {
     const [listProduct, setProduct] = useState([])
     const [listProduct2, setProduct2] = useState([])
@@ -140,10 +143,11 @@ const ProductMain = ({startDate, endDate}) => {
                     <Total date={listProduct} image = {icon}/>
                     <Total date={listProduct2} image = {icon1} flag = {false}/>
                 </div>
+                <TopSelling/>
             </div>
             <div className= {styles.containTwo}>
-                <></>
-                <></>
+                <ProductAdd/>
+                <ProductSales/>
             </div>
         </div>
     );

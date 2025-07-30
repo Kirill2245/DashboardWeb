@@ -5,6 +5,7 @@
 }
 .containOne{
     width: 100%;
+    max-width: 757px;
     height: auto;
     display: flex;
     flex-direction: column;
