@@ -1,7 +1,7 @@
 
 import * as d3 from 'd3';
 import {formatIndianNumber} from '@lib/formatNumber.js'
-const HorizontalBarChart = ({ data, width = 500, height = 223 }) => {
+const HorizontalBarChart = ({ data, width = 315, height = 223 }) => {
     if (!data || data.length === 0) return <svg width={width} height={height} />;
 
     const margin = { top: 0, right: 40, bottom: 0, left: 32 };

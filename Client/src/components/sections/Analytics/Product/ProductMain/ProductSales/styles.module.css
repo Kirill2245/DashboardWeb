@@ -5,7 +5,42 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    padding: 30px 30px 28px 30px;
+    align-items: center;
+    padding: 30px 0;
     box-sizing: border-box;
-    gap: 28px;
+}
+.containLabel{
+    margin-top: 31px;
+    display: flex;
+    align-items: center;
+}
+.containLabel p{
+    font-size: 14px;
+    color: #030229;
+    opacity: 0.7;
+}
+.containLabel p:nth-of-type(1){
+    margin: 0 14px 0 5px;
+}
+.containLabel p:nth-of-type(2){
+    margin: 0 17px 0 5px;
+}
+.containLabel p:nth-of-type(3){
+    margin: 0 0 0 5px;
+}
+.header{
+    width: 318px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.header h3{
+    width: 200px;
+    height: 25px;
+    font-size: 18px;
+    margin:0 100px 0 0;
+    font-weight: bold;
+    color: #030229;
+    opacity: 0.7;
 }

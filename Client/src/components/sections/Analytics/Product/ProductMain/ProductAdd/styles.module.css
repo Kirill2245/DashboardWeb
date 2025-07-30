@@ -5,7 +5,8 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    padding: 30px 30px 28px 30px;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
     gap: 28px;
 }
