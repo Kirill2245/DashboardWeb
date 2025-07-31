@@ -4,6 +4,15 @@
     flex-direction: column;
     gap: 20px;
 }
+.containImg{
+    display: flex;
+    justify-content: center;
+}
+.containImg img{
+    width: 134px;
+    height: 134px;
+    border-radius: 50%;
+}
 .form label{
     display: flex;
     flex-direction: column;

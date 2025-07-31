@@ -59,13 +59,12 @@ const Main = ({isOut}) => {
             {overlay && <div className= {styles.overlay}></div>}
             <Sidebar isOut={isOut} user = {data} isButton={handleButtonClick}/>
             {button == 0 && <Dashboard/>}
-            {button == 1 && <Analytics isOverlay={(i) => isOverlay(i)}/>}
+            {button == 1 && <Analytics isOverlay={(i) => isOverlay(i)} idUser={userId}/>}
             {button == 2 && <Invoise/>}
             {button == 3 && <Schedule/>}
             {button == 4 && <Calendar/>}
             {button == 5 && <Messages/>}
             {button == 7 && <Settings/>}
-            <p>{userId}</p>
         </main>
     );
 }

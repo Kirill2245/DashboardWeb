@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://localhost:5000/api',
+    baseURL: 'https://localhost:5000/api/users',
     withCredentials: true, 
     timeout: 5000,
     headers: {
@@ -11,7 +11,7 @@ const api = axios.create({
 
 export const fetch_login = async (data) => {
     try {
-        const response = await api.post('/users/login', data); 
+        const response = await api.post('/login', data); 
         return response.data;
     } catch(error) {
         console.error('Ошибка при авторизации:', error.response?.data || error.message);
@@ -21,7 +21,7 @@ export const fetch_login = async (data) => {
 
 export const fetch_signUp = async (data) => {
     try{
-        const response = await api.post('/users/signup', data)
+        const response = await api.post('/signup', data)
         return response.data
     }
     catch(error) {
@@ -32,7 +32,7 @@ export const fetch_signUp = async (data) => {
 
 export const fetch_user = async (data) => {
     try{
-        const response = await api.post('/users/userall', data)
+        const response = await api.post('/userall', data)
         return response.data
     }
     catch(error) {

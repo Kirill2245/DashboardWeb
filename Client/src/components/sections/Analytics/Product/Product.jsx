@@ -5,7 +5,7 @@ import { useState } from 'react';
 import BoxButton from './BoxButton/BoxButton';
 import AddProduct from './AddProduct/AddProduct';
 
-const Product = ({isOverlay}) => {
+const Product = ({isOverlay, idUser}) => {
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
     const [addVisible, isVisible] = useState(false)
@@ -21,7 +21,7 @@ const Product = ({isOverlay}) => {
             </header>
             <BoxButton isOverlay={isOverlay} isVisible = {() => isVisible(true)}/>
             <ProductMain startDate={startDate} endDate={endDate}/>
-            {addVisible && <AddProduct isClose = {() => isVisible(false)} isOverlay={isOverlay}/>}
+            {addVisible && <AddProduct isClose = {() => isVisible(false)} isOverlay={isOverlay} idUser={idUser}/>}
         </section>
     );
 };
