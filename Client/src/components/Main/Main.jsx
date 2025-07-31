@@ -15,7 +15,7 @@ const Main = ({isOut}) => {
     const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
     const [button, setButton ]= useState(0)
-
+    const [overlay, isOverlay] = useState(false)
     const handleButtonClick = (buttonName) => {
         setButton(buttonName)
     };
@@ -56,9 +56,10 @@ const Main = ({isOut}) => {
     if (isLoading){return(<div>Загрузка</div>)}
     return(
         <main className= {styles.main}>
+            {overlay && <div className= {styles.overlay}></div>}
             <Sidebar isOut={isOut} user = {data} isButton={handleButtonClick}/>
             {button == 0 && <Dashboard/>}
-            {button == 1 && <Analytics/>}
+            {button == 1 && <Analytics isOverlay={(i) => isOverlay(i)}/>}
             {button == 2 && <Invoise/>}
             {button == 3 && <Schedule/>}
             {button == 4 && <Calendar/>}

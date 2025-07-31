@@ -1,9 +1,9 @@
 import Product from './Product/Product';
 
-const Analytics = () => {
+const Analytics = ({isOverlay}) => {
     return(
         <>
-            <Product/>
+            <Product isOverlay={isOverlay}/>
         </>
     );
 };

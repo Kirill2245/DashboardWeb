@@ -1,0 +1,79 @@
+.form{
+    width: 309px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form label{
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    color: #030229;
+    font-weight: 600;
+    gap: 13px;
+    box-sizing: border-box;
+}
+.form  label:nth-of-type(3) textarea{
+    background-color: #F7F7F8;
+    border-radius: 10px;
+    border: none;
+    box-sizing: border-box;
+    height: 98px;
+    padding: 19px 10px 20px 20px;
+}
+.form label input{
+    background-color: #F7F7F8;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    box-sizing: border-box;
+}
+.contain label:nth-of-type(2){
+    width: 107px;
+    height: 20px;
+    flex-direction: row;
+    font-size: 14px;
+    color: #030229;
+    font-weight: 600;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    margin-top: auto;
+    gap: 0;
+}
+.contain label:nth-of-type(2) input[type="checkbox"] {
+    position: absolute; 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.contain label:nth-of-type(2) .checkboxIcon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #605BFF;
+    border-radius: 2px;
+    box-sizing: border-box;
+    margin-right: 15px;
+}
+
+.contain label:nth-of-type(2) .checkboxIcon svg {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.contain label:nth-of-type(2) input[type="checkbox"]:checked ~ .checkboxIcon svg {
+    opacity: 1;
+}
+.contain label:nth-of-type(2) input[type="checkbox"]:checked ~ .checkboxIcon {
+    background-color: #605BFF;
+}
+.contain{
+    width: 309px;
+    display: flex;
+}
+.contain label:nth-of-type(1) input{
+    width: 179px;
+}

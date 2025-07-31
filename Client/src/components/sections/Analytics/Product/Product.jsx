@@ -1,16 +1,15 @@
 import CalendarButton from '@common/CalendarButton/CalendarButton';
 import styles from './styles.module.css';
 import ProductMain from './ProductMain/ProductMain';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BoxButton from './BoxButton/BoxButton';
+import AddProduct from './AddProduct/AddProduct';
 
-const Product = () => {
+const Product = ({isOverlay}) => {
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
-    useEffect(()=>{
-        if(startDate && endDate){console.log(startDate,endDate)}
-        
-    },[startDate,endDate])
+    const [addVisible, isVisible] = useState(false)
+
     return(
         <section className = {styles.section}>
             <header className = {styles.header}>
@@ -20,8 +19,9 @@ const Product = () => {
                     <CalendarButton text ="end-date" setDate = {setEndDate}/>                   
                 </div>
             </header>
-            <BoxButton/>
+            <BoxButton isOverlay={isOverlay} isVisible = {() => isVisible(true)}/>
             <ProductMain startDate={startDate} endDate={endDate}/>
+            {addVisible && <AddProduct isClose = {() => isVisible(false)} isOverlay={isOverlay}/>}
         </section>
     );
 };

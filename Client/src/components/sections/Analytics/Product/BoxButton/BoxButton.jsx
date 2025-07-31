@@ -3,9 +3,14 @@ import styles from './styles.module.css';
 import Button  from '@common/Button/Button.jsx';
 import image from '@image/Plus.svg';
 import { useState } from 'react';
-const BoxButton = () => {
+const BoxButton = ({isOverlay, isVisible}) => {
     const [btnActive, isActive] = useState(true)
+            const btnClick = () => {
+                isOverlay(true);
+                isVisible();
+            };
     return(
+
         <div className= {styles.contain}>
             {
                 !btnActive ? (
@@ -21,7 +26,7 @@ const BoxButton = () => {
                 )
             }
 
-            <ButtonLogo text = "Add Product" image = {image} styles = "addProduct"/>
+            <ButtonLogo text = "Add Product" image = {image} styles = "addProduct" onClick = {btnClick}/>
         </div>
     );
 };
