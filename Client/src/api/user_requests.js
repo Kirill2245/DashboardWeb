@@ -17,7 +17,7 @@ export const fetch_login = async (data) => {
         console.error('Ошибка при авторизации:', error.response?.data || error.message);
         throw error;
     }
-}
+};
 
 export const fetch_signUp = async (data) => {
     try{
@@ -28,7 +28,7 @@ export const fetch_signUp = async (data) => {
         console.error('Ошибка при авторизации:', error.response?.data || error.message);
         throw error;
     }
-}
+};
 
 export const fetch_user = async (data) => {
     try{
@@ -39,4 +39,15 @@ export const fetch_user = async (data) => {
         console.error('Ошибка получения данных:', error.response?.data || error.message);
         throw error;
     }
-}
+};
+
+export const fetch_productUser = async (data) => {
+    try{
+        const response = await api.post('/getproduct', data)
+        return response.data
+    }
+    catch(error) {
+        console.error('Ошибка получения данных:', error.response?.data || error.message);
+        throw error;
+    }
+};

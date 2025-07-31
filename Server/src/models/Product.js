@@ -27,10 +27,6 @@ const ProductSchema = new Schema({
     image:{
         type:String
     },
-    numberSales:{
-        type:Number,
-        default:0
-    },
     numberOrders:{
         type:Number,
         default:0

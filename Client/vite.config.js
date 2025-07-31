@@ -19,16 +19,18 @@ export default defineConfig({
       '@image': path.resolve(__dirname, './src/assets/image'),
       '@common': path.resolve(__dirname, './src/components/common'),
       '@api':path.resolve(__dirname, './src/api'),
-      '@lib':path.resolve(__dirname, './src/lib')
+      '@lib':path.resolve(__dirname, './src/lib'),
     }
   },
   server: {
-    // https: {
-    //   key: fs.readFileSync(path.resolve(__dirname, './ssl/key.pem')),
-    //   cert: fs.readFileSync(path.resolve(__dirname, './ssl/cert.pem'))
-    // },
     host: '0.0.0.0',
-    port: 3000
+    port: 3000,
+    proxy: {
+      '/uploads': {
+        target: 'http://localhost:5000', 
+        changeOrigin: true
+      }
+    }
   },
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.webp']
 })

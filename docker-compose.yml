@@ -16,6 +16,7 @@ services:
       - ./ssl:/ssl
       - ./Server:/app
       - /app/node_modules
+      - ./Server/public/uploads:/app/Server/public/uploads
     environment:
       - NODE_ENV=production
     ports:

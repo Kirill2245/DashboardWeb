@@ -8,7 +8,7 @@ import icon1 from '@image/icon1.png'
 import TopSelling from './TopSelling/TopSelling';
 import ProductAdd from './ProductAdd/ProductAdd';
 import ProductSales from './ProductSales/ProductSales';
-const ProductMain = ({startDate, endDate}) => {
+const ProductMain = ({startDate, endDate, idUser}) => {
     const [listProduct, setProduct] = useState([])
     const [listProduct2, setProduct2] = useState([])
     const testArr = useMemo(() => [
@@ -143,7 +143,7 @@ const ProductMain = ({startDate, endDate}) => {
                     <Total date={listProduct} image = {icon}/>
                     <Total date={listProduct2} image = {icon1} flag = {false}/>
                 </div>
-                <TopSelling/>
+                <TopSelling idUser={idUser}/>
             </div>
             <div className= {styles.containTwo}>
                 <ProductAdd/>

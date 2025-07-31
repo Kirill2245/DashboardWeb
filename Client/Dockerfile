@@ -13,10 +13,11 @@ COPY --from=development /app .
 COPY vite.config.js .
 COPY src/ ./src/
 COPY public/ ./public/
-RUN npm run build  # Теперь не требует SSL-файлов
+RUN npm run build  
 
 FROM nginx:alpine AS production
 COPY --from=builder /app/dist /usr/share/nginx/html
+
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

@@ -19,14 +19,57 @@ mongoose.connect('mongodb://mongo:27017/mainDateBase')
 
 const app = express();
 
-
 app.use(cors({
-    origin: ['https://localhost', 'https://frontend'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: ['https://localhost', 'https://frontend'], 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 
+const uploadsDir = path.join(__dirname, 'Server', 'public', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+    console.log(`Created uploads directory at: ${uploadsDir}`);
+}
+
+
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+    next();
+});
+
+app.use('/uploads', express.static(uploadsDir, {
+    setHeaders: (res, filePath) => {
+        console.log(`Serving file: ${filePath}`);
+    },
+    fallthrough: false 
+}));
+
+
+app.get('/api/images/:filename', (req, res) => {
+    const filename = req.params.filename;
+    if (!/^[a-zA-Z0-9\-\._]+$/.test(filename)) {
+        return res.status(400).json({ error: 'Invalid filename' });
+    }
+    
+    const filePath = path.join(uploadsDir, filename);
+
+    console.log(`Attempting to serve: ${filePath}`);
+
+    if (!fs.existsSync(filePath)) {
+        console.error('File not found:', filePath);
+        return res.status(404).json({ 
+            error: 'Image not found',
+            availableFiles: fs.readdirSync(uploadsDir)
+        });
+    }
+
+    res.sendFile(filePath, { 
+        headers: {
+            'Cache-Control': 'public, max-age=31536000' 
+        }
+    });
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,10 +79,28 @@ app.use('/api/users', UsersRoute);
 app.use('/api/task', TaskRoute);
 app.use('/api/product', ProductRoute);
 app.use('/api/customer', CustomerRoute);
+
+
+const sslKeyPath = '/ssl/localhost.key';
+const sslCertPath = '/ssl/localhost.crt';
+
+if (!fs.existsSync(sslKeyPath) || !fs.existsSync(sslCertPath)) {
+    console.error('SSL certificates not found!');
+    process.exit(1);
+}
+
 const sslOptions = {
-    key: fs.readFileSync('/ssl/localhost.key'),
-    cert: fs.readFileSync('/ssl/localhost.crt')
+    key: fs.readFileSync(sslKeyPath),
+    cert: fs.readFileSync(sslCertPath)
 };
-https.createServer(sslOptions, app).listen(5000, '0.0.0.0', () => {
-    console.log('HTTPS server running on port 5000');
+
+https.createServer(sslOptions, app).listen(PORT, '0.0.0.0', () => {
+    console.log(`HTTPS server running on port ${PORT}`);
+    console.log(`Serving static files from: ${uploadsDir}`);
+    console.log(`Test image URL: https://localhost:${PORT}/uploads/1753998546864-600798252.jpg`);
+});
+
+
+app.use((req, res) => {
+    res.status(404).json({ error: 'Route not found' });
 });

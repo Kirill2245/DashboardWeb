@@ -1,11 +1,13 @@
 import styles from './styles.module.css';
 import imagePosition from '@image/Position.svg';
-import {formatIndianNumber} from '@lib/formatNumber.js'
-const TableElement = ({position, name, image, price, order, sales}) => {
+import {formatIndianNumber} from '@lib/formatNumber.js';
+
+const TableElement = ({position,image, name, price, order, sales}) => {
     const getColor = () => {
         if (position % 2 === 0) return "#FAFAFB";
         else return "white";
     };
+    const imageUrl = `https://localhost:5000${image}`;
     return(
         <div className = {styles.element} style={{backgroundColor:getColor()}}>
             {(position + 1) <= 3 ? 
@@ -13,7 +15,7 @@ const TableElement = ({position, name, image, price, order, sales}) => {
                 (<p className = {styles.position}>{position + 1}</p>)
             }
             <div className = {styles.nameContain}>
-                <img src = {image} className = {styles.image}></img>
+                <img src = {imageUrl} className = {styles.image}></img>
                 <p style={{margin: "0 0 0 10px"}}>{name}</p>
             </div>
             <div className = {styles.priceContain}>

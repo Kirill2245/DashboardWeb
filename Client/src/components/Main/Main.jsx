@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from './Sidebar/Sidebar';
 import styles from './styles.module.css';
-import {fetch_user} from '@api/user_requests.js'
+import {fetch_user} from '@api/user_requests.js';
 import Dashboard from '../sections/Dashboard/Dashboard';
 import Analytics from '../sections/Analytics/Analytics';
 import Calendar from '../sections/Calendar/Calendar';

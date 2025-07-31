@@ -20,7 +20,7 @@ const Product = ({isOverlay, idUser}) => {
                 </div>
             </header>
             <BoxButton isOverlay={isOverlay} isVisible = {() => isVisible(true)}/>
-            <ProductMain startDate={startDate} endDate={endDate}/>
+            <ProductMain startDate={startDate} endDate={endDate} idUser={idUser}/>
             {addVisible && <AddProduct isClose = {() => isVisible(false)} isOverlay={isOverlay} idUser={idUser}/>}
         </section>
     );
