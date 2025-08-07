@@ -56,9 +56,11 @@ const addInvoice = async (req, res) => {
                 image: req.file ? `/uploads/${req.file.filename}` : null
             }
             const newInvoice = await Invoice.create(InvoiceData)
-            const product = await Product.findById(productId);
-            product.numberOrders += countProduct;
-            await product.save();
+            const count = Number(countProduct);
+            await Product.updateOne(
+                { _id: productId },
+                { $inc: { numberOrders: count } }
+            );
             await Users.findByIdAndUpdate(
                 userId,
                 { $addToSet: { invoiceList: newInvoice._id } }
@@ -174,6 +176,7 @@ const updateInvoice = async(req, res) => {
                     continue; 
                 }
                 product.numberCancel += item.count;
+                product.numberOrders -= item.count;
                 await product.save();
             }
         }

@@ -8,7 +8,6 @@ const PieChart = ({ values = [30, 40, 30], width = 176, height = 176 }) => {
     const radius = Math.min(innerWidth, innerHeight) / 2;
     const center = { x: width / 2, y: height / 2 };
 
-    // Цвета как в Figma
     const colors = ['#FF8F6B', '#5B93FF', '#FFD66B'];
 
     const data = [

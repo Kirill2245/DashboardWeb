@@ -147,7 +147,7 @@ const ProductMain = ({startDate, endDate, idUser}) => {
             </div>
             <div className= {styles.containTwo}>
                 <ProductAdd/>
-                <ProductSales/>
+                <ProductSales idUser={idUser}/>
             </div>
         </div>
     );
