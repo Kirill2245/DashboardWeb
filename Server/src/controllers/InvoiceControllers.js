@@ -56,6 +56,9 @@ const addInvoice = async (req, res) => {
                 image: req.file ? `/uploads/${req.file.filename}` : null
             }
             const newInvoice = await Invoice.create(InvoiceData)
+            const product = await Product.findById(productId);
+            product.numberOrders += countProduct;
+            await product.save();
             await Users.findByIdAndUpdate(
                 userId,
                 { $addToSet: { invoiceList: newInvoice._id } }
@@ -131,7 +134,6 @@ const delateInvoice = async (req, res) => {
         });
     }
 };
-
 const updateInvoice = async(req, res) => {
     try {
         const { idInvoice, status } = req.body;
@@ -157,7 +159,7 @@ const updateInvoice = async(req, res) => {
                     console.error(`Product ${item.productId} not found`);
                     continue; 
                 }
-                product.numberOrders += item.count;
+                product.numberOrders -= item.count;
                 product.salesInfo.push({
                     count: item.count,
                     dateSales: new Date()

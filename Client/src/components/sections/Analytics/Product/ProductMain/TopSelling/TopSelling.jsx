@@ -101,17 +101,21 @@ const TopSelling = ({idUser}) => {
                 ))}
             </div>
             <div className = {styles.table}>
-                {listProduct.map((item, index) => (
+            {listProduct.map((item, index) => {
+                const totalSold = item.salesInfo.reduce((sum, sale) => sum + sale.count, 0);
+                const totalSales = parseFloat(item.price.$numberDecimal) * totalSold;
+                return (
                     <TableElement 
                         key={index} 
-                        position = {index} 
-                        name= {item.name} 
+                        position={index} 
+                        name={item.name} 
                         image={item.image} 
-                        price = {parseFloat(item.price.$numberDecimal)} 
+                        price={parseFloat(item.price.$numberDecimal)} 
                         order={item.numberOrders} 
-                        sales={parseFloat(item.price.$numberDecimal) * item.numberOrders}
+                        sales={totalSales}
                     />
-                ))}
+                );
+            })}
             </div>
             
         </div>
