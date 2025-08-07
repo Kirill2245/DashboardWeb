@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Users = require('../models/Users');
 const Invoice = require('../models/Invoice');
+const Product = require('../models/Product');
 const upload = require('../settings/uploadConfig');
 const fs = require('fs');
 const path = require('path');
@@ -132,25 +133,62 @@ const delateInvoice = async (req, res) => {
 };
 
 const updateInvoice = async(req, res) => {
-    try{
-        
-    }
-    catch (error) {
-        console.error('Error updating Invoice:', error);
-        
-        if (error.name === 'ValidationError') {
-            return res.status(422).json({
-                status: 'error',
-                message: 'Validation failed',
-                details: error.errors
+    try {
+        const { idInvoice, status } = req.body;
+
+        if (!idInvoice || !mongoose.Types.ObjectId.isValid(idInvoice)) {
+            return res.status(400).json({ 
+                message: 'Invalid or missing invoice ID'
             });
         }
 
-        res.status(500).json({
-            status: 'error',
-            message: 'Internal server error',
-            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        const invoice = await Invoice.findById(idInvoice);
+        if (!invoice) {
+            return res.status(404).json({ error: 'Invoice not found' });
+        }
+
+        invoice.status = status;
+        await invoice.save();
+
+        if (status === "Complete") {
+            for (const item of invoice.productList) {
+                const product = await Product.findById(item.productId);
+                if (!product) {
+                    console.error(`Product ${item.productId} not found`);
+                    continue; 
+                }
+                product.numberOrders += item.count;
+                product.salesInfo.push({
+                    count: item.count,
+                    dateSales: new Date()
+                });
+                await product.save();
+            }
+        } else if (status === "Cancel") {
+            for (const item of invoice.productList) {
+                const product = await Product.findById(item.productId);
+                if (!product) {
+                    console.error(`Product ${item.productId} not found`);
+                    continue; 
+                }
+                product.numberCancel += item.count;
+                await product.save();
+            }
+        }
+
+        res.json({
+            success: true,
+            invoice: invoice,
+            message: `Invoice ${status.toLowerCase()} successfully`
+        });
+
+    } catch (error) {
+        console.error('Error updating invoice:', error);
+        res.status(500).json({ 
+            success: false,
+            error: 'Internal server error',
+            message: error.message
         });
     }
 };
-module.exports = {addInvoice, delateInvoice}
+module.exports = {addInvoice, delateInvoice, updateInvoice}

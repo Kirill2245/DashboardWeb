@@ -26,10 +26,6 @@ const InvoiceSchema = new Schema({
             },
             count:{
                 type:Number
-            },
-            dateSales:{
-                type:Date,
-                default: null
             }
         }]
     },
