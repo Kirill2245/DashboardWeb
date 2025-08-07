@@ -5,7 +5,7 @@ import {fetch_user} from '@api/user_requests.js';
 import Dashboard from '../sections/Dashboard/Dashboard';
 import Analytics from '../sections/Analytics/Analytics';
 import Calendar from '../sections/Calendar/Calendar';
-import Invoise from '../sections/Invoise/Invoise';
+import Invoice from '../sections/Invoice/Invoice';
 import Messages from '../sections/Messages/Messages';
 import Schedule from '../sections/Schedule/Schedule';
 import Settings from '../sections/Settings/Settings';
@@ -60,7 +60,7 @@ const Main = ({isOut}) => {
             <Sidebar isOut={isOut} user = {data} isButton={handleButtonClick}/>
             {button == 0 && <Dashboard/>}
             {button == 1 && <Analytics isOverlay={(i) => isOverlay(i)} idUser={userId}/>}
-            {button == 2 && <Invoise/>}
+            {button == 2 && <Invoice/>}
             {button == 3 && <Schedule/>}
             {button == 4 && <Calendar/>}
             {button == 5 && <Messages/>}

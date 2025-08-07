@@ -10,7 +10,7 @@ const UsersRoute = require('./src/routes/UsersRoutes');
 const TaskRoute = require('./src/routes/TaskRoutes');
 const ProductRoute = require('./src/routes/ProductRoutes');
 const CustomerRoute = require('./src/routes/CustomerRoutes');
-
+const InvoiceRoute = require('./src/routes/InvoiceRoutes');
 const PORT = 5000;
 
 mongoose.connect('mongodb://mongo:27017/mainDateBase')
@@ -79,6 +79,7 @@ app.use('/api/users', UsersRoute);
 app.use('/api/task', TaskRoute);
 app.use('/api/product', ProductRoute);
 app.use('/api/customer', CustomerRoute);
+app.use('/api/invoice', InvoiceRoute);
 
 
 const sslKeyPath = '/ssl/localhost.key';

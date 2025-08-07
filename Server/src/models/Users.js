@@ -22,10 +22,10 @@ const UsersSchema = new Schema({
         type: Array,
         default: []
     },
-    invoiceList:{
-        type: Array,
-        default: []
-    },
+    invoiceList:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Invoice'
+    }],
     eventList:{
         type: Array,
         default: []

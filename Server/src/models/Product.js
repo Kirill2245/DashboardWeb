@@ -39,6 +39,17 @@ const ProductSchema = new Schema({
         type:Date,
         default:currentDate
     },
+    salesInfo:{
+        type:[{
+            count:{
+                type:Number
+            },
+            dateSales:{
+                type:Date
+            }
+        }],
+        default: []
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users', 
