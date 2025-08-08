@@ -1,32 +1,28 @@
+.button{
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+}
 .create{
     width: 348px;
     height: 50px;
     margin-top: 30px;
-    text-align: center;
     background-color:#605BFF ;
     color: white;
-    border-radius: 10px;
-    border: none;
     font-size: 16px;
     font-weight: 600;
 }
 .reset{
     width: 502px;
     height: 50px;
-    text-align: center;
     background-color:#605BFF ;
     color: white;
-    border-radius: 10px;
-    border: none;
     font-size: 16px;
     font-weight: 600;
 }
 .conf{
     width: 169px;
     height: 50px;
-    border: none;
-    border-radius: 10px;
-    text-align: center;
     font-size: 16px;
     font-weight: 600;
     color: white;
@@ -35,11 +31,8 @@
 .update{
     width: 138px;
     height: 33px;
-    text-align: center;
     background-color:#605BFF ;
     color: white;
-    border-radius: 10px;
-    border: none;
     font-size: 12px;
     font-weight: 600;
     margin-left: 40px;
@@ -49,32 +42,23 @@
 .product{
     width: 101px;
     height: 40px;
-    border: none;
     background-color: white;
-    text-align: center;
     color: #030229;
     font-size: 14px;
     font-weight: bold;
-    border-radius: 10px;
 }
 .customer{
     width: 101px;
     height: 40px;
-    border: none;
     background-color: white;
-    text-align: center;
     color: #030229;
     font-size: 14px;
     font-weight: bold;
-    border-radius: 10px;
 }
 .customerActive{
     width: 101px;
     height: 40px;
-    border: none;
-    border-radius: 10px;
     background-color: #605BFF;
-    text-align: center;
     color: white;
     font-size: 14px;
     font-weight: bold;
@@ -82,11 +66,16 @@
 .productActive{
     width: 101px;
     height: 40px;
-    border: none;
-    border-radius: 10px;
     background-color: #605BFF;
-    text-align: center;
     color: white;
     font-size: 14px;
     font-weight: bold;
+}
+
+.condition{
+    width: 162px;
+    height: 45px;
+    background-color: #3a974d1e;
+    color: #3A974C;
+    border-radius: 22.5px;
 }
