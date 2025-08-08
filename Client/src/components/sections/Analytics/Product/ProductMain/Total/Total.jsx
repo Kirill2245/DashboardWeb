@@ -1,6 +1,8 @@
 import styles from './styles.module.css';
 import Chart from './Chart/Chart.jsx';
-const Total = ({date, flag = true , image}) => {
+import ChartSales from './ChartSales/ChartSales.jsx';
+import {formatIndianNumber} from '@lib/formatNumber.js';
+const Total = ({date, flag = true , image, count = 0, total = 0}) => {
     return(
         <>
             {
@@ -11,9 +13,9 @@ const Total = ({date, flag = true , image}) => {
                             <img src = {image}/>
                             <aside className= {styles.textContain}>
                                 <p>Total Product</p>
-                                <p>5,00,874</p>
+                                <p>{formatIndianNumber(total)}</p>
                             </aside>
-                            <p className={styles.textCount}>+1400 New Added</p>
+                            <p className={styles.textCount}>+{count} New Added</p>
                         </div>
                         <Chart date={date}/>
                     </div>
@@ -24,11 +26,11 @@ const Total = ({date, flag = true , image}) => {
                             <img src = {image}/>
                             <aside className= {styles.textContain}>
                                 <p>Total Sales</p>
-                                <p>4,00,874</p>
+                                <p>{formatIndianNumber(total)}</p>
                             </aside>
-                            <p className={styles.textCount}>+1400 New Added</p>
+                            <p className={styles.textCount}>+{count} New Added</p>
                         </div>
-                        <Chart date={date} flag = {false}/>
+                        <ChartSales date={date}/>
                     </div>
                 )
             }
