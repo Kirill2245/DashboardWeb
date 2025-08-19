@@ -60,7 +60,7 @@ const Main = ({isOut}) => {
             <Sidebar isOut={isOut} user = {data} isButton={handleButtonClick}/>
             {button == 0 && <Dashboard/>}
             {button == 1 && <Analytics isOverlay={(i) => isOverlay(i)} idUser={userId}/>}
-            {button == 2 && <Invoice/>}
+            {button == 2 && <Invoice idUser={userId}/>}
             {button == 3 && <Schedule/>}
             {button == 4 && <Calendar/>}
             {button == 5 && <Messages/>}

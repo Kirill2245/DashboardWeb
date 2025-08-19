@@ -51,3 +51,14 @@ export const fetch_productUser = async (data) => {
         throw error;
     }
 };
+
+export const fetch_invoiceUser = async (data) => {
+    try{
+        const response = await api.post('/getinvoice', data)
+        return response.data
+    }
+    catch(error) {
+        console.error('Ошибка получения данных:', error.response?.data || error.message);
+        throw error;
+    }
+}

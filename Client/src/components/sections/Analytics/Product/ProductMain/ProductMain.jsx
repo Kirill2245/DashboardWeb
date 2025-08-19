@@ -59,12 +59,10 @@ const ProductMain = ({startDate, endDate, idUser}) => {
     }, [listProduct])
     useEffect(() => {
         try {
-            console.log("Исходные данные:", listProduct);
             const filteredList = rangeDate(listProduct, startDate, endDate);
             const filteredList2 = rangeDate(listSales, startDate, endDate);
             setProduct(filteredList);
             setProduct2(filteredList2);
-            console.log("Отфильтрованные данные 2:", filteredList2);
         } catch (error) {
             console.error('Date filtering error:', error);
             setProduct([]);

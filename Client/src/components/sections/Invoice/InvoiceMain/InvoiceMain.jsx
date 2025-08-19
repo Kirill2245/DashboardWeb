@@ -2,7 +2,7 @@ import styles from './styles.module.css';
 import ButtonLogo from '@common/ButtonLogo/ButtonLogo';
 import logo from '@image/Plus.svg'
 import InvoiceTable from './InvoiceTable/InvoiceTable';
-const InvoiseMain = () => {
+const InvoiseMain = ({idUser}) => {
     return(
         <section className= {styles.section}>
             <header>
@@ -20,7 +20,7 @@ const InvoiseMain = () => {
                 </div>
                 <ButtonLogo text = "Add New" image = {logo} styles = "addNew"/>
             </header>
-            <InvoiceTable/>
+            <InvoiceTable idUser={idUser}/>
         </section>
     );
 };

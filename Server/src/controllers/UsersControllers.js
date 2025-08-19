@@ -1,6 +1,7 @@
 const Users = require('../models/Users');
 const Task = require('../models/Task');
 const Product = require('../models/Product');
+const Invoice = require('../models/Invoice');
 const mongoose = require('mongoose');
 
 const index = (req, res) => {
@@ -65,6 +66,7 @@ const login = async (req, res) => {
         res.status(500).json({ message: 'Login failed', error: error.message });
     }
 };
+
 const userAll = async (req, res) => {
     try{
         const { id } = req.body;
@@ -82,7 +84,8 @@ const userAll = async (req, res) => {
         res.json({user: user , success: true})
     }
     catch(error){res.status(500).json({ message: 'Search failed', error: error.message });}
-}
+};
+
 const deleteAllUsers = async (res) => {
     try {
         const result = await Users.deleteMany({});
@@ -160,7 +163,7 @@ const getProduct = async (req, res) => {
 
         if (!user.productList || user.productList.length === 0) {
             return res.status(200).json({ 
-                message: 'User has no tasks',
+                message: 'User has no product',
                 product: []
             });
         }
@@ -181,6 +184,31 @@ const getProduct = async (req, res) => {
     }
 };
 
+const getInvoice = async(req, res) => {
+    const {userId} = req.body
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required in request body' });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: 'Invalid user ID format' });
+    }
+
+    const user = await Users.findById(userId).select('invoiceList');
+        if (!user.invoiceList || user.invoiceList.length === 0) {
+        return res.status(200).json({ 
+            message: 'User has no product',
+            invoice: []
+        });
+    }
+
+    const invoice = await Invoice.find({
+        _id: { $in: user.invoiceList }
+    });
+
+    return res.status(200).json(invoice);
+}
 module.exports = {
-    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll
+    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll, getInvoice
 }

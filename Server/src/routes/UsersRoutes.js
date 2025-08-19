@@ -9,4 +9,5 @@ router.delete('/delete-all', UsersController.deleteAllUsers);
 router.post('/gettask', UsersController.getTask);
 router.post('/getproduct', UsersController.getProduct);
 router.post('/userall', UsersController.userAll);
+router.post('/getinvoice', UsersController.getInvoice);
 module.exports =  router

@@ -1,18 +1,18 @@
 import styles from './styles.module.css';
-import testImg from '@image/2.jpg'
 import calendar from '@image/CalendarA.svg';
 import message from '@image/Message.svg';
 import Button from '@common/Button/Button';
 import { useState } from 'react';
 import Popup from './Popup/Popup';
-
-const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status }) => {
+import {fetch_updateInvoice} from '@api/invoice_requests.js';
+const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, image, InvoiceId}) => {
     const [elect, isElect] = useState(false)
     const [showPop, isShow] = useState(false)
     const [editInvoice, isEdit] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(1);
     const pointColor = isActive || showPop ? "#605BFF" : "#B3B3BF";
-    const electColor = elect ? "#FFD66B" : "#B3B3BF"
+    const electColor = elect ? "#FFD66B" : "#B3B3BF";
+    const imageUrl = `https://localhost:5000${image}`
     const shadowStyle = {
         boxShadow: isActive
             ? "0 0 2px 6px rgba(97, 91, 255, 0.03)"
@@ -25,8 +25,29 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status }) 
     const electClick = () => {
         isElect(prev => !prev)
     }
-    const saveInvoice = () => {
+    const saveInvoice = (Status) => {
         isEdit(false)
+        const updateInvoice = async(status) =>{
+            try{
+                const data = {
+                    idInvoice: InvoiceId,
+                    status: status
+                }
+                console.log(data)
+                const response = await fetch_updateInvoice(data)
+                console.log(response)
+                if (response.data.success){
+                    alert("Данные обновленны успешно!!")
+                }
+                else{
+                    alert("Ошибка обновления данных :(")
+                }
+            }
+            catch(err){
+                console.error("Ошибка при обновлении Invoice", err)
+            }
+        }
+        updateInvoice(Status)
     }
     const conditionEdit = () => {
         setCurrentIndex((prev) => (prev + 1) % list.length)
@@ -36,14 +57,14 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status }) 
             <input type='checkbox'/>
             <p>{`#${idInvoice}`}</p>
             <div className = {styles.contain}>
-                <img src = {testImg}/>
+                <img src = {imageUrl}/>
                 <p>{name}</p>
             </div>
             <span><img src = {message}/>{email}</span>
             <span><img src = {calendar}/>{date}</span>
             {editInvoice ?
-                <Button text = {list[currentIndex]} styles = "condition" onClick = {conditionEdit}/>:
-                <Button text = {status} styles = "condition" />
+                <Button text = {list[currentIndex]} styles = {`condition ${list[currentIndex]}`} onClick = {conditionEdit}/>:
+                <Button text = {status} styles = {`condition ${status}`}/>
             }
             <div className = {styles.containSvg}>
                 <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={electClick}>
@@ -66,7 +87,7 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status }) 
                     <path d="M2.98744 0.512567C2.30402 -0.170848 1.19598 -0.170848 0.512564 0.512567C-0.170852 1.19598 -0.170852 2.30402 0.512564 2.98744C1.19598 3.67085 2.30402 3.67085 2.98744 2.98744C3.67085 2.30405 3.67085 1.19601 2.98744 0.512567Z" fill={pointColor}/>
                 </svg>
             </div>
-            {showPop && <Popup isEdit={() => isEdit(true)} isSave={() => saveInvoice()} editInvoice = {editInvoice}/>}
+            {showPop && <Popup isEdit={() => isEdit(true)} isSave={saveInvoice} currentStatus={list[currentIndex]} editInvoice = {editInvoice}/>}
         </div>
     );
 };

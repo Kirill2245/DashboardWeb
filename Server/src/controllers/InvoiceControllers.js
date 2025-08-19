@@ -83,7 +83,8 @@ const addInvoice = async (req, res) => {
         })
         });
     }
-}
+};
+
 const delateInvoice = async (req, res) => {
     try {
         const { idInvoice } = req.body;
@@ -136,7 +137,9 @@ const delateInvoice = async (req, res) => {
         });
     }
 };
+
 const updateInvoice = async(req, res) => {
+    console.log(req.body)
     try {
         const { idInvoice, status } = req.body;
 
@@ -196,4 +199,5 @@ const updateInvoice = async(req, res) => {
         });
     }
 };
+
 module.exports = {addInvoice, delateInvoice, updateInvoice}

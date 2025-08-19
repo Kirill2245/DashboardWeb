@@ -75,7 +75,17 @@
 .condition{
     width: 162px;
     height: 45px;
+    border-radius: 22.5px;
+}
+.condition.Cancel{
+    background-color: #d11a2925;
+    color: #D11A2A;
+}
+.condition.Complete{
     background-color: #3a974d1e;
     color: #3A974C;
-    border-radius: 22.5px;
+}
+.condition.Pending{
+    background-color: #f2923923;
+    color: #F29339;
 }

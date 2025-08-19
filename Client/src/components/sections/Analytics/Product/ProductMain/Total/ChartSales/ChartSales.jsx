@@ -8,8 +8,6 @@ const ChartSales = ({ date = [] }) => {
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
-    console.log("Данные для графика:", date); 
-
 
     const validData = date
         .filter(d => d && d.date && !isNaN(d.sale))
