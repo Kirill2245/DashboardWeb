@@ -6,9 +6,8 @@ import { fileURLToPath } from 'url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-// Добавьте эту проверку перед экспортом конфига
 const imagesPath = path.resolve(__dirname, 'src/assets')
-console.log('Resolved images path:', imagesPath) // Логируется при запуске Vite
+console.log('Resolved images path:', imagesPath) 
 
 export default defineConfig({
   plugins: [react()],

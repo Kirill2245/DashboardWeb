@@ -9,7 +9,7 @@
     margin-top: 30px;
     background-color:#605BFF ;
     color: white;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
 }
 .reset{
@@ -17,13 +17,13 @@
     height: 50px;
     background-color:#605BFF ;
     color: white;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
 }
 .conf{
     width: 169px;
     height: 50px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: white;
     background-color: #605BFF;
@@ -33,7 +33,7 @@
     height: 33px;
     background-color:#605BFF ;
     color: white;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     margin-left: 40px;
     margin-right: 40px;
@@ -44,7 +44,7 @@
     height: 40px;
     background-color: white;
     color: #030229;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
 }
 .customer{
@@ -52,7 +52,7 @@
     height: 40px;
     background-color: white;
     color: #030229;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
 }
 .customerActive{
@@ -60,7 +60,7 @@
     height: 40px;
     background-color: #605BFF;
     color: white;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
 }
 .productActive{
@@ -68,7 +68,7 @@
     height: 40px;
     background-color: #605BFF;
     color: white;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
 }
 

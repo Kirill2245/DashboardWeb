@@ -9,7 +9,7 @@
     flex-shrink: 0;
 }
 .item p, span {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
 }
 .item span{

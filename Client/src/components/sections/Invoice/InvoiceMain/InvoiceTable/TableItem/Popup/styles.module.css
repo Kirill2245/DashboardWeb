@@ -1,0 +1,16 @@
+.popup{
+    position: absolute;
+    top:calc(50% + 9.5px);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: 110px;
+    height: 79px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 1px 1px 1px #E5E5E5;
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}

@@ -20,14 +20,14 @@
     margin-right: 27.67px;
 }
 .text p:last-of-type{
-    font-size: 10px;
+    font-size: 0.625rem;
     width: 60px;
     height: 14px;
     opacity: 0.5;
     margin-top: 1px;
 }
 .text p {
-    font-size: 12px;
+    font-size: 0.75rem;
     margin: 0;
     width: 67px;
     height: 16px;

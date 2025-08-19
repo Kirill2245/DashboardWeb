@@ -3,7 +3,7 @@
     align-items: center;
     width: 695px;
     height: 55px;
-    font-size: 12px;
+    font-size: 0.75rem;
     flex-shrink: 0;
 }
 .image{
@@ -18,7 +18,7 @@
 .element p{
     width: auto;
     height: 12px;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .imagePosition{

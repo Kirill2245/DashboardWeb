@@ -16,7 +16,7 @@
 .form label{
     display: flex;
     flex-direction: column;
-    font-size: 16px;
+    font-size: 1rem;
     color: #030229;
     font-weight: 600;
     gap: 13px;
@@ -41,7 +41,7 @@
     width: 107px;
     height: 20px;
     flex-direction: row;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #030229;
     font-weight: 600;
     margin-left: 30px;

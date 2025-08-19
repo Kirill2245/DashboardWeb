@@ -59,12 +59,12 @@
     height: 19px;
     display: flex;
     gap: 10px;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #030229;
 }
 .contain span{
     width: 108px;
     height: 19px;
     color: #605BFF;
-    font-size: 14px;
+    font-size:0.875rem;
 }

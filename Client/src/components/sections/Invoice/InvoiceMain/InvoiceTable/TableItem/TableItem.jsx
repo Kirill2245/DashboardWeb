@@ -4,34 +4,47 @@ import calendar from '@image/CalendarA.svg';
 import message from '@image/Message.svg';
 import Button from '@common/Button/Button';
 import { useState } from 'react';
+import Popup from './Popup/Popup';
 
-const TableItem = ({ isActive, onClick }) => {
+const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status }) => {
     const [elect, isElect] = useState(false)
-    const pointColor = isActive ? "#605BFF" : "#B3B3BF";
+    const [showPop, isShow] = useState(false)
+    const [editInvoice, isEdit] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(1);
+    const pointColor = isActive || showPop ? "#605BFF" : "#B3B3BF";
     const electColor = elect ? "#FFD66B" : "#B3B3BF"
     const shadowStyle = {
         boxShadow: isActive
             ? "0 0 2px 6px rgba(97, 91, 255, 0.03)"
             : "",
         position: "relative",
-        zIndex: isActive ? 1001 : 1,
         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         backgroundColor: "#ffffff"
     };
+    const list = ["Complete", "Pending", "Cancel"]
     const electClick = () => {
         isElect(prev => !prev)
     }
+    const saveInvoice = () => {
+        isEdit(false)
+    }
+    const conditionEdit = () => {
+        setCurrentIndex((prev) => (prev + 1) % list.length)
+    };
     return(
         <div className= {styles.item} onClick={onClick} style={shadowStyle}>
             <input type='checkbox'/>
-            <p>#876364</p>
+            <p>{`#${idInvoice}`}</p>
             <div className = {styles.contain}>
                 <img src = {testImg}/>
-                <p>Arrora gaur</p>
+                <p>{name}</p>
             </div>
-            <span><img src = {message}/>arroragaur@gmail.com</span>
-            <span><img src = {calendar}/>12 Dec, 2020</span>
-            <Button text = "Complete" styles = "condition"/>
+            <span><img src = {message}/>{email}</span>
+            <span><img src = {calendar}/>{date}</span>
+            {editInvoice ?
+                <Button text = {list[currentIndex]} styles = "condition" onClick = {conditionEdit}/>:
+                <Button text = {status} styles = "condition" />
+            }
             <div className = {styles.containSvg}>
                 <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={electClick}>
                     <path d="M14.3532 9.95302C14.1351 10.1644 14.0349 10.47 14.0846 
@@ -47,12 +60,13 @@ const TableItem = ({ isActive, onClick }) => {
                         0.222301 10.228 0.505229L12.0965 4.26919C12.2312 4.54454 12.4931 4.73568 12.7954 4.782L16.9804 5.38911C17.3341 5.43964 
                         17.6296 5.68383 17.7467 6.02065C17.857 6.35831 17.7618 6.72881 17.5025 6.97217L14.3532 9.95302Z" fill = {electColor}/>
                 </svg>
-                <svg width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => {isShow(!showPop)}}>
                     <path d="M13.4874 0.512567C12.804 -0.170848 11.696 -0.170848 11.0126 0.512567C10.3291 1.19598 10.3291 2.30402 11.0126 2.98744C11.696 3.67085 12.804 3.67085 13.4874 2.98744C14.1709 2.30405 14.1709 1.19601 13.4874 0.512567Z" fill={pointColor}/>
                     <path d="M8.23744 0.512567C7.55402 -0.170848 6.44598 -0.170848 5.76257 0.512567C5.07915 1.19598 5.07915 2.30402 5.76257 2.98744C6.44598 3.67085 7.55402 3.67085 8.23744 2.98744C8.92085 2.30405 8.92085 1.19601 8.23744 0.512567Z" fill={pointColor}/>
                     <path d="M2.98744 0.512567C2.30402 -0.170848 1.19598 -0.170848 0.512564 0.512567C-0.170852 1.19598 -0.170852 2.30402 0.512564 2.98744C1.19598 3.67085 2.30402 3.67085 2.98744 2.98744C3.67085 2.30405 3.67085 1.19601 2.98744 0.512567Z" fill={pointColor}/>
                 </svg>
             </div>
+            {showPop && <Popup isEdit={() => isEdit(true)} isSave={() => saveInvoice()} editInvoice = {editInvoice}/>}
         </div>
     );
 };

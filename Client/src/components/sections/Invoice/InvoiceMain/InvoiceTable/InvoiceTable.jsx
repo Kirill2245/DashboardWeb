@@ -26,16 +26,6 @@ const InvoiseTable = () => {
                     isActive = {activeId === 0}
                     onClick = {() => handleItemClick(0)}
                 />
-                <TableItem
-                    id = {1}
-                    isActive = {activeId === 1}
-                    onClick = {() => handleItemClick(1)}
-                />
-                <TableItem
-                    id = {2}
-                    isActive = {activeId === 2}
-                    onClick = {() => handleItemClick(2)}
-                />
             </div>
         </section>
     );
