@@ -21,8 +21,8 @@ const ProductMain = ({startDate, endDate, idUser}) => {
     useEffect(() => {
         const fetch_data = async () => {
             try {
-                const data = { userId: idUser };
-                const response = await fetch_productUser(data);
+                console.log(typeof(idUser), idUser)
+                const response = await fetch_productUser(idUser);
                 if (Array.isArray(response?.product)) {
                     setList(response.product);
                 } else {

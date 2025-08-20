@@ -85,9 +85,9 @@ const addInvoice = async (req, res) => {
     }
 };
 
-const delateInvoice = async (req, res) => {
+const deleteInvoice = async (req, res) => {
     try {
-        const { idInvoice } = req.body;
+        const { idInvoice } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(idInvoice)) {
             return res.status(400).json({ message: 'Invalid invoice ID format' });
@@ -114,6 +114,7 @@ const delateInvoice = async (req, res) => {
         );
 
         res.status(200).json({
+            success: true,
             message: `Invoice deleted and removed from ${updateResult.modifiedCount} users`,
             deletedInvoice
         });
@@ -154,34 +155,81 @@ const updateInvoice = async(req, res) => {
             return res.status(404).json({ error: 'Invoice not found' });
         }
 
-        invoice.status = status;
-        await invoice.save();
-
         if (status === "Complete") {
-            for (const item of invoice.productList) {
-                const product = await Product.findById(item.productId);
-                if (!product) {
-                    console.error(`Product ${item.productId} not found`);
-                    continue; 
-                }
-                product.numberOrders -= item.count;
-                product.salesInfo.push({
-                    count: item.count,
-                    dateSales: new Date()
-                });
+            if (invoice.status === "Pending"){
+                for (const item of invoice.productList) {
+                    const product = await Product.findById(item.productId);
+                    if (!product) {
+                        console.error(`Product ${item.productId} not found`);
+                        continue; 
+                    }
+                    product.numberOrders -= item.count;
+                    product.salesInfo.push({
+                        count: item.count,
+                        dateSales: new Date()
+                    });
                 await product.save();
+                }
+            }else if(invoice.status === "Cancel"){
+                for (const item of invoice.productList) {
+                    const product = await Product.findById(item.productId);
+                    if (!product) {
+                        console.error(`Product ${item.productId} not found`);
+                        continue; 
+                    }
+                    product.numberCancel -= item.count;
+                    product.salesInfo.push({
+                        count: item.count,
+                        dateSales: new Date()
+                    });
+                await product.save();
+                }
             }
+            invoice.status = status;
+            await invoice.save();
         } else if (status === "Cancel") {
-            for (const item of invoice.productList) {
-                const product = await Product.findById(item.productId);
-                if (!product) {
-                    console.error(`Product ${item.productId} not found`);
-                    continue; 
-                }
-                product.numberCancel += item.count;
-                product.numberOrders -= item.count;
-                await product.save();
+            if (invoice.status === "Complete"){
+                return res.status(409).json({ 
+                    success: false,
+                    error: 'Cannot cancel an invoice that is already completed.'
+                });
             }
+            else if (invoice.status === "Pending"){
+                for (const item of invoice.productList) {
+                    const product = await Product.findById(item.productId);
+                    if (!product) {
+                        console.error(`Product ${item.productId} not found`);
+                        continue; 
+                    }
+                    product.numberCancel += item.count;
+                    product.numberOrders -= item.count;
+                    await product.save();
+                }
+            }
+            invoice.status = status;
+            await invoice.save();
+        }
+        else if (status === "Pending") {
+            if (invoice.status === "Cancel"){
+                for (const item of invoice.productList) {
+                    const product = await Product.findById(item.productId);
+                    if (!product) {
+                        console.error(`Product ${item.productId} not found`);
+                        continue; 
+                    }
+                    product.numberCancel -= item.count;
+                    product.numberOrders += item.count;
+                    await product.save();
+                }
+            }
+            else if (invoice.status === "Complete"){
+                return res.status(409).json({ 
+                    success: false,
+                    error: 'Cannot cancel an invoice that is already completed.'
+                });
+            }
+            invoice.status = status;
+            await invoice.save();
         }
 
         res.json({
@@ -200,4 +248,34 @@ const updateInvoice = async(req, res) => {
     }
 };
 
-module.exports = {addInvoice, delateInvoice, updateInvoice}
+const electInvoice = async(req,res) => {
+    try{
+        const {idInvoice} = req.params
+        if (!idInvoice || !mongoose.Types.ObjectId.isValid(idInvoice)) {
+            return res.status(400).json({ 
+                message: 'Invalid or missing invoice ID'
+            });
+        }
+
+        const invoice = await Invoice.findById(idInvoice);
+        if (!invoice) {
+            return res.status(404).json({ error: 'Invoice not found' });
+        }
+        invoice.elect = !invoice.elect
+        await invoice.save()
+        res.json({
+            success: true,
+            invoice: invoice,
+            message: `Invoice successfully elect -- ${invoice.elect}`
+        });
+    }
+    catch (error) {
+        console.error('Error updating invoice:', error);
+        res.status(500).json({ 
+            success: false,
+            error: 'Internal server error',
+            message: error.message
+        });
+    }
+}
+module.exports = {addInvoice, deleteInvoice, updateInvoice, electInvoice}

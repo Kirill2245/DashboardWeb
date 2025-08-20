@@ -9,8 +9,7 @@ const ProductSales = ({idUser}) => {
     useEffect(() => {
         const fetch_data = async () => {
             try {
-                const data = { userId: idUser };
-                const response = await fetch_productUser(data);
+                const response = await fetch_productUser(idUser);
                 if (Array.isArray(response?.product)) {
                     setList(response.product);
                 } else {

@@ -41,9 +41,9 @@ export const fetch_user = async (data) => {
     }
 };
 
-export const fetch_productUser = async (data) => {
+export const fetch_productUser = async (userId) => {
     try{
-        const response = await api.post('/getproduct', data)
+        const response = await api.get(`/getproduct/${userId}`)
         return response.data
     }
     catch(error) {

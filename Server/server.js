@@ -21,7 +21,7 @@ const app = express();
 
 app.use(cors({
     origin: ['https://localhost', 'https://frontend'], 
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
@@ -33,14 +33,8 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 
-app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
-    next();
-});
-
 app.use('/uploads', express.static(uploadsDir, {
     setHeaders: (res, filePath) => {
-        console.log(`Serving file: ${filePath}`);
     },
     fallthrough: false 
 }));
@@ -97,8 +91,6 @@ const sslOptions = {
 
 https.createServer(sslOptions, app).listen(PORT, '0.0.0.0', () => {
     console.log(`HTTPS server running on port ${PORT}`);
-    console.log(`Serving static files from: ${uploadsDir}`);
-    console.log(`Test image URL: https://localhost:${PORT}/uploads/1753998546864-600798252.jpg`);
 });
 
 

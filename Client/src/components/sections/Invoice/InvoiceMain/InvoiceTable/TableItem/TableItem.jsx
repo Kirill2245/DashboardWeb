@@ -2,14 +2,17 @@ import styles from './styles.module.css';
 import calendar from '@image/CalendarA.svg';
 import message from '@image/Message.svg';
 import Button from '@common/Button/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Popup from './Popup/Popup';
 import {fetch_updateInvoice} from '@api/invoice_requests.js';
-const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, image, InvoiceId}) => {
+import {fetch_deleteInvoice} from '@api/invoice_requests.js';
+import {fetch_electInvoice} from '@api/invoice_requests.js';
+const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, image, InvoiceId, flag}) => {
     const [elect, isElect] = useState(false)
     const [showPop, isShow] = useState(false)
     const [editInvoice, isEdit] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(1);
+
     const pointColor = isActive || showPop ? "#605BFF" : "#B3B3BF";
     const electColor = elect ? "#FFD66B" : "#B3B3BF";
     const imageUrl = `https://localhost:5000${image}`
@@ -24,6 +27,16 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, im
     const list = ["Complete", "Pending", "Cancel"]
     const electClick = () => {
         isElect(prev => !prev)
+        const electInvoice = async() => {
+            try{
+                const response = await fetch_electInvoice(InvoiceId)
+                console.log(response)
+            }
+            catch(err){
+                console.error("Error Update elect Invoice", err)
+            }
+        }
+        electInvoice()
     }
     const saveInvoice = (Status) => {
         isEdit(false)
@@ -33,25 +46,42 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, im
                     idInvoice: InvoiceId,
                     status: status
                 }
-                console.log(data)
                 const response = await fetch_updateInvoice(data)
                 console.log(response)
                 if (response.data.success){
-                    alert("Данные обновленны успешно!!")
+                    alert("Data updated successfully!!")
                 }
                 else{
-                    alert("Ошибка обновления данных :(")
+                    alert(`Data update error "${response.data.error || response.data.message || 'Unknown error occurred'}":(`)
                 }
             }
             catch(err){
-                console.error("Ошибка при обновлении Invoice", err)
+                console.error("Error Update Invoice", err)
+                alert(`Update failed: ${err.response?.data?.error || err.response?.data?.message || err.message || 'Unknown error occurred'}`);
             }
         }
         updateInvoice(Status)
     }
+    const delateInvoice = async() => {
+        try{
+            console.log(InvoiceId)
+            const response = await fetch_deleteInvoice(InvoiceId)
+            if (response.data.success){
+                alert("Invoice delete successfully!!")
+            }
+            else{
+                alert(`Invoice delete error "${response.data.error || response.data.message || 'Unknown error occurred'}":(`)
+            }
+        }
+        catch(err){
+            console.error("Error delete Invoice", err)
+            alert(`Delete failed: ${err.response?.data?.error || err.response?.data?.message || err.message || 'Unknown error occurred'}`);
+        }
+    }
     const conditionEdit = () => {
         setCurrentIndex((prev) => (prev + 1) % list.length)
     };
+    useEffect(() => {isElect(flag)},[flag])
     return(
         <div className= {styles.item} onClick={onClick} style={shadowStyle}>
             <input type='checkbox'/>
@@ -87,7 +117,7 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, im
                     <path d="M2.98744 0.512567C2.30402 -0.170848 1.19598 -0.170848 0.512564 0.512567C-0.170852 1.19598 -0.170852 2.30402 0.512564 2.98744C1.19598 3.67085 2.30402 3.67085 2.98744 2.98744C3.67085 2.30405 3.67085 1.19601 2.98744 0.512567Z" fill={pointColor}/>
                 </svg>
             </div>
-            {showPop && <Popup isEdit={() => isEdit(true)} isSave={saveInvoice} currentStatus={list[currentIndex]} editInvoice = {editInvoice}/>}
+            {showPop && <Popup isEdit={() => isEdit(true)} isSave={saveInvoice} currentStatus={list[currentIndex]} editInvoice = {editInvoice} isDelate={delateInvoice}/>}
         </div>
     );
 };

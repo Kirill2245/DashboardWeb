@@ -11,11 +11,31 @@ const api = axios.create({
 
 export const fetch_updateInvoice = async (data) => {
     try{
-        const response = await api.post('/updateInvoice', data)
+        const response = await api.patch('/updateInvoice', data)
         return response
     }
     catch(error) {
-        console.error('Ошибка обновления invoice:', error.response?.data || error.message);
+        console.error('Error update status invoice:', error.response?.data || error.message);
         throw error;
     }
 };
+
+export const fetch_deleteInvoice = async (idInvoice) => {
+    try {
+        const response = await api.delete(`/deleteinvoice/${idInvoice}`);
+        return response;
+    } catch(error) {
+        console.error('Error delete invoice:', error);
+        throw error;
+    }
+}
+
+export const fetch_electInvoice = async (idInvoice) => {
+    try {
+        const response = await api.patch(`/electInvoice/${idInvoice}`);
+        return response;
+    } catch(error) {
+        console.error('Error delete invoice:', error);
+        throw error;
+    }
+}

@@ -111,6 +111,7 @@ const addProduct = async (req, res) => {
         });
     }
 };
+
 const dealateProduct = async (req, res) => {
     try{
         const {idProduct} = req.body;

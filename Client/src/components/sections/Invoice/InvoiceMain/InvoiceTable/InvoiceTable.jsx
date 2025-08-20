@@ -49,10 +49,11 @@ const InvoiseTable = ({idUser}) => {
                             idInvoice ={item.nameId}
                             name={item.name}
                             email={item.email}
-                            date ={item.date}
+                            date ={item.date.split('T')[0]}
                             status={item.status}
                             image={item.image}
                             InvoiceId={item._id}
+                            flag={item.elect}
                         />
                     )
                 })}

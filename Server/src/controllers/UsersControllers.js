@@ -145,11 +145,7 @@ const getTask = async (req, res) => {
 
 const getProduct = async (req, res) => {
     try{
-        const { userId } = req.body; 
-
-        if (!userId) {
-            return res.status(400).json({ message: 'User ID is required in request body' });
-        }
+        const { userId } = req.params; 
 
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ message: 'Invalid user ID format' });

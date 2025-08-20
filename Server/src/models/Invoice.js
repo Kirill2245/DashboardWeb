@@ -40,6 +40,10 @@ const InvoiceSchema = new Schema({
     status:{
         type:String,
         default:"Pending"
+    },
+    elect:{
+        type:Boolean,
+        default:false
     }
 })
 
