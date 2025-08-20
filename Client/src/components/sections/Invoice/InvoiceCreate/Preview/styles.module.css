@@ -1,0 +1,11 @@
+.section{
+    width: 50%;
+    height: 875px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px 30px 25px 30px;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 10px;
+}

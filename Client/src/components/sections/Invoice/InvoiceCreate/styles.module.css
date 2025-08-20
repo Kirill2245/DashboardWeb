@@ -1,0 +1,32 @@
+.containSection{
+    width: 100%;
+    height: 100vh;
+    display:flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+.section{
+    width: 50%;
+    height: 875px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px 30px 25px 30px;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+.contain{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.contain h2{
+    width: 219px;
+    height: 24px;
+    margin: 0 0 6px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #030229;
+}
