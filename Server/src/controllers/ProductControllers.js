@@ -24,9 +24,8 @@ const addProduct = async (req, res) => {
             });
 
 
-            const { name, brand, price, negotiable, descriptions, userId } = req.body;
-
-
+            const { name, brand, price, negotiable, descriptions } = req.body;
+            const { userId } = req.params;
             const missingFields = [];
             if (!name) missingFields.push('name');
             if (!brand) missingFields.push('brand');

@@ -69,15 +69,15 @@ const login = async (req, res) => {
 
 const userAll = async (req, res) => {
     try{
-        const { id } = req.body;
-        if (!id) {
+        const { userId } = req.params;
+        if (!userId) {
             return res.status(400).json({ message: 'ID is required' });
         }
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ message: 'Invalid ID format' });
         }
-        const user = await Users.findById(id);
+        const user = await Users.findById(userId);
         if (!user){
             return res.status(404).json({ message: 'User not found' });
         }
@@ -181,7 +181,7 @@ const getProduct = async (req, res) => {
 };
 
 const getInvoice = async(req, res) => {
-    const {userId} = req.body
+    const {userId} = req.params
 
     if (!userId) {
         return res.status(400).json({ message: 'User ID is required in request body' });

@@ -142,7 +142,8 @@ const deleteInvoice = async (req, res) => {
 const updateInvoice = async(req, res) => {
     console.log(req.body)
     try {
-        const { idInvoice, status } = req.body;
+        const { status } = req.body;
+        const { idInvoice } = req.params;
 
         if (!idInvoice || !mongoose.Types.ObjectId.isValid(idInvoice)) {
             return res.status(400).json({ 

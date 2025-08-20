@@ -8,6 +8,6 @@ router.post('/login', UsersController.login);
 router.delete('/delete-all', UsersController.deleteAllUsers);
 router.post('/gettask', UsersController.getTask);
 router.get('/getproduct/:userId', UsersController.getProduct);
-router.post('/userall', UsersController.userAll);
-router.post('/getinvoice', UsersController.getInvoice);
+router.get('/userall/:userId', UsersController.userAll);
+router.get('/getinvoice/:userId', UsersController.getInvoice);
 module.exports =  router

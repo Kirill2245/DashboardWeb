@@ -17,12 +17,9 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, im
     const electColor = elect ? "#FFD66B" : "#B3B3BF";
     const imageUrl = `https://localhost:5000${image}`
     const shadowStyle = {
-        boxShadow: isActive
+        boxShadow: (isActive || showPop)
             ? "0 0 2px 6px rgba(97, 91, 255, 0.03)"
-            : "",
-        position: "relative",
-        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-        backgroundColor: "#ffffff"
+            : ""
     };
     const list = ["Complete", "Pending", "Cancel"]
     const electClick = () => {
@@ -42,11 +39,7 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, im
         isEdit(false)
         const updateInvoice = async(status) =>{
             try{
-                const data = {
-                    idInvoice: InvoiceId,
-                    status: status
-                }
-                const response = await fetch_updateInvoice(data)
+                const response = await fetch_updateInvoice({status: status},InvoiceId)
                 console.log(response)
                 if (response.data.success){
                     alert("Data updated successfully!!")

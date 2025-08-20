@@ -13,7 +13,6 @@ const AddForm = ({ idUser }) => {
         price: '',
         negotiable: false,
         descriptions: '',
-        userId: idUser 
     });
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState('');
@@ -58,7 +57,7 @@ const AddForm = ({ idUser }) => {
                 formDataToSend.append('image', image);
             }
 
-            const response = await fetch_addProduct(formDataToSend);
+            const response = await fetch_addProduct(formDataToSend, idUser );
             console.log('Продукт успешно добавлен:', response.data);
             alert('Продукт успешно добавлен !!!')
 

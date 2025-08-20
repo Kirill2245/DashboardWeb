@@ -37,7 +37,7 @@ const Main = ({isOut}) => {
         const fetchUser = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch_user({ id: userId });
+                const response = await fetch_user( userId );
             if (response?.success) {
                 console.log(response.user)
                 setData(response.user); 

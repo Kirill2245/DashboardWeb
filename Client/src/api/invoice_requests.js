@@ -9,9 +9,9 @@ const api = axios.create({
     }
 });
 
-export const fetch_updateInvoice = async (data) => {
+export const fetch_updateInvoice = async (data,idInvoice) => {
     try{
-        const response = await api.patch('/updateInvoice', data)
+        const response = await api.patch(`/updateInvoice/${idInvoice}`, data)
         return response
     }
     catch(error) {

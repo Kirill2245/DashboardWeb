@@ -14,10 +14,7 @@ const InvoiseTable = ({idUser}) => {
     useEffect(() => {
         const fetch_data = async() => {
             try{
-                const data = {
-                    userId: idUser
-                }
-                const response = await fetch_invoiceUser(data)
+                const response = await fetch_invoiceUser(idUser)
                 setInvoice(response)
                 console.log(response)
             }catch (err) {
@@ -42,9 +39,9 @@ const InvoiseTable = ({idUser}) => {
                 {invoiceList.map((item, index) => {
                     return(
                         <TableItem
-                            id = {0}
-                            isActive = {activeId === 0}
-                            onClick = {() => handleItemClick(0)}
+                            id = {index}
+                            isActive = {activeId === index}
+                            onClick = {() => handleItemClick(index)}
                             key={index}
                             idInvoice ={item.nameId}
                             name={item.name}

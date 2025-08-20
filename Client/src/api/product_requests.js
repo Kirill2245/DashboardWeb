@@ -9,9 +9,9 @@ const api = axios.create({
     }
 });
 
-export const fetch_addProduct = async (data) => {
+export const fetch_addProduct = async (data, userId) => {
     try{
-        const response = await api.post('/addproduct', data)
+        const response = await api.post(`/addproduct/${userId}`, data)
         return response
     }
     catch(error) {

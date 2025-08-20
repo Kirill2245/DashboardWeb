@@ -30,9 +30,9 @@ export const fetch_signUp = async (data) => {
     }
 };
 
-export const fetch_user = async (data) => {
+export const fetch_user = async (userId) => {
     try{
-        const response = await api.post('/userall', data)
+        const response = await api.get(`/userall/${userId}`)
         return response.data
     }
     catch(error) {
@@ -52,9 +52,9 @@ export const fetch_productUser = async (userId) => {
     }
 };
 
-export const fetch_invoiceUser = async (data) => {
+export const fetch_invoiceUser = async (userId) => {
     try{
-        const response = await api.post('/getinvoice', data)
+        const response = await api.get(`/getinvoice/${userId}`)
         return response.data
     }
     catch(error) {
