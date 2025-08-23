@@ -4,6 +4,7 @@ import calendar from '@image/CalendarA.svg';
 import location from '@image/location.svg';
 import { useState, useRef} from 'react';
 import MapModal from './MapModal/MapModal';
+import ProductDescription from './ProductDescription/ProductDescription';
 const CreateForm = () => {
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [address, setAddress] = useState('');
@@ -50,6 +51,7 @@ const CreateForm = () => {
                 </label>
             </div>
             <MapModal isOpen={isMapOpen} onClose={() => setIsMapOpen(false)} onAddressSelect={handleAddressSelect}/>
+            <ProductDescription/>
         </form>
 
     );

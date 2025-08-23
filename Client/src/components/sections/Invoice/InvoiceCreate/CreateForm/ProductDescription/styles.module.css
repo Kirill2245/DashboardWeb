@@ -1,0 +1,17 @@
+.contain{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap:15px
+}
+.contain header{
+    display: flex;
+}
+.contain header h3{
+    width: 151px;
+    height: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: auto;
+}

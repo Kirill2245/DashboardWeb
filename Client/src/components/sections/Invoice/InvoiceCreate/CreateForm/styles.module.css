@@ -98,31 +98,31 @@
     margin: 0;
 }
 
-.contain:last-of-type label:first-of-type{
+.contain:nth-of-type(2) label:first-of-type{
     width: 50%;
     height: 80px;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
-.contain:last-of-type label:first-of-type span{
+.contain:nth-of-type(2) label:first-of-type span{
     margin: 0;
 }
 
-.contain:last-of-type label:last-of-type{
+.contain:nth-of-type(2) label:last-of-type{
     width: 50%;
     height: 80px;
     position: relative;
     display: inline-block;
 }
-.contain:last-of-type label:last-of-type span{
+.contain:nth-of-type(2) label:last-of-type span{
     display:block;
     margin: 0 0 15px 0;
 }
-.contain:last-of-type label:last-of-type input{
+.contain:nth-of-type(2) label:last-of-type input{
     padding-right: 40px; 
 }
-.contain:last-of-type label:last-of-type button{
+.contain:nth-of-type(2) label:last-of-type button{
     position: absolute;
     right: 20px;
     top: calc(50% + 15px);
