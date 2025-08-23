@@ -8,7 +8,8 @@ const  Table= () => {
         { name: "ipod 20212", rate: '$1000', qty: "110 Pcs", amount: '$10,000' },
         { name: "ipod 2021", rate: '$1000', qty: "10 Pcs", amount: '$10,000' },
         { name: "ipod 2021", rate: '$10001', qty: "10 Pcs", amount: '$10,000' },
-        { name: "ipod 2021", rate: '$1000', qty: "10 Pcs", amount: '$102,000' }
+        { name: "ipod 2021", rate: '$10001', qty: "10 Pcs", amount: '$10,000' },
+        { name: "ipod 2021", rate: '$10001', qty: "10 Pcs", amount: '$10,000' }
     ];
     return(
         <table className= {styles.table}>

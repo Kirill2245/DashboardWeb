@@ -5,6 +5,7 @@
 .table thead{
     width: 100%;
 }
+
 .headerRow th {
     text-align: left;
     white-space: nowrap; 
@@ -62,4 +63,7 @@
 }
 .row td:nth-of-type(4){
     color: #2B9943;
+}
+.row td:nth-of-type(5){
+    text-align: right;
 }

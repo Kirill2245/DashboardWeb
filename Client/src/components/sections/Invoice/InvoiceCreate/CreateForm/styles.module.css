@@ -137,4 +137,7 @@
     justify-content: center;
 }
 
-
+.buttonContain{
+    display: flex;
+    gap: 30px;
+}

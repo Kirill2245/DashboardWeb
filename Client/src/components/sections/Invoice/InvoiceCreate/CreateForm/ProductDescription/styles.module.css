@@ -1,9 +1,15 @@
 .contain{
     width: 100%;
-    height: 80px;
+    height: 223px;
     display: flex;
     flex-direction: column;
-    gap:15px
+    gap:15px;
+    margin-bottom: 34px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-shrink: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #605BFF white;
 }
 .contain header{
     display: flex;

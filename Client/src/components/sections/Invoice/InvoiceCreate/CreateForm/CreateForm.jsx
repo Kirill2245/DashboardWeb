@@ -5,6 +5,7 @@ import location from '@image/location.svg';
 import { useState, useRef} from 'react';
 import MapModal from './MapModal/MapModal';
 import ProductDescription from './ProductDescription/ProductDescription';
+import Button from '@common/Button/Button';
 const CreateForm = () => {
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [address, setAddress] = useState('');
@@ -52,6 +53,10 @@ const CreateForm = () => {
             </div>
             <MapModal isOpen={isMapOpen} onClose={() => setIsMapOpen(false)} onAddressSelect={handleAddressSelect}/>
             <ProductDescription/>
+            <div className = {styles.buttonContain}>
+                <Button text = "Send Invoice" styles = "sendInvoice"/>
+                <Button text = "Create Invoice" styles = "createInvoice"/>
+            </div>
         </form>
 
     );
