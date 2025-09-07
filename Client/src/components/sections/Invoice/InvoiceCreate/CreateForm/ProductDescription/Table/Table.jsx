@@ -1,16 +1,16 @@
 
-// import { useState } from 'react';
 import styles from './styles.module.css';
 import arrow from '@image/Arrow.svg'
 import deleteImg from '@image/deleticon.svg';
-const  Table= () => {
-    const data = [
-        { name: "ipod 20212", rate: '$1000', qty: "110 Pcs", amount: '$10,000' },
-        { name: "ipod 2021", rate: '$1000', qty: "10 Pcs", amount: '$10,000' },
-        { name: "ipod 2021", rate: '$10001', qty: "10 Pcs", amount: '$10,000' },
-        { name: "ipod 2021", rate: '$10001', qty: "10 Pcs", amount: '$10,000' },
-        { name: "ipod 2021", rate: '$10001', qty: "10 Pcs", amount: '$10,000' }
-    ];
+import { useEffect, useState } from 'react';
+const  Table= ({data}) => {
+    const [productList, setProduct] = useState([])
+    const delateItem = (id) => {
+        setProduct(prev => prev.filter(item => item.id !== id));
+    }
+    useEffect(()=>{
+        setProduct(data)
+    },[data])
     return(
         <table className= {styles.table}>
             <thead>
@@ -23,13 +23,13 @@ const  Table= () => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((item, index) => (
+                {productList.map((item, index) => (
                     <tr key={index} className={styles.row}>
                         <td>{item.name}</td>
-                        <td>{item.rate}</td>
-                        <td>{item.qty}</td>
-                        <td>{item.amount}</td>
-                        <td><img src = {deleteImg}/></td>
+                        <td>{100}</td>
+                        <td>{item.count}</td>
+                        <td>{item.count * 100}</td>
+                        <td><img src = {deleteImg} onClick={() => delateItem(item.id)}/></td>
                     </tr>
                 ))}
             </tbody>

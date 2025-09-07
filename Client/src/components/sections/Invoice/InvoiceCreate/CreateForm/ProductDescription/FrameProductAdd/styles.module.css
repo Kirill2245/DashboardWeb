@@ -1,0 +1,31 @@
+.contain{
+    width: 800px;
+    height: 400px;
+    background-color: white;
+    z-index: 1001;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid #605BFF;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+}
+.contain header{
+    display: flex;
+    align-items: center;
+    gap: 80%;
+}
+.contain header img{
+    width: 34px;
+    height: 32px;
+}
+.contain header h3{
+    margin: 0;
+    font-weight: bold;
+    color: #030229;
+}

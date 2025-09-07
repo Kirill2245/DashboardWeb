@@ -1,0 +1,37 @@
+.table{
+    border-collapse: collapse;
+}
+.table thead tr{
+    text-align: left;
+    color: #030229;
+    font-weight: 600;
+}
+.table thead tr th:nth-of-type(4){
+    text-align: center;
+}
+.table tbody tr{
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.089);
+    height: 42px;
+}   
+.table tbody tr td:nth-of-type(4){
+    text-align: center;
+    justify-items: center;
+}
+.contain{
+    min-width: 60px;
+    max-width: 100px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.contain span{
+    width: 16px;
+    height: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
