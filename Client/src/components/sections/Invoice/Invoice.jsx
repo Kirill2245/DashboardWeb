@@ -6,7 +6,7 @@ const Invoise = ({idUser}) => {
     const [showCreate, isCreate] = useState(false)
     return(
         <section className= {styles.section}>
-            {showCreate ? <InvoiceCreate isCreate = {() => {isCreate(false)}}/>:<InvoiceMain idUser={idUser} isCreate={() => {isCreate(true)}}/>}
+            {showCreate ? <InvoiceCreate isCreate = {() => {isCreate(false)}} idUser={idUser}/>:<InvoiceMain idUser={idUser} isCreate={() => {isCreate(true)}}/>}
         </section>
     );
 };

@@ -2,19 +2,18 @@
 import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import addInvoice from '@image/addinvoice.svg'
-const  Table = ({onProductListUpdate}) => {
-    const [data, setData] = useState([
-        {id:1, name: "ipod 20212", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:2,name: "ipod 20412", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:3, name: "ipod 20312", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:4, name: "ipod 20512", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:5, name: "ipod 20612", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:6, name: "ipod 20712", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:7, name: "ipod 20812", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:8, name: "ipod 20912", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:9, name: "ipod 201012", brand: '$1000', price: '$10,000',qty: 0 },
-        {id:0, name: "ipod 20112", brand: '$1000', price: '$10,000',qty: 0 },
-    ]);
+const  Table = ({onProductListUpdate, list}) => {
+    const [data, setData] = useState(
+        list && list.length > 0 
+            ? list.map(item => ({
+                id: item._id || item.id,
+                name: item.name,
+                brand: item.brand,
+                price: parseFloat(item.price?.$numberDecimal || item.price || 0),
+                qty: 0
+            }))
+            : [] 
+    );
     const [productList, setProduct] = useState([]);
     const increaseQty = (index) => {
         setData(prevData => {
@@ -41,7 +40,7 @@ const  Table = ({onProductListUpdate}) => {
                     alert("Товар уже добавлен");
                     return prev; 
                 } else {
-                    return [...prev, { id: item.id, count: item.qty, name: item.name }];
+                    return [...prev, { id: item.id, count: item.qty, name: item.name, price: item.price }];
                 }
             });
         } else {
@@ -52,6 +51,19 @@ const  Table = ({onProductListUpdate}) => {
     useEffect(() => {
         onProductListUpdate(productList)
     }, [productList, onProductListUpdate]);
+    useEffect(() => {
+        if (list && list.length > 0) {
+            setData(
+                list.map(item => ({
+                    id: item._id || item.id,
+                    name: item.name,
+                    brand: item.brand,
+                    price: parseFloat(item.price?.$numberDecimal || item.price || 0),
+                    qty: 0
+                }))
+            );
+        }
+    }, [list]);
     return(
         <table className= {styles.table}>
             <thead>

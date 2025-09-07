@@ -10,6 +10,7 @@ const  Table= ({data}) => {
     }
     useEffect(()=>{
         setProduct(data)
+        console.log(data)
     },[data])
     return(
         <table className= {styles.table}>
@@ -26,9 +27,9 @@ const  Table= ({data}) => {
                 {productList.map((item, index) => (
                     <tr key={index} className={styles.row}>
                         <td>{item.name}</td>
-                        <td>{100}</td>
+                        <td>{item.price}</td>
                         <td>{item.count}</td>
-                        <td>{item.count * 100}</td>
+                        <td>{item.count * item.price}</td>
                         <td><img src = {deleteImg} onClick={() => delateItem(item.id)}/></td>
                     </tr>
                 ))}

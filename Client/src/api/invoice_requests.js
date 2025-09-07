@@ -3,15 +3,16 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: 'https://localhost:5000/api/invoice',
     withCredentials: true, 
-    timeout: 5000,
-    headers: {
-        'Content-Type': 'application/json'
-    }
+    timeout: 5000
 });
 
 export const fetch_updateInvoice = async (data,idInvoice) => {
     try{
-        const response = await api.patch(`/updateInvoice/${idInvoice}`, data)
+        const response = await api.patch(`/updateInvoice/${idInvoice}`, data, { 
+            headers: {
+                'Content-Type': 'application/json'
+            }}
+        )
         return response
     }
     catch(error) {
@@ -37,5 +38,20 @@ export const fetch_electInvoice = async (idInvoice) => {
     } catch(error) {
         console.error('Error delete invoice:', error);
         throw error;
+    }
+}
+
+export const fetch_addInvoice = async(data, IdUser) =>{
+    try{
+        const response = await api.post(`/addinvoice/${IdUser}`,data, { 
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }}
+        )
+        return response
+    }
+    catch(error){
+        console.error('Error create Invoice', error);
+        throw error
     }
 }

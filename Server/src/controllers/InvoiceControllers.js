@@ -7,80 +7,133 @@ const fs = require('fs');
 const path = require('path');
 
 const addInvoice = async (req, res) => {
-    try{
-        upload.single('image')(req, res, async function(err){
-            if(err){
+    try {
+        upload.single('image')(req, res, async function(err) {
+            if (err) {
                 return res.status(400).json({ 
                     success: false,
                     error: err.message,
                     type: 'FILE_UPLOAD_ERROR'
                 });
             }
+
             console.log('Received data:', {
                 body: req.body,
                 file: req.file ? req.file.filename : 'No file uploaded'
             });
 
-            const {nameId, name, email, date, address, productId,countProduct, userId} = req.body;
+            const { nameId, name, email, date, address, productList } = req.body;
+            const { userId } = req.params;
+
+            
+            let parsedProductList = [];
+            try {
+                parsedProductList = typeof productList === 'string' 
+                    ? JSON.parse(productList) 
+                    : productList;
+            } catch (parseError) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'Invalid productList format',
+                    details: 'productList must be a valid JSON array'
+                });
+            }
+
+            
+            const formattedProductList = parsedProductList.map(product => ({
+                productId: product.id, 
+                count: product.count
+            }));
 
             const validationErrors = {};
             if (!mongoose.Types.ObjectId.isValid(userId)) {
                 validationErrors.userId = 'Invalid user ID format';
             }
-            if (Object.keys(validationErrors).length > 0) {
-                return res.status(400).json({
-                success: false,
-                error: 'Validation failed',
-                details: validationErrors
+
+            
+            if (!Array.isArray(formattedProductList)) {
+                validationErrors.productList = 'Product list must be an array';
+            } else {
+                formattedProductList.forEach((product, index) => {
+                    if (!product.productId) {
+                        validationErrors[`productList[${index}].productId`] = 'Product ID is required';
+                    } else if (!mongoose.Types.ObjectId.isValid(product.productId)) {
+                        validationErrors[`productList[${index}].productId`] = 'Invalid product ID format';
+                    }
+                    if (!product.count || product.count <= 0) {
+                        validationErrors[`productList[${index}].count`] = 'Count must be a positive number';
+                    }
                 });
             }
+
+            if (Object.keys(validationErrors).length > 0) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'Validation failed',
+                    details: validationErrors
+                });
+            }
+
             const userExists = await Users.exists({ _id: userId });
             if (!userExists) {
                 return res.status(404).json({
-                success: false,
-                error: 'User not found'
+                    success: false,
+                    error: 'User not found'
                 });
             }
-            const productList = {
-                productId:productId,
-                count:countProduct
+
+            
+            for (const product of formattedProductList) {
+                const productExists = await Product.exists({ _id: product.productId });
+                if (!productExists) {
+                    return res.status(404).json({
+                        success: false,
+                        error: `Product not found with ID: ${product.productId}`
+                    });
+                }
             }
+
             const InvoiceData = {
                 nameId,
                 name,
                 email,
                 date,
                 address,
-                productList,
+                productList: formattedProductList, 
                 owner: userId,
                 image: req.file ? `/uploads/${req.file.filename}` : null
+            };
+
+            const newInvoice = await Invoice.create(InvoiceData);
+
+
+            for (const product of formattedProductList) {
+                await Product.updateOne(
+                    { _id: product.productId },
+                    { $inc: { numberOrders: product.count } }
+                );
             }
-            const newInvoice = await Invoice.create(InvoiceData)
-            const count = Number(countProduct);
-            await Product.updateOne(
-                { _id: productId },
-                { $inc: { numberOrders: count } }
-            );
+
             await Users.findByIdAndUpdate(
                 userId,
                 { $addToSet: { invoiceList: newInvoice._id } }
             );
+
             return res.status(201).json({
                 success: true,
-                product: newInvoice
+                invoice: newInvoice,
+                message: `Invoice created with ${formattedProductList.length} products`
             });
-
-        })
-    }
-    catch (error) {
+        });
+    } catch (error) {
         console.error('Invoice creation error:', error);
         return res.status(500).json({
-        success: false,
-        error: 'Internal server error',
-        ...(process.env.NODE_ENV === 'development' && { 
-            details: error.message,
-            stack: error.stack 
-        })
+            success: false,
+            error: 'Internal server error',
+            ...(process.env.NODE_ENV === 'development' && { 
+                details: error.message,
+                stack: error.stack 
+            })
         });
     }
 };
