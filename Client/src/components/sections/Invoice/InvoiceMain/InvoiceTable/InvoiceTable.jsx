@@ -5,12 +5,15 @@ import TableItem from './TableItem/TableItem';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import {fetch_invoiceUser} from '@api/user_requests.js';
-const InvoiseTable = ({idUser}) => {
+const InvoiseTable = ({idUser, listInvoiceSearch}) => {
     const [activeId, setActiveId] = useState(null); 
     const [invoiceList, setInvoice] = useState([]);
     const handleItemClick = (id) => {
         setActiveId(activeId === id ? null : id); 
     };
+    const dataToRender = listInvoiceSearch && listInvoiceSearch.length > 0 
+        ? listInvoiceSearch 
+        : invoiceList;
     useEffect(() => {
         const fetch_data = async() => {
             try{
@@ -36,24 +39,29 @@ const InvoiseTable = ({idUser}) => {
                 <img src = {deleteImg} className={styles.img}/>
             </header>
             <div className= {styles.contain}>
-                {invoiceList.map((item, index) => {
-                    return(
-                        <TableItem
-                            id = {index}
-                            isActive = {activeId === index}
-                            onClick = {() => handleItemClick(index)}
-                            key={index}
-                            idInvoice ={item.nameId}
-                            name={item.name}
-                            email={item.email}
-                            date ={item.date.split('T')[0]}
-                            status={item.status}
-                            image={item.image}
-                            InvoiceId={item._id}
-                            flag={item.elect}
-                        />
-                    )
-                })}
+                {dataToRender.length > 0 ? (
+                    dataToRender.map((item, index) => {
+                        return(
+                                <TableItem
+                                id = {index}
+                                isActive = {activeId === index}
+                                onClick = {() => handleItemClick(index)}
+                                key={index}
+                                idInvoice ={item.nameId}
+                                name={item.name}
+                                email={item.email}
+                                date ={item.date.split('T')[0]}
+                                status={item.status}
+                                image={item.image}
+                                InvoiceId={item._id}
+                                flag={item.elect}
+                            />
+                        )
+                    })
+                ):(
+                    <div>No invoices found</div>
+                )}
+                
             </div>
         </section>
     );

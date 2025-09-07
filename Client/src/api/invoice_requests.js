@@ -55,3 +55,14 @@ export const fetch_addInvoice = async(data, IdUser) =>{
         throw error
     }
 }
+
+export const fetch_searchInvoice = async(IdUser, idNameInvoice) => {
+    try{
+        const response = await api.get(`/searchinvoice/${idNameInvoice}/${IdUser}`)
+        return response
+    }
+    catch(error){
+        console.error('Error search invoice', error);
+        throw error;
+    }
+}

@@ -332,4 +332,37 @@ const electInvoice = async(req,res) => {
         });
     }
 }
-module.exports = {addInvoice, deleteInvoice, updateInvoice, electInvoice}
+
+const searchInvoice = async(req, res) => { 
+    try{
+        const {idNameInvoice, userId} = req.params;
+        if (!idNameInvoice){
+            return res.status(400).json({
+                message:'Invalid or missing invoice ID'
+            })
+        }  
+        const result = await Invoice.find({owner: userId, nameId:{ $regex: idNameInvoice, $options: 'i' }})
+        if (!result){
+            return res.status(404).json({
+                success:false,
+                message:'Invoice not found'
+            })
+        }
+        else{
+            return res.status(201).json({
+                success:true,
+                invoice:result,
+                message:`Search Invoice successfully count - ${result.length}`
+            })
+        }
+    }
+    catch(error){
+        console.error('Error search Invoice', error)
+        res.status(500).json({
+            success: false,
+            error:'Internal server error',
+            message:error.message
+        })
+    }
+}
+module.exports = {addInvoice, deleteInvoice, updateInvoice, electInvoice, searchInvoice}
