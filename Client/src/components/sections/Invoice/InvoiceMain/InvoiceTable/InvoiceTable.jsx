@@ -8,8 +8,12 @@ import {fetch_invoiceUser} from '@api/user_requests.js';
 const InvoiseTable = ({idUser, listInvoiceSearch}) => {
     const [activeId, setActiveId] = useState(null); 
     const [invoiceList, setInvoice] = useState([]);
+    const [allChecked, setAllChecked] = useState(false);
     const handleItemClick = (id) => {
         setActiveId(activeId === id ? null : id); 
+    };
+    const handleSelectAll = (checked) => {
+        setAllChecked(checked);
     };
     const dataToRender = listInvoiceSearch && listInvoiceSearch.length > 0 
         ? listInvoiceSearch 
@@ -30,7 +34,7 @@ const InvoiseTable = ({idUser, listInvoiceSearch}) => {
     return(
         <section className= {styles.section}>
             <header>
-                <input type='checkbox'/>
+                <input type='checkbox' checked={allChecked} onChange={(e) => handleSelectAll(e.target.checked)}/>
                 <span>Invoice Id<img src = {arrow}/></span>
                 <span>Name<img src = {arrow}/></span>
                 <span>Email<img src = {arrow}/></span>
@@ -44,7 +48,7 @@ const InvoiseTable = ({idUser, listInvoiceSearch}) => {
                         return(
                                 <TableItem
                                 id = {index}
-                                isActive = {activeId === index}
+                                isActive = {allChecked || activeId === index}
                                 onClick = {() => handleItemClick(index)}
                                 key={index}
                                 idInvoice ={item.nameId}

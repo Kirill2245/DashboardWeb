@@ -77,7 +77,7 @@ const TableItem = ({ isActive, onClick, idInvoice, name, email, date, status, im
     useEffect(() => {isElect(flag)},[flag])
     return(
         <div className= {styles.item} onClick={onClick} style={shadowStyle}>
-            <input type='checkbox'/>
+            <input type='checkbox' checked = {isActive } onChange={(e) => onClick( e.target.checked)}/>
             <p>{`#${idInvoice}`}</p>
             <div className = {styles.contain}>
                 <img src = {imageUrl}/>

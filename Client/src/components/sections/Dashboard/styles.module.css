@@ -1,0 +1,35 @@
+.section{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+.section .header{
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+.section .header h3{
+    width: 122px;
+    height: 33px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #030229;
+    margin: 0;
+}
+.section .header .contain{
+    width: 275px;
+    height: 40px;
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    gap: 15px;
+}
+.main{
+    width: 100%;
+    display: grid;
+    grid-template-rows: 116px 408px 300px;
+    gap: 20px;
+    box-sizing: border-box;
+}
