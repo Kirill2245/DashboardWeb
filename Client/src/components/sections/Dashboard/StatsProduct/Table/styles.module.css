@@ -33,6 +33,11 @@
     gap: 10px;
     padding: 0;
 }
+.bodyRow tr td:nth-of-type(2) div img{
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
 .bodyRow tr td:nth-of-type(4) div{
     width: 61px;
     height: 30px;

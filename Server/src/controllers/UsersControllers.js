@@ -205,6 +205,54 @@ const getInvoice = async(req, res) => {
 
     return res.status(200).json(invoice);
 }
+const recentOrders = async(req, res) => {
+    try{
+        const {userId} = req.params
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: 'Invalid user ID format' });
+        }
+        const user = await Users.findById(userId).select('invoiceList');
+            if (!user.invoiceList || user.invoiceList.length === 0) {
+            return res.status(404).json({ 
+                success:false,
+                message: 'User has no invoice'
+            });
+        }
+        const invoice = await Invoice.find({
+            _id: { $in: user.invoiceList }
+        });
+        if (invoice && invoice.length > 0){
+            if(invoice[invoice.length - 1].productList.length > 0){
+                const productIds = invoice[invoice.length - 1].productList.map(item => item.productId);
+                const products = await Product.find({ _id: { $in: productIds } });
+                return res.status(200).json({
+                    success:true,
+                    message:'Last orders is successfully :)',
+                    products:products
+                })
+            }
+            else{
+                return res.status(404).json({
+                    success: false,
+                    message:'Products in invoice not found',
+                })
+            }
+        }
+        else{
+            return res.status(404).json({
+                success: false,
+                message:'Invoice not found',
+            })
+        }
+    }
+    catch(error){
+        return res.status(500).json({
+            success: false,
+            message: 'Server error',
+            error: error.message 
+        })
+    }
+}
 module.exports = {
-    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll, getInvoice
+    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll, getInvoice, recentOrders
 }

@@ -1,7 +1,26 @@
 
+import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import testimg from '@image/testp.png'
-const Table = () => {
+import { fetch_recentOrders } from '@api/user_requests';
+const Table = ({idUser}) => {
+    const [listProductLast, setProduct] = useState([])
+    useEffect(() => {
+        const fetch_data = async() => {
+            try{
+                const response = await fetch_recentOrders(idUser)
+                if (response && response.success){
+                    setProduct(response.products)
+                }
+                else{
+                    alert(response.message)
+                }
+            }
+            catch(error){
+                console.error("Error get product:", error)
+            }
+        }
+        fetch_data()
+    },[idUser])
     return(
         <table className= {styles.table}>
             <thead className={styles.headerRow}>
@@ -14,13 +33,18 @@ const Table = () => {
                 </tr>
             </thead>
             <tbody className={styles.bodyRow}>
-                <tr>
-                    <td>#876364</td>
-                    <td><div><img src={testimg}/><span>Camera Lens</span></div></td>
-                    <td>$178</td>
-                    <td><div>325</div></td>
-                    <td>$1,46,660</td>
-                </tr>
+                {listProductLast.map((item,index) => {
+                    return(
+                        <tr key={index}>
+                            <td>{item._id || item.id}</td>
+                            <td><div><img src={`https://localhost:5000${item.image}`}/><span>{item.name}</span></div></td>
+                            <td>{parseFloat(item.price?.$numberDecimal || item.price || 0)}</td>
+                            <td><div>{item.numberOrders}</div></td>
+                            <td>{parseFloat(item.numberOrders) * parseFloat(item.price?.$numberDecimal || item.price || 0)}</td>
+                        </tr>
+                    )
+                })}
+
             </tbody>
         </table>
     );

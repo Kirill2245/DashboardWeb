@@ -58,7 +58,7 @@ const Dashboard = ({idUser}) => {
             <div className={styles.main}>
                 <HeaderStats list={dateHeader}/>
                 <MainChart/>
-                <StatsProduct/>
+                <StatsProduct idUser={idUser}/>
             </div>
         </section>
     );

@@ -2,7 +2,7 @@
 import styles from './styles.module.css';
 import menu from '@image/Menu.svg'
 import Table from './Table/Table';
-const StatsProduct = () => {
+const StatsProduct = ({idUser}) => {
     return(
         <div className= {styles.contain}>
             <div>
@@ -10,7 +10,7 @@ const StatsProduct = () => {
                     <h4>Recent Orders</h4>
                     <img src = {menu}/>
                 </header>
-                <Table/>
+                <Table idUser={idUser}/>
             </div>
             <div>
                 <header>

@@ -62,3 +62,14 @@ export const fetch_invoiceUser = async (userId) => {
         throw error;
     }
 }
+
+export const fetch_recentOrders = async(userId) => {
+    try{
+        const response = await api.get(`/recentorders/${userId}`)
+        return response.data
+    }
+    catch(error) {
+        console.error('Error receiving data:', error.response?.data || error.message);
+        throw error;
+    }
+}
