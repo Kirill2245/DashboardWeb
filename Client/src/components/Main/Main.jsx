@@ -58,7 +58,7 @@ const Main = ({isOut}) => {
         <main className= {styles.main}>
             {overlay && <div className= {styles.overlay}></div>}
             <Sidebar isOut={isOut} user = {data} isButton={handleButtonClick}/>
-            {button == 0 && <Dashboard/>}
+            {button == 0 && <Dashboard idUser = {userId}/>}
             {button == 1 && <Analytics isOverlay={(i) => isOverlay(i)} idUser={userId}/>}
             {button == 2 && <Invoice idUser={userId}/>}
             {button == 3 && <Schedule/>}
