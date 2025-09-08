@@ -1,0 +1,24 @@
+.contain{
+    width: 67.29%;
+    height: 96px;
+    display: flex;
+    gap: 20px;
+}
+.contain p, h5{
+    margin: 0;
+}
+.contain img{
+    width: 96px;
+    height: 96px;
+    border-radius: 25px;
+}
+.contain figure{
+    margin: 0;
+    display: flex;
+    gap: 2px;
+}
+.contain article{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
