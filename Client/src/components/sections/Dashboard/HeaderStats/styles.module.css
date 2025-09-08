@@ -29,6 +29,7 @@
 .box p{
     width: 95px;
     height: 19px;
+    opacity: 0.7;
     font-size: 14px;
     color: #030229;
     margin: 0;
