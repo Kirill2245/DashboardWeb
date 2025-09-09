@@ -54,7 +54,7 @@ const InvoiseTable = ({idUser, listInvoiceSearch}) => {
                                 idInvoice ={item.nameId}
                                 name={item.name}
                                 email={item.email}
-                                date ={item.date.split('T')[0]}
+                                date ={item.date ? item.date.split('T')[0] : 'No date'}
                                 status={item.status}
                                 image={item.image}
                                 InvoiceId={item._id}
@@ -68,7 +68,7 @@ const InvoiseTable = ({idUser, listInvoiceSearch}) => {
                 
             </div>
         </section>
-    );
+    )
 };
 
 export default InvoiseTable

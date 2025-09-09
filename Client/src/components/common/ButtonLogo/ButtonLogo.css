@@ -72,3 +72,10 @@
     box-sizing: border-box;
     border-radius: 5px;
 }
+.addCustomer{
+    width: 165px;
+    height: 42px;
+    background-color: #605BFF;
+    font-size: 1rem;
+    color: white;
+}

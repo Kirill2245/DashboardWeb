@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import Product from './Product/Product';
-
+import Customer from './Customer/Customer';
 const Analytics = ({isOverlay, idUser}) => {
+    const [showCustomer, isShowCustomer] = useState(false)
     return(
         <>
-            <Product isOverlay={isOverlay} idUser={idUser}/>
+            {showCustomer ? <Customer/> : <Product isOverlay={isOverlay} idUser={idUser} isShowCustomer={() => isShowCustomer(true)}/>}
         </>
     );
 };

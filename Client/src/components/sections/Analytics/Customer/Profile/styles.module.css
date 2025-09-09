@@ -1,0 +1,71 @@
+.section{
+    display: flex;
+    flex-direction: column;
+    padding: 62px 25px 30px 25px;
+    box-sizing: border-box;
+    gap: 40px;
+}
+.section header{
+    width: 252px;
+    height: 167px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.062);
+}
+.section header img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.section header h3{
+    font-size: 1.375rem;
+    font-weight:600;
+    color: #030229;
+    margin: 16px 0 8px 0;
+}
+.section header p{
+    margin: 0;
+    opacity: 0.7;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color:#030229; 
+}
+.section address{
+    width:232px;
+    height: 201px;
+    display: flex;
+    flex-direction: column;
+}
+.section address div{
+    display: flex;
+    gap: 11px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.062);
+    margin-bottom: 20px;
+}
+.section address div:last-of-type{
+    border: none;
+    margin-bottom: 0;
+}
+.section address div:last-of-type img,
+.section address div:last-of-type p {
+    margin: 0;
+}
+.section address h4{
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #030229;
+    margin: 0 0 30px 0;
+}
+.section address div p{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #030229;
+    opacity: 0.7;
+    margin: 0 0 20px 0;
+}
+.section div img{
+    width: 16px;
+    height: 16px;
+    margin: 0 0 20px 0;
+}

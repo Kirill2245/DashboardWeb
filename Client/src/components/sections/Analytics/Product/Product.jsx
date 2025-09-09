@@ -5,11 +5,11 @@ import { useState } from 'react';
 import BoxButton from './BoxButton/BoxButton';
 import AddProduct from './AddProduct/AddProduct';
 
-const Product = ({isOverlay, idUser}) => {
+const Product = ({isOverlay, idUser, isShowCustomer}) => {
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
     const [addVisible, isVisible] = useState(false)
-
+    
     return(
         <section className = {styles.section}>
             <header className = {styles.header}>
@@ -19,7 +19,7 @@ const Product = ({isOverlay, idUser}) => {
                     <CalendarButton text ="end-date" setDate = {setEndDate}/>                   
                 </div>
             </header>
-            <BoxButton isOverlay={isOverlay} isVisible = {() => isVisible(true)}/>
+            <BoxButton isOverlay={isOverlay} isVisible = {() => isVisible(true)} isShowCustomer={isShowCustomer}/>
             <ProductMain startDate={startDate} endDate={endDate} idUser={idUser}/>
             {addVisible && <AddProduct isClose = {() => isVisible(false)} isOverlay={isOverlay} idUser={idUser}/>}
         </section>

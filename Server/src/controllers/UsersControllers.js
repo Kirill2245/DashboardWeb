@@ -205,6 +205,7 @@ const getInvoice = async(req, res) => {
 
     return res.status(200).json(invoice);
 }
+
 const recentOrders = async(req, res) => {
     try{
         const {userId} = req.params

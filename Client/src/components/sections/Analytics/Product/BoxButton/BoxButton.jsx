@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import Button  from '@common/Button/Button.jsx';
 import image from '@image/Plus.svg';
 import { useState } from 'react';
-const BoxButton = ({isOverlay, isVisible}) => {
+const BoxButton = ({isOverlay, isVisible, isShowCustomer}) => {
     const [btnActive, isActive] = useState(true)
             const btnClick = () => {
                 isOverlay(true);
@@ -16,12 +16,12 @@ const BoxButton = ({isOverlay, isVisible}) => {
                 !btnActive ? (
                     <div>
                         <Button text = "Product" styles = "product" onClick = {() =>{isActive(true)}}/>
-                        <Button text = "Customer" styles = "customerActive"/>
+                        <Button text = "Customer" styles = "customerActive" onClick = {isShowCustomer}/>
                     </div>
                 ): (
                     <div>
                         <Button text = "Product" styles = "productActive"/>
-                        <Button text = "Customer" styles = "customer" onClick = {() =>{isActive(false)}}/>
+                        <Button text = "Customer" styles = "customer" onClick = {isShowCustomer}/>
                     </div>
                 )
             }
