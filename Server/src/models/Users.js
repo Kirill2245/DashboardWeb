@@ -40,7 +40,8 @@ const UsersSchema = new Schema({
     }],
     customerList:{
         type: Array,
-        default: []
+        default: [],
+        ref:'Customer'
     }
 });
 UsersSchema.pre('save', async function(next) {

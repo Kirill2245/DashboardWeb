@@ -19,7 +19,12 @@ const CustomerSchema = new Schema({
     },
     image:{
         type:String
-    },
+    },    
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users', 
+        required: true 
+    }
 })
 
 const Customer = mongoose.model('Customer', CustomerSchema)

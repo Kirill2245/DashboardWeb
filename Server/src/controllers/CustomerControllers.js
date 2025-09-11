@@ -18,8 +18,8 @@ const addCustomer = async (req, res) => {
             });
         });
 
-        const { firstName, lastName, email, phoneNumber, gender, userId } = req.body;
-
+        const { firstName, lastName, email, phoneNumber, gender } = req.body;
+        const {userId} = req.params;
 
         const errors = {};
         
@@ -50,6 +50,7 @@ const addCustomer = async (req, res) => {
             email,
             phoneNumber,
             gender,
+            owner:userId,
             image: req.file ? `/uploads/${req.file.filename}` : null
         };
 
@@ -82,5 +83,36 @@ const addCustomer = async (req, res) => {
         });
     }
 };
+const delateCustomer = async (req, res) => {
+    try{
+        const {customerId} = req.params;
+        if (!mongoose.Types.ObjectId.isValid(customerId)){
+            return res.status(400).json({
+                success:false,
+                message:'Invalid customer Id format',
+            })
+        }
+        const result = await Customer.findByIdAndDelete(customerId);
 
-module.exports = {addCustomer}
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: 'Customer not found'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Customer deleted successfully'
+        });
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: 'Server error', 
+            error: error.message
+        })
+    }
+}
+module.exports = {addCustomer, delateCustomer}

@@ -2,6 +2,7 @@ const Users = require('../models/Users');
 const Task = require('../models/Task');
 const Product = require('../models/Product');
 const Invoice = require('../models/Invoice');
+const Customer = require('../models/Customer');
 const mongoose = require('mongoose');
 
 const index = (req, res) => {
@@ -254,6 +255,50 @@ const recentOrders = async(req, res) => {
         })
     }
 }
+
+const getCustomer = async(req, res) => {
+    try{
+        const {userId} = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(userId)){
+            return res.status(400).json({
+                success:false,
+                message:'Invalid user ID format'
+            })
+        }
+        const user = await Users.findById(userId).select('customerList')
+        if (!user){
+            return res.status(404).json({ 
+                success:false,
+                message: 'User not found' 
+            });
+        }
+        if (!user.customerList|| user.customerList.length === 0) {
+            return res.status(200).json({ 
+                success:true,
+                message: 'User has no customer',
+                customers: []
+            });
+        }
+        const customer = await Customer.find({
+            _id: { $in: user.customerList }
+        });
+
+        return res.status(200).json({ 
+            success:true,
+            message:'Customer successfully',
+            customers:customer
+        });
+    }
+    catch(error){
+        console.error('Error fetching customers:', error);
+        return res.status(500).json({ 
+            success: false,
+            message: 'Server error while fetching customers',
+            error: error.message 
+        });
+    }
+}
 module.exports = {
-    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll, getInvoice, recentOrders
+    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll, getInvoice, recentOrders, getCustomer
 }
