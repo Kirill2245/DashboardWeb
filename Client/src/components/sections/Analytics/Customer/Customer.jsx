@@ -4,6 +4,7 @@ import logo from '@image/Plus.svg'
 import { useState } from 'react';
 import Table from './Table/Table';
 import Profile from './Profile/Profile';
+import AddCustomer from './AddCustomer/AddCustomer';
 const Customer = () => {
     const [showProfile, isShowProfile] = useState(false)
     const [showAddCustomer, isShowAddCustomer] = useState(false)
@@ -35,7 +36,7 @@ const Customer = () => {
             }
             {showAddCustomer &&
                 <aside className={styles.sideAdd}>
-                    
+                    <AddCustomer isClose={() => isShowAddCustomer(false)}/>
                 </aside>
             }
         </section>
