@@ -73,3 +73,14 @@ export const fetch_recentOrders = async(userId) => {
         throw error;
     }
 }
+
+export const fetch_customers = async(userId) => {
+    try{
+        const response = await api.get(`/getcustomers/${userId}`)
+        return response.data
+    }
+    catch(error) {
+        console.error('Error receiving data:', error.response?.data || error.message);
+        throw error;
+    }
+}

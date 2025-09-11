@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Table from './Table/Table';
 import Profile from './Profile/Profile';
 import AddCustomer from './AddCustomer/AddCustomer';
-const Customer = () => {
+const Customer = ({userId}) => {
     const [showProfile, isShowProfile] = useState(false)
     const [showAddCustomer, isShowAddCustomer] = useState(false)
     const [dataFromProfile, setDataFromProfile] = useState(null);
@@ -27,7 +27,7 @@ const Customer = () => {
                     <h2>Customer List</h2>
                     <ButtonLogo text = "Add Customer" image = {logo} styles = "addCustomer" onClick = {handleClickAdd}/>
                 </header>
-                <Table showProfile={handleClickProfile} onDataSend={handleDataFromProfile}/>
+                <Table showProfile={handleClickProfile} onDataSend={handleDataFromProfile} userId={userId}/>
             </div>
             {showProfile &&
                 <aside className={styles.side}>
@@ -36,7 +36,7 @@ const Customer = () => {
             }
             {showAddCustomer &&
                 <aside className={styles.sideAdd}>
-                    <AddCustomer isClose={() => isShowAddCustomer(false)}/>
+                    <AddCustomer isClose={() => isShowAddCustomer(false)} idUser={userId}/>
                 </aside>
             }
         </section>

@@ -5,7 +5,7 @@ const Analytics = ({isOverlay, idUser}) => {
     const [showCustomer, isShowCustomer] = useState(false)
     return(
         <>
-            {showCustomer ? <Customer/> : <Product isOverlay={isOverlay} idUser={idUser} isShowCustomer={() => isShowCustomer(true)}/>}
+            {showCustomer ? <Customer userId={idUser}/> : <Product isOverlay={isOverlay} idUser={idUser} isShowCustomer={() => isShowCustomer(true)}/>}
         </>
     );
 };
