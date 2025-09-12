@@ -25,7 +25,22 @@ services:
       - mongo
     networks:
       - app-network
-
+  chat-server:
+    build:
+      context: ./Chat-Server
+    volumes:
+      - ./ssl:/ssl
+      - ./Chat-Server:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/mainDateBase  
+    ports:
+      - "5001:5001"  
+    depends_on:
+      - mongo
+    networks:
+      - app-network
   frontend:
     build:
       context: ./Client
@@ -35,6 +50,7 @@ services:
       - ./Client:/app
     depends_on:
       - backend
+      - chat-server 
     networks:
       - app-network
 
@@ -49,6 +65,7 @@ services:
     depends_on:
       - frontend
       - backend
+      - chat-server 
     networks:
       - app-network
 

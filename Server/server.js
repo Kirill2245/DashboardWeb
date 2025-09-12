@@ -11,6 +11,7 @@ const TaskRoute = require('./src/routes/TaskRoutes');
 const ProductRoute = require('./src/routes/ProductRoutes');
 const CustomerRoute = require('./src/routes/CustomerRoutes');
 const InvoiceRoute = require('./src/routes/InvoiceRoutes');
+const axios = require('axios');
 const PORT = 5000;
 
 mongoose.connect('mongodb://mongo:27017/mainDateBase')
@@ -74,7 +75,32 @@ app.use('/api/task', TaskRoute);
 app.use('/api/product', ProductRoute);
 app.use('/api/customer', CustomerRoute);
 app.use('/api/invoice', InvoiceRoute);
-
+const axiosInstance = axios.create({
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+    })
+});
+app.use('/api/chat', async (req, res) => {
+    try {
+        const response = await axiosInstance({
+            method: req.method,
+            url: `https://chat-server:5001/api/chat${req.url}`,
+            data: req.method !== 'GET' ? req.body : undefined,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        res.status(response.status).json(response.data);
+    } catch (error) {
+        console.error('Chat service error:', error.message);
+        if (error.response) {
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            res.status(500).json({ error: 'Chat service unavailable' });
+        }
+    }
+});
 
 const sslKeyPath = '/ssl/localhost.key';
 const sslCertPath = '/ssl/localhost.crt';
