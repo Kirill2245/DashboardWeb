@@ -1,23 +1,16 @@
-const express = require('express');
-const http = require('http');
+const app = require('./app');
+const https = require('https');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
-const cors = require('cors');
-const https = require('https');
 const fs = require('fs');
+const path = require('path');
+const socketController = require('./src/controllers/socketController');
+
 const PORT = 5001;
 
-const app = express();
 mongoose.connect('mongodb://mongo:27017/mainDateBase')
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
-
-app.use(cors({
-    origin: ['https://localhost', 'https://frontend'], 
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
 
 const sslKeyPath = '/ssl/localhost.key';
 const sslCertPath = '/ssl/localhost.crt';
@@ -31,11 +24,19 @@ const sslOptions = {
     key: fs.readFileSync(sslKeyPath),
     cert: fs.readFileSync(sslCertPath)
 };
+const server = https.createServer(sslOptions, app);
 
-https.createServer(sslOptions, app).listen(PORT, '0.0.0.0', () => {
-    console.log(`HTTPS server running on port ${PORT}`);
+const io = socketIo(server, {
+    cors: {
+        origin: ['https://localhost', 'https://frontend'],
+        methods: ['GET', 'POST'],
+        credentials: true
+    }
 });
 
-app.get('/api/chat/test',(req,res) => {
-    return res.status(201).json({message: "Server is running!"})
-})
+
+socketController.handleConnection(io);
+
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Chat service running on port ${PORT}`);
+});

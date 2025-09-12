@@ -63,7 +63,7 @@ const Main = ({isOut}) => {
             {button == 2 && <Invoice idUser={userId}/>}
             {button == 3 && <Schedule/>}
             {button == 4 && <Calendar/>}
-            {button == 5 && <Messages/>}
+            {button == 5 && <Messages userId={userId}/>}
             {button == 7 && <Settings/>}
         </main>
     );
