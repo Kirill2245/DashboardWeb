@@ -1,0 +1,57 @@
+.section{
+    position: absolute;
+    top: 90px;
+    right: 61%;
+    width: 25.55%;
+    height: 300px;
+    background-color: white;
+    z-index: 1001;
+    transform: translateY(-15%); 
+    transition: transform 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #605BFF;
+    border-top: 2px solid #605BFF;
+    border-radius: 0 0 10px 10px;
+    padding: 10px 5px;
+    box-sizing: border-box;
+    gap: 5px;
+}
+.sectionVisible {
+    transform: translateY(0); 
+}
+.sectionNoVisible {
+    transform: translateY(-15%); 
+}
+.section header {
+    display: flex;
+}
+.section header div{
+    width: 100%;
+    position: relative;
+}
+.section header div input{
+    width: 100%;
+    height: 44px;
+    box-sizing: border-box;
+    background-color: #F7F7F8;
+    border-radius: 5px;
+    border: none;
+    padding-left: 39px;
+}
+.section header div img{
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top:50%;
+    left: 15px;
+    z-index: 1001;
+    transform: translateY(-50%);
+}
+.chatsList{
+    width: 100%;
+    height: 241px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}

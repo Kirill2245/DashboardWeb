@@ -32,7 +32,11 @@ if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
     console.log(`Created uploads directory at: ${uploadsDir}`);
 }
-
+const axiosInstance = axios.create({
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+    })
+});
 
 app.use('/uploads', express.static(uploadsDir, {
     setHeaders: (res, filePath) => {
@@ -75,11 +79,6 @@ app.use('/api/task', TaskRoute);
 app.use('/api/product', ProductRoute);
 app.use('/api/customer', CustomerRoute);
 app.use('/api/invoice', InvoiceRoute);
-const axiosInstance = axios.create({
-    httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-    })
-});
 app.use('/api/chat', async (req, res) => {
     try {
         const response = await axiosInstance({

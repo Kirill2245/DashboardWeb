@@ -39,7 +39,6 @@ const Main = ({isOut}) => {
             try {
                 const response = await fetch_user( userId );
             if (response?.success) {
-                console.log(response.user)
                 setData(response.user); 
             } else {
                 console.error('Пользователь не найден');

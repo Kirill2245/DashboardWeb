@@ -1,0 +1,13 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.table thead tr{
+    text-align: left;
+}
+.table tbody tr {
+    border-bottom: 1px solid rgba(78, 78, 112, 0.178);
+}
+.table tbody tr td:last-of-type{
+    text-align: right;
+}
