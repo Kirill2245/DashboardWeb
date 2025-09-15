@@ -44,23 +44,40 @@ exports.handleConnection = (io) => {
                 socket.emit('chat-error', { message: error.message });
             }
         });
-        socket.on('get-user-chats', async (userId) => {
-            try {
-                const user = await User.findById(userId)
-                    .populate({
-                        path: 'chatList',
-                        populate: {
-                            path: 'participants',
-                            select: 'name email'
-                        }
-                    });
+    socket.on('get-user-chats', async (userId) => {
+        try {
+            const user = await User.findById(userId)
+                .populate({
+                    path: 'chatList',
+                    populate: {
+                        path: 'participants',
+                        select: 'name fullName email'
+                    }
+                });
 
-                socket.emit('user-chats', user.chatList);
-            } catch (error) {
-                console.error('Get user chats error:', error);
-                socket.emit('chat-error', { message: 'Failed to get chats' });
-            }
-        });
+            const formattedChats = user.chatList.map(chat => {
+                const otherParticipant = chat.participants.find(
+                    participant => participant._id.toString() !== userId.toString()
+                );
+                
+                return {
+                    _id: chat._id,
+                    name: otherParticipant ? `${otherParticipant.name} ${otherParticipant.fullName}` : 'Unknown',
+                    participants: chat.participants,
+                    isGroup: chat.isGroup,
+                    lastMessage: chat.lastMessage,
+                    createdAt: chat.createdAt,
+                    otherParticipant: otherParticipant
+                };
+            });
+
+            socket.emit('user-chats', formattedChats);
+            console.log("Chat-Socket", formattedChats);
+        } catch (error) {
+            console.error('Get user chats error:', error);
+            socket.emit('chat-error', { message: 'Failed to get chats' });
+        }
+    });
         socket.on('disconnect', () => {
             console.log('User disconnected:', socket.id);
         });

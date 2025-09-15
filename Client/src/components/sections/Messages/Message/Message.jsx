@@ -20,7 +20,7 @@ const Message = ({userId}) => {
                 </div>
             </header>
             {showAddChats && <AddChats isClose = {() => isShowAddChats(false)} userId={userId}/>}
-            <ListChats/>
+            <ListChats userId={userId}/>
         </section>
     );
 };

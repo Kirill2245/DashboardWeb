@@ -27,6 +27,13 @@ class SocketService {
             console.log('Creating chat between:', friendId, myId);
         }
     }
+
+    getChat(myId){
+        console.log("GetChat",myId)
+        if(this.socket){
+            this.socket.emit('get-user-chats', myId)
+        }
+    }
 }
 
 export default new SocketService();
