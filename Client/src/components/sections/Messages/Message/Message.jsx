@@ -2,10 +2,11 @@ import styles from './styles.module.css';
 import Addbaton from '@image/Addbaton.svg';
 import iconSearch from '@image/iconSearch.svg'
 import ListChats from './ListChats/ListChats';
-import { useState } from 'react';
+import {  useState } from 'react';
 import AddChats from './addChats/AddChats';
-const Message = () => {
+const Message = ({userId}) => {
     const [showAddChats, isShowAddChats] = useState(false)
+
     return(
         <section className= {styles.sectionMessage}>
             <header className={styles.header}>
@@ -18,7 +19,7 @@ const Message = () => {
                     <input type='text' placeholder='Search'/>
                 </div>
             </header>
-            {showAddChats && <AddChats isClose = {() => isShowAddChats(false)}/>}
+            {showAddChats && <AddChats isClose = {() => isShowAddChats(false)} userId={userId}/>}
             <ListChats/>
         </section>
     );

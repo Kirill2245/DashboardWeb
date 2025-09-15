@@ -4,12 +4,13 @@ import iconSearch from '@image/iconSearch.svg';
 import backBtn from '@image/backbtn.svg';
 import TableUser from './TableUser/TableUser';
 import { fetch_AllUsers } from '@api/user_requests';
-const AddChats = ({isClose }) => {
+const AddChats = ({isClose, userId}) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [dataUsers, setDataUsers] = useState([])
+    const [dataUsers, setDataUsers] = useState([]);
     useEffect(() => {
             setIsVisible(true);
         }, []);
+
     useEffect(() => {
         const fetch_data = async() => {
             try{
@@ -34,7 +35,7 @@ const AddChats = ({isClose }) => {
                 </div>
             </header>
             <div className={styles.chatsList}>
-                <TableUser dataUser={ !dataUsers ? [{name:"test"},{name:"test"},{name:"test"},{name:"test"},{name:"test"},{name:"test"},{name:"test"},{name:"test"}] : dataUsers}/>
+                <TableUser dataUser={ dataUsers} userId={userId}/>
             </div>
         </section>
     );
