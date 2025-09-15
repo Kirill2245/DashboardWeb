@@ -49,3 +49,66 @@
     height: 36px;
     border-radius: 50%;
 }
+.section footer .contain{
+    width: 100%;
+    position: relative;
+}
+.section footer .contain .input{
+    width: 100%;
+    height: 60px;
+    border: none;
+    background-color: #F7F7F8;
+    border-radius: 10px;
+    padding: 0 60px 0 71px;
+    box-sizing: border-box;
+}
+.section footer .contain .addimage{
+    position: absolute;
+    top:21px;
+    left:30px;
+    z-index: 101;
+}
+.section footer .contain svg{
+    position: absolute;
+    top:20px;
+    left:61px;
+    z-index: 10001;
+}
+.section footer .contain .Smile{
+    position: absolute;
+    top:23px;
+    right:60px;
+    z-index: 10001;
+}
+.section footer .contain .sendIcon{
+    position: absolute;
+    top:18.82px;
+    right:26px;
+    z-index: 10001;
+}
+.emojiPickerContainer{
+    width: 350px;
+    height: 400px;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    z-index: 1000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e1e5e9;
+}
+.EmojiPickerReact {
+    --epr-emoji-size: 30px;
+    --epr-emoji-gap: 6px;
+    --epr-category-label-height: 30px;
+    --epr-search-border-color: #d48f28;
+    --epr-search-background-color: #faf9f8;
+    --epr-bg-color: #ce2929;
+    --epr-text-color: #0b5ae0;
+    --epr-category-label-bg-color: #ffffff;
+    --epr-hover-bg-color: #f0f2f5;
+    --epr-active-skin-tone-bg-color: #d37e0e;
+    --epr-search-input-border-radius: 8px;
+    --epr-picker-border-radius: 12px;
+}

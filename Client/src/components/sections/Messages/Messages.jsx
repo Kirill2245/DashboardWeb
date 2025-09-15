@@ -11,10 +11,12 @@ const Messages = ({userId}) => {
         isVisible(true)
         setDataUser(data)
     }
+    const data = {name:"Tset sddsds"}
     return(
         <section className= {styles.section}>
             <Message userId={userId} isVisibleChat={handleVisibleChat}/>
             {Visible && <Chat dataUser={dataUser}/>}
+            <Chat dataUser={data}/>
         </section>
     );
 };
