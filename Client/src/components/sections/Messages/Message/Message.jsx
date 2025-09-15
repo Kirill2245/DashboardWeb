@@ -4,7 +4,7 @@ import iconSearch from '@image/iconSearch.svg'
 import ListChats from './ListChats/ListChats';
 import {  useState } from 'react';
 import AddChats from './addChats/AddChats';
-const Message = ({userId}) => {
+const Message = ({userId, isVisibleChat}) => {
     const [showAddChats, isShowAddChats] = useState(false)
 
     return(
@@ -20,7 +20,7 @@ const Message = ({userId}) => {
                 </div>
             </header>
             {showAddChats && <AddChats isClose = {() => isShowAddChats(false)} userId={userId}/>}
-            <ListChats userId={userId}/>
+            <ListChats userId={userId} isVisibleChat={isVisibleChat}/>
         </section>
     );
 };

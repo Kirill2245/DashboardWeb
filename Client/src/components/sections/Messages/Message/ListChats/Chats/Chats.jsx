@@ -1,7 +1,8 @@
 import SocketService from '@api/socketService.js'
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-const Chats = ({ userId }) => {
+import test from '@image/2.jpg'
+const Chats = ({ userId , isVisibleChat}) => {
     const [chats, setChats] = useState([]);
 
     useEffect(() => {
@@ -27,20 +28,15 @@ const Chats = ({ userId }) => {
 
     return (
         <div className= {styles.Chats}>
-            <h2>Your Chats</h2>
-            {chats.length === 0 ? (
-                <p>No chats yet</p>
-            ) : (
-                <div>
-                    {chats.map(chat => (
-                        <div key={chat._id} className="chat-item">
-                            <h3>{chat.name}</h3>
-                            <p>Participants: {chat.participants.map(p => p.name).join(', ')}</p>
-                            <p>Created: {new Date(chat.createdAt).toLocaleDateString()}</p>
-                        </div>
-                    ))}
+            {chats.map(chat => (
+                <div key={chat._id} className={styles.item} onClick={() => isVisibleChat({name:chat.name})}>
+                    <img src = {test}/>
+                    <div>
+                        <h3>{chat.name}</h3>
+                        <p>{!chat.lastMessage ? "No message" : chat.lastMessage}</p>
+                    </div>
                 </div>
-            )}
+            ))}
         </div>
     );
 };

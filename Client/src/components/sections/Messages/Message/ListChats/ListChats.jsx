@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
 import Chats from './Chats/Chats';
-const ListChats = ({userId}) => {
+const ListChats = ({userId, isVisibleChat}) => {
     const tabs = ['All', 'Personal', 'Teams'];
     const [ActiveTab, isActiveTab] = useState(0)
     return(
@@ -16,7 +16,7 @@ const ListChats = ({userId}) => {
                     ))}
                 </nav>
             </header>
-            <Chats userId= {userId}/>
+            <Chats userId= {userId} isVisibleChat = {isVisibleChat}/>
         </section>
     );
 };
