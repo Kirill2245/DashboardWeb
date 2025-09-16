@@ -34,6 +34,16 @@ class SocketService {
             this.socket.emit('get-user-chats', myId)
         }
     }
+
+    sendMessage(chatId, text, senderId){
+        if(this.socket){
+            this.socket.emit('send-message',{
+                chatId:chatId,
+                text:text,
+                senderId:senderId
+            })
+        }
+    }
 }
 
 export default new SocketService();

@@ -29,7 +29,7 @@ const Chats = ({ userId , isVisibleChat}) => {
     return (
         <div className= {styles.Chats}>
             {chats.map(chat => (
-                <div key={chat._id} className={styles.item} onClick={() => isVisibleChat({name:chat.name})}>
+                <div key={chat._id} className={styles.item} onClick={() => isVisibleChat({name:chat.name, chatId:chat._id})}>
                     <img src = {test}/>
                     <div>
                         <h3>{chat.name}</h3>

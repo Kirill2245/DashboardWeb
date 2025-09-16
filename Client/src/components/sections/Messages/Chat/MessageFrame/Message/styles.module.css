@@ -1,0 +1,70 @@
+.messageContain{
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+    height: auto;
+    width: fit-content;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    gap: 11px;
+}
+.MeMessage{
+    margin-left: auto;
+}
+.MeMessage .contain div{
+    background-color: #dcdcdd;
+    color: #5B93FF;
+}
+.MeMessage img{
+    display: none;
+}
+.SenderMessage img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.SenderMessage{
+    margin-right: auto;
+}
+.SenderMessage .contain div{
+    background-color: #5B93FF;
+    color: white;
+}
+.messageContain .contain{
+    width: 100%;
+    height: auto;
+    padding: 0 27px 0 30px;
+    box-sizing: border-box;
+}
+.messageContain .contain div{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+    height: auto;
+    padding: 12px 44px 6px 16px;
+    box-sizing: border-box;
+    border-radius: 10px 10px 10px 0;
+}
+.messageContain .contain div p {
+    margin: 0;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+.messageContain .message{
+    width: 100%;
+    height: auto;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+.messageContain aside {
+    display: flex;
+    gap: 5px;
+}
+.messageContain aside p{
+    font-size: 0.625rem;
+    opacity: 0.5;
+}

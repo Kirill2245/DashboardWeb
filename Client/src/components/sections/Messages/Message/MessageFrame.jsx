@@ -4,7 +4,7 @@ import iconSearch from '@image/iconSearch.svg'
 import ListChats from './ListChats/ListChats';
 import {  useState } from 'react';
 import AddChats from './addChats/AddChats';
-const Message = ({userId, isVisibleChat}) => {
+const MessageFrame = ({userId, isVisibleChat}) => {
     const [showAddChats, isShowAddChats] = useState(false)
 
     return(
@@ -25,4 +25,4 @@ const Message = ({userId, isVisibleChat}) => {
     );
 };
 
-export default Message
+export default MessageFrame

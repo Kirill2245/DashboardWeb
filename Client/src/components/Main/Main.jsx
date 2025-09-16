@@ -6,7 +6,7 @@ import Dashboard from '../sections/Dashboard/Dashboard';
 import Analytics from '../sections/Analytics/Analytics';
 import Calendar from '../sections/Calendar/Calendar';
 import Invoice from '../sections/Invoice/Invoice';
-import Messages from '../sections/Messages/Messages';
+import Messages from '../sections/Messages/MessagesSection';
 import Schedule from '../sections/Schedule/Schedule';
 import Settings from '../sections/Settings/Settings';
 

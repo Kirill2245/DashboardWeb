@@ -1,6 +1,6 @@
 const chatController = require('./chatController');
 const User = require('../models/Users');
-
+const Chat = require('../models/Chat');
 exports.handleConnection = (io) => {
     io.on('connection', (socket) => {
         console.log('User connected:', socket.id);
@@ -44,42 +44,73 @@ exports.handleConnection = (io) => {
                 socket.emit('chat-error', { message: error.message });
             }
         });
-    socket.on('get-user-chats', async (userId) => {
-        try {
-            const user = await User.findById(userId)
-                .populate({
-                    path: 'chatList',
-                    populate: {
-                        path: 'participants',
-                        select: 'name fullName email'
-                    }
+        socket.on('get-user-chats', async (userId) => {
+            try {
+                const user = await User.findById(userId)
+                    .populate({
+                        path: 'chatList',
+                        populate: {
+                            path: 'participants',
+                            select: 'name fullName email'
+                        }
+                    });
+
+                const formattedChats = user.chatList.map(chat => {
+                    const otherParticipant = chat.participants.find(
+                        participant => participant._id.toString() !== userId.toString()
+                    );
+                    
+                    return {
+                        _id: chat._id,
+                        name: otherParticipant ? `${otherParticipant.name} ${otherParticipant.fullName}` : 'Unknown',
+                        participants: chat.participants,
+                        isGroup: chat.isGroup,
+                        lastMessage: chat.lastMessage,
+                        createdAt: chat.createdAt,
+                        otherParticipant: otherParticipant
+                    };
                 });
 
-            const formattedChats = user.chatList.map(chat => {
-                const otherParticipant = chat.participants.find(
-                    participant => participant._id.toString() !== userId.toString()
-                );
-                
-                return {
-                    _id: chat._id,
-                    name: otherParticipant ? `${otherParticipant.name} ${otherParticipant.fullName}` : 'Unknown',
-                    participants: chat.participants,
-                    isGroup: chat.isGroup,
-                    lastMessage: chat.lastMessage,
-                    createdAt: chat.createdAt,
-                    otherParticipant: otherParticipant
-                };
-            });
-
-            socket.emit('user-chats', formattedChats);
-            console.log("Chat-Socket", formattedChats);
-        } catch (error) {
-            console.error('Get user chats error:', error);
-            socket.emit('chat-error', { message: 'Failed to get chats' });
-        }
-    });
+                socket.emit('user-chats', formattedChats);
+                console.log("Chat-Socket", formattedChats);
+            } catch (error) {
+                console.error('Get user chats error:', error);
+                socket.emit('chat-error', { message: 'Failed to get chats' });
+            }
+        });
         socket.on('disconnect', () => {
             console.log('User disconnected:', socket.id);
         });
+        socket.on('send-message', async (data) => {
+            try{
+                const { chatId, text, senderId } = data;
+                if (!chatId || !text || !senderId) {
+                    socket.emit('message-error', { message: 'Missing required fields' });
+                    return;
+                }
+                if (senderId !== socket.userId) {
+                    socket.emit('message-error', { message: 'Sender ID mismatch' });
+                    return;
+                }
+                const message = await chatController.sendMessage(chatId, senderId, text);
+                const chat = await Chat.findById(chatId).populate('participants');
+                chat.participants.forEach(participant => {
+                    io.to(participant._id.toString()).emit('new-message', {
+                        message: {
+                            _id: message._id,
+                            text: message.text,
+                            senderId: message.senderId,
+                            chatId: message.chatId,
+                            timestamp: message.timestamp
+                        },
+                        chatId: chatId
+                    });
+                });
+            }
+            catch(error){
+                console.error('Send message error:', error);
+                socket.emit('message-error', { message: error.message });
+            }
+        })
     });
 };

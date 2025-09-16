@@ -1,6 +1,7 @@
 const Chat = require('../models/Chat');
 const User = require('../models/Users');
 const mongoose = require('mongoose');
+const Message = require('../models/Message')
 exports.createChat = async (participantIds, currentUserId) => {
     try {
         console.log('Creating chat for participants:', participantIds);
@@ -72,3 +73,35 @@ exports.createChat = async (participantIds, currentUserId) => {
         throw error;
     }
 };
+exports.sendMessage = async(chatId, senderId, text) => {
+    try{
+        const chat = await Chat.findById(chatId)
+        if (!chat){
+            console.error('Chat not found')
+        }
+        const isParticipant = chat.participants.some(
+            participant => participant.toString() === senderId.toString()
+        );
+        if (!isParticipant) {
+            console.error('User is not a participant of this chat');
+        }
+        const message = new Message({
+            chatId,
+            senderId,
+            text
+        });
+
+        await message.save();
+
+        chat.lastMessage = message._id;
+        await chat.save();
+        const populatedMessage = await Message.findById(message._id)
+            .populate('senderId', 'name fullName email');
+
+        return populatedMessage;
+    }
+    catch(error){
+        console.error('Error send message--', error)
+        throw error
+    }
+}

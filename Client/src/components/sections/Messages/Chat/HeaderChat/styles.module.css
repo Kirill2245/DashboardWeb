@@ -1,0 +1,43 @@
+
+.header{
+    display: flex;
+    width: 100%;
+    height: 39px;
+}
+.header .contain{
+    display: flex;
+    gap: 10px;
+    margin-right: auto;
+}
+.header .contain img{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+.header .contain div{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+.header .contain div h3{
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.header .contain div span{
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 400;
+    opacity: 0.4;
+}
+.header figure {
+    display: flex;
+    gap: 15px;
+    margin: 0;
+}
+.header figure img{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
