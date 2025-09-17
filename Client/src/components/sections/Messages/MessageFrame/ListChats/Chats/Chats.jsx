@@ -1,9 +1,10 @@
 import SocketService from '@api/socketService.js'
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import test from '@image/2.jpg'
-const Chats = ({ userId , isVisibleChat}) => {
+import test from '@image/2.jpg';
+const Chats = ({ userId , isVisibleChat, listChats}) => {
     const [chats, setChats] = useState([]);
+    
     useEffect(() => {
         SocketService.connect(userId);
         
@@ -23,10 +24,11 @@ const Chats = ({ userId , isVisibleChat}) => {
             }
         };
     }, [userId]);
-
+    useEffect(() => {console.log(listChats,'hduhusdds')},[listChats])
+    const list = listChats.length !== 0 ? listChats : chats
     return (
         <div className= {styles.Chats}>
-            {chats.map(chat => (
+            {list.map(chat => (
                 <div key={chat._id} className={styles.item} onClick={() => isVisibleChat({name:chat.name, chatId:chat._id})}>
                     <img src = {test}/>
                     <div>

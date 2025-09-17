@@ -5,7 +5,7 @@ import Smile from '@image/Smile.svg';
 import sendIcon from '@image/sendIcon.svg'
 import { useState, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
-const InputMessage = ({dataUser, userId, sendMessage, onLastMessage}) => {
+const InputMessage = ({dataUser, userId, sendMessage}) => {
     const [inputText, setInputText] = useState('');
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
@@ -20,7 +20,6 @@ const InputMessage = ({dataUser, userId, sendMessage, onLastMessage}) => {
         const handleNewMessage = (data) => {
             console.log('New message received:', data);
             sendMessage(data.message);
-            onLastMessage(data.message)
         };
 
         const handleError = (error) => {
@@ -37,7 +36,7 @@ const InputMessage = ({dataUser, userId, sendMessage, onLastMessage}) => {
                 SocketService.socket.off('message-error', handleError);
             }
         };
-    }, [userId, sendMessage, onLastMessage]);
+    }, [userId, sendMessage]);
     const handleSendMessage = () => {
         if (inputText.trim() && dataUser.chatId) {
             console.log("Chat id--" , dataUser.chatId)

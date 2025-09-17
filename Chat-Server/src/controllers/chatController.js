@@ -168,8 +168,8 @@ exports.searchChat = async(req,res) =>{
                         participant => participant._id.toString() !== userId.toString()
                     );
             return {
-                chatId: chat._id,
-                otherParticipant: otherParticipant ? `${otherParticipant.name} ${otherParticipant.fullName}` : 'Unknown',
+                _id: chat._id,
+                name: otherParticipant ? `${otherParticipant.name} ${otherParticipant.fullName}` : 'Unknown',
                 participants: matchingParticipants.map(user => ({
                     userId: user._id,
                     name: user.name,
