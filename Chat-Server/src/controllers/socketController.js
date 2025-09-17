@@ -1,4 +1,4 @@
-const chatController = require('./chatController');
+const chatController = require('./ChatController');
 const User = require('../models/Users');
 const Chat = require('../models/Chat');
 const Message = require('../models/Message');

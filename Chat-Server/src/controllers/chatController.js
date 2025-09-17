@@ -108,3 +108,89 @@ exports.sendMessage = async(chatId, senderId, text) => {
         throw error
     }
 }
+exports.searchChat = async(req,res) =>{
+    try{
+        const {search} = req.body
+        const {userId} = req.params
+        if (!search || !userId){
+            return res.status(400).json({
+                success:false,
+                message:'User ID or search is missing'
+            })
+        }
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({
+                success:false,
+                message:'Invalid user ID format'
+            })
+        }
+                const chats = await Chat.find({
+            participants: userId
+        }).populate({
+            path: 'participants',
+            select: 'name fullName email',
+            match: { 
+                $or: [
+                    { name: { $regex: search, $options: 'i' } },
+                    { fullName: { $regex: search, $options: 'i' } }
+                ],
+                _id: { $ne: userId } 
+            }
+        });
+
+        const filteredChats = chats.filter(chat => {
+            const hasMatchingParticipants = chat.participants.some(participant => 
+                participant && 
+                (
+                    participant.name?.includes(search) || 
+                    participant.fullName?.includes(search) ||
+                    participant.name?.toLowerCase().includes(search.toLowerCase()) ||
+                    participant.fullName?.toLowerCase().includes(search.toLowerCase())
+                )
+            );
+            return hasMatchingParticipants;
+        });
+
+        if (filteredChats.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No chats found matching your search',
+            });
+        }
+
+        const results = filteredChats.map(chat => {
+            const matchingParticipants = chat.participants.filter(participant =>
+                participant && 
+                (participant.name?.toLowerCase().includes(search.toLowerCase()) ||
+                participant.fullName?.toLowerCase().includes(search.toLowerCase()))
+            );
+            const otherParticipant = chat.participants.find(
+                        participant => participant._id.toString() !== userId.toString()
+                    );
+            return {
+                chatId: chat._id,
+                otherParticipant: otherParticipant ? `${otherParticipant.name} ${otherParticipant.fullName}` : 'Unknown',
+                participants: matchingParticipants.map(user => ({
+                    userId: user._id,
+                    name: user.name,
+                    fullName: user.fullName,
+                    email: user.email
+                })),
+                lastMessage: chat.lastMessage,
+            };
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Chats found successfully',
+            results: results,
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            success:false,
+            message:'Interval error',
+            error:error
+        })
+    }
+}

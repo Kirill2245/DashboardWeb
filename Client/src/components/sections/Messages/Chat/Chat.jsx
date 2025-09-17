@@ -1,12 +1,13 @@
 import styles from './styles.module.css';
 import MessageFrame from './MessageFrame/MessageFrame';
 import InputMessage from './InputMessage/InputMessage';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import HeaderChat from './HeaderChat/HeaderChat';
 import SocketService from '@api/socketService.js'
 const Chat = ({dataUser, userId}) => {
     const [messages, setMessages] =  useState([])
     const [messageHistory, setHistory] = useState([])
+
     useEffect(() => {
             SocketService.connect(userId);
             
@@ -39,7 +40,7 @@ const Chat = ({dataUser, userId}) => {
         <section className= {styles.section}>
             <HeaderChat dataUser={dataUser}/>
             <MessageFrame  textMessage={messages} userId={userId}/>
-            <InputMessage userId={userId} dataUser={dataUser} sendMessage={newMessage}/>
+            <InputMessage userId={userId} dataUser={dataUser} sendMessage={newMessage} />
         </section>
     );
 };

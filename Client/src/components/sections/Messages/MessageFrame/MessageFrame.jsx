@@ -20,7 +20,7 @@ const MessageFrame = ({userId, isVisibleChat}) => {
                 </div>
             </header>
             {showAddChats && <AddChats isClose = {() => isShowAddChats(false)} userId={userId}/>}
-            <ListChats userId={userId} isVisibleChat={isVisibleChat}/>
+            <ListChats userId={userId} isVisibleChat={isVisibleChat} />
         </section>
     );
 };

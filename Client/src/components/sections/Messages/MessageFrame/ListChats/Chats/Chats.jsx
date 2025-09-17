@@ -4,7 +4,6 @@ import styles from './styles.module.css';
 import test from '@image/2.jpg'
 const Chats = ({ userId , isVisibleChat}) => {
     const [chats, setChats] = useState([]);
-
     useEffect(() => {
         SocketService.connect(userId);
         
@@ -12,7 +11,6 @@ const Chats = ({ userId , isVisibleChat}) => {
             console.log('Received chats:', data);
             setChats(data); 
         });
-
         SocketService.socket.on('chat-error', (error) => {
             console.error('Chat error:', error);
         });

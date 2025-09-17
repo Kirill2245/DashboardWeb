@@ -16,7 +16,7 @@ const ListChats = ({userId, isVisibleChat}) => {
                     ))}
                 </nav>
             </header>
-            <Chats userId= {userId} isVisibleChat = {isVisibleChat}/>
+            <Chats userId= {userId} isVisibleChat = {isVisibleChat} />
         </section>
     );
 };
