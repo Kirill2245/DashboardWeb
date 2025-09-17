@@ -1,6 +1,7 @@
 const chatController = require('./chatController');
 const User = require('../models/Users');
 const Chat = require('../models/Chat');
+const Message = require('../models/Message');
 exports.handleConnection = (io) => {
     io.on('connection', (socket) => {
         console.log('User connected:', socket.id);
@@ -112,5 +113,48 @@ exports.handleConnection = (io) => {
                 socket.emit('message-error', { message: error.message });
             }
         })
+        socket.on('history-message', async (data) => {
+            try {
+                const { chatId, userId } = data;
+                
+                if (!chatId || !userId) {
+                    socket.emit('message-error', { message: 'Missing required fields' });
+                    return;
+                }
+                
+                const chat = await Chat.findOne({
+                    _id: chatId,
+                    participants: userId 
+                });
+                
+                if (!chat) {
+                    socket.emit('message-error', { message: 'Chat not found or access denied' });
+                    return;
+                }
+                
+                if (!chat.messages || chat.messages.length === 0) {
+                    socket.emit('get-history', {
+                        history: []
+                    });
+                    return;
+                }
+                const messages = await Message.find({ 
+                    _id: { $in: chat.messages } 
+                })
+                .populate('senderId') 
+                .sort({ createdAt: 1 }); 
+                
+                socket.emit('get-history', {
+                    history: messages
+                });
+                
+            } catch (error) {
+                console.error('Error in history-message:', error);
+                socket.emit('message-error', { 
+                    message: 'Internal server error',
+                    error: error.message 
+                });
+            }
+        });
     });
 };

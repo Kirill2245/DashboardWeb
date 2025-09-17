@@ -19,7 +19,7 @@ const ChatSchema = new mongoose.Schema({
         default: Date.now
     },
     lastMessage: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Message',
         default: null
     },

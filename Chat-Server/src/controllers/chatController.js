@@ -78,12 +78,14 @@ exports.sendMessage = async(chatId, senderId, text) => {
         const chat = await Chat.findById(chatId)
         if (!chat){
             console.error('Chat not found')
+            return;
         }
         const isParticipant = chat.participants.some(
             participant => participant.toString() === senderId.toString()
         );
         if (!isParticipant) {
             console.error('User is not a participant of this chat');
+            return;
         }
         const message = new Message({
             chatId,
@@ -93,7 +95,8 @@ exports.sendMessage = async(chatId, senderId, text) => {
 
         await message.save();
 
-        chat.lastMessage = message._id;
+        chat.lastMessage = message.text;
+        chat.messages.push(message._id)
         await chat.save();
         const populatedMessage = await Message.findById(message._id)
             .populate('senderId', 'name fullName email');

@@ -44,6 +44,14 @@ class SocketService {
             })
         }
     }
+    getHistory(userId, chatId){
+        if(this.socket){
+            this.socket.emit('history-message',{
+                userId:userId,
+                chatId:chatId
+            })
+        }
+    }
 }
 
 export default new SocketService();
