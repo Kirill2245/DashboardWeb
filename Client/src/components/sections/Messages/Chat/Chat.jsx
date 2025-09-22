@@ -9,25 +9,28 @@ const Chat = ({dataUser, userId}) => {
     const [messageHistory, setHistory] = useState([])
 
     useEffect(() => {
-            SocketService.connect(userId);
-            
-            SocketService.socket.on('get-history', (data) => {
-                console.log('Received history:', data);
-                setHistory(data); 
-            });
-    
-            SocketService.socket.on('message-error', (error) => {
-                console.error('Message history error:', error);
-            });
-    
-            SocketService. getHistory(userId, dataUser.chatId);
-    
-            return () => {
-                if (SocketService.socket) {
-                    SocketService.socket.disconnect();
-                }
-            };
-        }, [userId, dataUser]);
+        SocketService.connect(userId);
+        
+        const handleUserHistory = (data) => {
+            setHistory(data);
+        };
+
+        const handleHistoryError = (error) => {
+            console.error('Message history error:', error);
+        };
+
+        SocketService.socket.on('get-history', handleUserHistory);
+        SocketService.socket.on('message-error', handleHistoryError);
+
+        SocketService. getHistory(userId, dataUser.chatId);
+
+        return () => {
+            if (SocketService.socket) {
+                SocketService.socket.off('get-history', handleUserHistory);
+                SocketService.socket.off('message-error', handleHistoryError);
+            }
+        };
+    }, [userId, dataUser]);
     useEffect(() => {
         console.log(messageHistory)
         setMessages(messageHistory.history)

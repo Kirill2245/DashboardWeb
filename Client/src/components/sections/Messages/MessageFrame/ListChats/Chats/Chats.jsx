@@ -4,23 +4,28 @@ import styles from './styles.module.css';
 import test from '@image/2.jpg';
 const Chats = ({ userId , isVisibleChat, listChats}) => {
     const [chats, setChats] = useState([]);
-    
+
     useEffect(() => {
         SocketService.connect(userId);
         
-        SocketService.socket.on('user-chats', (data) => {
-            console.log('Received chats:', data);
-            setChats(data); 
-        });
-        SocketService.socket.on('chat-error', (error) => {
+        const handleUserChats = (data) => {
+            setChats(data);
+
+        };
+
+        const handleChatError = (error) => {
             console.error('Chat error:', error);
-        });
+        };
+
+        SocketService.socket.on('user-chats', handleUserChats);
+        SocketService.socket.on('chat-error', handleChatError);
 
         SocketService.getChat(userId);
 
         return () => {
             if (SocketService.socket) {
-                SocketService.socket.disconnect();
+                SocketService.socket.off('user-chats', handleUserChats);
+                SocketService.socket.off('chat-error', handleChatError);
             }
         };
     }, [userId]);

@@ -18,7 +18,6 @@ const InputMessage = ({dataUser, userId, sendMessage}) => {
         SocketService.connect(userId);
         
         const handleNewMessage = (data) => {
-            console.log('New message received:', data);
             sendMessage(data.message);
         };
 

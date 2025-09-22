@@ -6,7 +6,6 @@ const MessageFrame = ({textMessage, userId}) => {
 
     useEffect(() => {
         setMessage(textMessage )
-        console.log("Text11",textMessage)
     },[textMessage])
     return (
         <div className={styles.Chats}>
