@@ -1,0 +1,29 @@
+.eventsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.eventMarker{
+    min-width: 103px;
+    max-width: 100%;
+    height: 20px;
+    border-radius: 3px;
+    color: white;
+    font-size:0.625rem ;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.eventMarker p{
+    margin: 0;
+}
+.reminder{
+    background-color: #26C0E2;
+}
+.event{
+    background-color: orange;
+}
+.task{
+    background: #EF37FF;
+}
