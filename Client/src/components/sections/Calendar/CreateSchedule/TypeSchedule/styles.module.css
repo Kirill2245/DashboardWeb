@@ -1,0 +1,43 @@
+.nav {
+    width: 60.03%;
+    height: 40px;
+    background-color: rgba(255, 143, 107, 0.05);
+    border-radius: 10px;
+    display: flex;
+    gap: 27px;
+    align-items: center;
+    justify-content: center;
+}
+.nav span {
+    min-width: auto;
+    max-width: 83px;
+    height: 14px;
+    text-align: center;
+}
+.contain {
+    position: relative;
+    cursor: pointer;
+}
+.contain div {
+    position: absolute;
+    top: -5px;
+    left: -23px;
+    width: 83px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #FF8F6B;
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contain:nth-child(2) div {
+    left: -10px;
+}
+.containActive div {
+    transform: scale(1);
+    opacity: 1;
+}
