@@ -79,3 +79,10 @@
     font-size: 1rem;
     color: white;
 }
+.createSchedule-calendar{
+    width: 100%;
+    height: 45px;
+    background-color:#605BFF ;
+    color:white;
+    gap: 12px;
+}

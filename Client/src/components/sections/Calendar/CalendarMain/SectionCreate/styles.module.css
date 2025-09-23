@@ -1,0 +1,105 @@
+.section{
+    width: 18.25%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+.calendar {
+    width: 100%;
+    height: auto;
+    border: 1px solid #FAFAFB;
+    border-radius: 7px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px 16px 20px;
+    box-sizing: border-box;
+}
+.calendar :global(.react-calendar__navigation) {
+    display: flex;   
+    justify-content: space-between;   
+    height: 12px;           
+    margin-bottom: 18px;    
+    align-items: center;   
+    gap: 10px; 
+}
+.calendar :global(.react-calendar__navigation__arrow) {
+    order: 2; 
+    border: none;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+
+}
+.calendar :global(.react-calendar__navigation__label) {
+    order: 1; 
+    flex-grow: 1; 
+    text-align: left; 
+    margin-right: 27px;
+    height: 12px;
+    font-size: 0.75rem;
+    border: none;
+    background-color: white;
+    opacity: 0.8;
+    color: #030229;
+}
+.calendar :global(.react-calendar__navigation__prev-button),
+.calendar :global(.react-calendar__navigation__next-button) {
+    font-size: 0 !important; 
+}
+.calendar :global(.react-calendar__navigation__prev-button)::before {
+    content: url(@image/ArrowCalendar.svg); 
+}
+.calendar :global(.react-calendar__navigation__next-button)::before {
+    content: url(@image/ArrowCalendar2.svg); 
+}
+.calendar :global(.react-calendar__month-view__weekdays) {
+    text-align: left;        
+    text-transform: uppercase; 
+    color: #030229;
+    opacity: 0.7;
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+}
+.calendar :global(.react-calendar__month-view__days) {
+    gap: 12px 11px;  
+}
+.calendar :global(.react-calendar__tile) {  
+    min-width: 15px;
+    max-width: 15px;
+    min-height: 16px;
+    max-height: 16px;
+    width: auto !important;
+    height: auto !important;
+    background: none;        
+    text-align: center;      
+    border: none;               
+    transition: all 0.2s;     
+    font-size: 0.75rem;      
+    color: #030229;  
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar :global(.react-calendar__tile--active) {
+    min-width: 24px;
+    max-width: 24px;
+    min-height: 24px;
+    max-height: 24px;
+    width: auto !important;
+    height: auto !important;
+    background: #605BFF !important;    
+    color: white !important;           
+    border-radius: 50%;    
+    box-shadow: 0 4px 4px #615bff46;         
+}
+.calendar :global(.past-date) {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

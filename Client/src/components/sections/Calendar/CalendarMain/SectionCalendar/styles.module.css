@@ -1,0 +1,7 @@
+.section{
+    width: 81.75%;
+    height: 100%;
+    display: flex;
+    background-color: white;
+    border-radius: 5px 5px 0 0;
+}

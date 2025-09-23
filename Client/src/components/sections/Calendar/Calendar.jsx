@@ -1,6 +1,7 @@
 import  Button  from '@common/Button/Button.jsx';
 import styles from './styles.module.css';
 import { useState } from 'react';
+import CalendarMain from './CalendarMain/CalendarMain';
 
 const Calendar = () => {
     const [activeBtnIndex, setActiveBtnIndex] = useState(null);
@@ -18,6 +19,7 @@ const Calendar = () => {
                     ))}
                 </nav>
             </header>
+            <CalendarMain/>
         </section>
     );
 };
