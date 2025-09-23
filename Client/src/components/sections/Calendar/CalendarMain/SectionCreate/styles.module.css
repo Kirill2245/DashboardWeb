@@ -1,6 +1,6 @@
 .section{
     width: 18.25%;
-    height: 100%;
+    height: calc(100vh - 132px);
     background-color: white;
     border-radius: 5px;
     padding: 30px;

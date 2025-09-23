@@ -2,9 +2,11 @@ import  Button  from '@common/Button/Button.jsx';
 import styles from './styles.module.css';
 import { useState } from 'react';
 import CalendarMain from './CalendarMain/CalendarMain';
+import CreateSchedule from './CreateSchedule/CreateSchedule';
 
 const Calendar = () => {
     const [activeBtnIndex, setActiveBtnIndex] = useState(null);
+    const [activeCreateBtn, isActiveCreateBtn] = useState(false)
     const listBtnName = ["Day", "Week", "Month", "Year"]
     const handleButtonClick = (index) => {
         setActiveBtnIndex(index);
@@ -19,7 +21,9 @@ const Calendar = () => {
                     ))}
                 </nav>
             </header>
-            <CalendarMain/>
+            <CalendarMain calendarId={activeBtnIndex} isActiveCreateBtn={() => isActiveCreateBtn(true)}/>
+            {activeCreateBtn && <div className={styles.bgActive}><CreateSchedule isCloseFrame={() => isActiveCreateBtn(false)}/></div>}
+            
         </section>
     );
 };

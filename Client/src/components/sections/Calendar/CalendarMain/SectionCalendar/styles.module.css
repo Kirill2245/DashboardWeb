@@ -1,7 +1,9 @@
 .section{
     width: 81.75%;
-    height: 100%;
+    height: calc(100vh - 132px);
+    overflow-y: scroll;
     display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 5px 5px 0 0;
 }

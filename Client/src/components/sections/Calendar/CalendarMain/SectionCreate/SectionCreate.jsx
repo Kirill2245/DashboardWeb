@@ -6,7 +6,7 @@ import People from './People/People';
 import  Button  from '@common/Button/Button.jsx';
 import Calendar from 'react-calendar';
 import { useState } from 'react';
-const SectionCreate = () => {
+const SectionCreate = ({isActiveCreateBtn}) => {
 
     const [value, onChange] = useState(new Date())
     const formatShortWeekday = (locale, date) => {
@@ -44,7 +44,7 @@ const SectionCreate = () => {
     };
     return(
         <section className= {styles.section}>
-            <ButtonLogo text = "Create Schedule" image = {Plus} styles = "createSchedule-calendar"/>
+            <ButtonLogo text = "Create Schedule" image = {Plus} styles = "createSchedule-calendar" onClick = {isActiveCreateBtn}/>
             <div className={styles.calendar}>
                 <Calendar 
                     onChange={onChange} 

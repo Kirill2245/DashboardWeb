@@ -4,13 +4,13 @@ import SectionCreate from './SectionCreate/SectionCreate';
 import styles from './styles.module.css';
 
 
-const CalendarMain = () => {
+const CalendarMain = ({calendarId, isActiveCreateBtn}) => {
 
 
     return(
         <div className= {styles.section}>
-            <SectionCreate/>
-            <SectionCalendar/>
+            <SectionCreate isActiveCreateBtn = {isActiveCreateBtn}/>
+            <SectionCalendar calendarId={calendarId}/>
         </div>
     );
 };
