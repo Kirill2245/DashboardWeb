@@ -8,8 +8,12 @@ const CalendarMonth = () => {
     const testDate = [
         {name:"Free day", type:"rem", date: '2025-09-29'},
         {name:"Meeting", type:"event", date: '2025-09-25'},
+        {name:"Meeting", type:"event", date: '2025-09-25'},
+        {name:"Meeting", type:"event", date: '2025-09-25'},
         {name:"Free day", type:"event", date: '2025-09-29'},
         {name:"Fre21e day", type:"task", date: '2025-09-24'},
+        {name:"Free day", type:"task", date: '2025-09-29'},
+        {name:"Free day", type:"rem", date: '2025-09-29'},
         {name:"Free day", type:"task", date: '2025-09-29'},
         {name:"Fre21e day", type:"rem", date: '2025-09-27'},
     ];
@@ -57,11 +61,6 @@ const tileContent = ({ date, view }) => {
         });
         
         if (eventsForDate.length > 0) {
-            if (eventsForDate.length > 2){
-                return (
-                    <EventsContainer data={eventsForDate.slice(0,2)} len={eventsForDate.length}/>
-                );
-            }
             return (
                 <EventsContainer data={eventsForDate} len={eventsForDate.length}/>
             );
