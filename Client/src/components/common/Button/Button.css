@@ -150,3 +150,16 @@
     line-height: 14px;
     color: #605BFF;
 }
+.createSchedule-close{
+    background-color: white;
+    border: 1px solid rgba(96, 91, 255, 0.1);
+    color: #605BFF;
+    width: 93px;
+    height: 40px;
+}
+.createSchedule-save{
+    background-color: #605BFF;
+    color: white;
+    width: 93px;
+    height: 40px;
+}

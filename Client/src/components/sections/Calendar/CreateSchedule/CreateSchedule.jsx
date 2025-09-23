@@ -3,9 +3,9 @@ import styles from './styles.module.css';
 import CloseFrame from '@image/CloseFrame.svg'
 import TypeSchedule from './TypeSchedule/TypeSchedule';
 import { useState } from 'react';
-import FormEvent from './FormEvent/FormEvent';
-import FormReminder from './FormReminder/FormReminder';
-import FormTask from './FormTask/FormTask';
+import FormEvent from './Forms/FormEvent/FormEvent';
+import FormReminder from './Forms/FormReminder/FormReminder';
+import FormTask from './Forms/FormTask/FormTask';
 const CreateSchedule = ({isCloseFrame}) => {
     const [typeSchedule, setType] = useState(0)
     const setDataType = (typeId) => {

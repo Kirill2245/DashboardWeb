@@ -1,0 +1,36 @@
+.contain{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.contain p, h4{
+    margin: 0;
+}
+.contain span{
+    color: #FF8F6B;
+    margin-left: 55px;
+}
+
+.box{
+    display: flex;
+    gap: 15px;
+}
+.box div{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+}
+.box div img{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1001;
+}
+.box article h4{
+    color: #030229;
+}
+.box article p{
+    color: #03022981;
+}

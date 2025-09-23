@@ -11,7 +11,7 @@ const TypeSchedule = ({setType}) => {
         <nav className= {styles.nav}>
             {typeList.map((item,index) => (
                 <div className={`${styles.contain} ${idNav == index ? styles.containActive : ""}`} onClick={() => setId(index)}>
-                    <span key={index}>{item}</span>
+                    <p key={index}>{item}</p>
                     <div>{item}</div>
                 </div>
             ))}

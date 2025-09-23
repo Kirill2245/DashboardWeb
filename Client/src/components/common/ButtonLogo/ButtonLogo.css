@@ -86,3 +86,16 @@
     color:white;
     gap: 12px;
 }
+.addPeople{
+    width: 154px;
+    height: 40px;
+    background-color: #605BFF;
+    color: white;
+}
+.addLocation{
+    width: 154px;
+    height: 40px;
+    border: 1px solid rgba(96, 91, 255, 0.1);
+    color: #605BFF;
+    background-color: white;
+}

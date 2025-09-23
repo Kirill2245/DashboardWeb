@@ -7,23 +7,28 @@
     gap: 27px;
     align-items: center;
     justify-content: center;
+    padding: 5px 0;
+    box-sizing: border-box;
 }
-.nav span {
+.nav p {
+    font-size: 0.875rem;
+    height: 14px;
     min-width: auto;
     max-width: 83px;
-    height: 14px;
     text-align: center;
+    margin: 5px 0 0 0;
 }
 .contain {
     position: relative;
     cursor: pointer;
+    height: 30px;
 }
 .contain div {
     position: absolute;
-    top: -5px;
+    top: 0px;
     left: -23px;
     width: 83px;
-    height: 30px;
+    height: 14px;
     border-radius: 10px;
     background-color: #FF8F6B;
     transform: scale(0);
@@ -38,6 +43,7 @@
     left: -10px;
 }
 .containActive div {
+    height: 30px;
     transform: scale(1);
     opacity: 1;
 }
