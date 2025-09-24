@@ -3,7 +3,7 @@ import  './ButtonLogo.css'
 const ButtonLogo = ({text, image ,styles , onClick = () => {console.log(true)}} ) => {
     
     return(
-        <button className= {`button-logo ${styles}`} onClick={onClick}>
+        <button className= {`button-logo ${styles}`} onClick={onClick} type="button">
             <img src = {image}></img>
             <span>{text}</span>
         </button>

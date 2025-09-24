@@ -14,22 +14,10 @@ const UsersSchema = new Schema({
         type: String,
         required: true
     },
-    taskList:{
-        type: Array,
-        default: []
-    },
-    friendList:{
-        type: Array,
-        default: []
-    },
     invoiceList:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Invoice'
     }],
-    eventList:{
-        type: Array,
-        default: []
-    },
     chatList: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chat'
@@ -42,7 +30,19 @@ const UsersSchema = new Schema({
         type: Array,
         default: [],
         ref:'Customer'
-    }
+    },
+    scheduleList: [{
+        itemType: {
+            type: String,
+            enum: ['Event', 'Task', 'Reminder'],  
+            required: true
+        },
+        itemId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            refPath: 'scheduleList.itemType'  
+        }
+    }]
 });
 UsersSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();

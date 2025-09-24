@@ -3,7 +3,7 @@ import imageAdd from '@image/imageAdd.svg';
 import calendar from '@image/CalendarA.svg';
 import location from '@image/location.svg';
 import { useState, useRef} from 'react';
-import MapModal from './MapModal/MapModal';
+import MapModal from '@common/MapModal/MapModal';
 import ProductDescription from './ProductDescription/ProductDescription';
 import Button from '@common/Button/Button';
 import {fetch_addInvoice} from '@api/invoice_requests'

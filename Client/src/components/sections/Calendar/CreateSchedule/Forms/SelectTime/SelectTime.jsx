@@ -1,7 +1,10 @@
 // import { useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.css';
 import TimeCircle from '@image/TimeCircle.svg'
+import FindTime from './FindTime/FindTime';
 const SelectTime = () => {
+    const [findTime, isFindTime] = useState(false)
     return(
         <div className={styles.contain}>
             <div className={styles.box}>
@@ -16,7 +19,7 @@ const SelectTime = () => {
                     <p>Time zone - Does not repeat</p>
                 </article>
             </div>
-            <span>Find a  time</span>
+            {findTime ? <FindTime isSave={() => isFindTime(false)}/> : <span onClick={() => isFindTime(true)}>Find a  time</span>}
         </div>
     );
 

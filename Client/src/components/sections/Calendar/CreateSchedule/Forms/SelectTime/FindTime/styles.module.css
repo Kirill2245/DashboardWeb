@@ -1,0 +1,19 @@
+.contain{
+    display: flex;
+    gap: 10px;
+}
+.contain span{
+    margin: 0;
+}
+.contain div{
+    display: flex;
+    gap: 10px;
+}
+.contain div input{
+    width: 130px;
+    height: 20px;
+    text-align: center;
+    background-color: #F7F7F8;
+    border: none;
+    border-radius: 10px;
+}
