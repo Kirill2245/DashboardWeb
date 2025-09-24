@@ -3,7 +3,10 @@ const Task = require('../models/Task');
 const Product = require('../models/Product');
 const Invoice = require('../models/Invoice');
 const Customer = require('../models/Customer');
+const Event = require('../models/Event');
+const Reminder = require('../models/Reminder')
 const mongoose = require('mongoose');
+const { all } = require('axios');
 
 const index = (req, res) => {
     Users.find()
@@ -299,6 +302,79 @@ const getCustomer = async(req, res) => {
         });
     }
 }
+
+const getSchedule = async(req, res) => {
+    try{
+        const {userId} = req.params;
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ 
+                success:false,
+                message: 'Invalid user ID format' 
+            });
+        }
+        const user = await Users.findById(userId)
+        if (!user){
+            return res.status(404).json({
+                success:false,
+                message:'User not found'
+            })
+        }
+        if (!user.scheduleList || user.scheduleList.length === 0) {
+            return res.status(200).json({
+                success: true,
+                message: 'Schedule is empty',
+                result: []
+            });
+        }
+        const events = user.scheduleList.filter(item => item.itemType === 'Event');
+        const tasks = user.scheduleList.filter(item => item.itemType === 'Task');
+        const reminders = user.scheduleList.filter(item => item.itemType === 'Reminder');
+
+        const [eventData, taskData, reminderData] = await Promise.all([
+            Event.find({ _id: { $in: events.map(e => e.itemId) } }),
+            Task.find({ _id: { $in: tasks.map(t => t.itemId) } }),
+            Reminder.find({ _id: { $in: reminders.map(r => r.itemId) } })
+        ]);
+
+        const eventMap = new Map(eventData.map(item => [item._id.toString(), item]));
+        const taskMap = new Map(taskData.map(item => [item._id.toString(), item]));
+        const reminderMap = new Map(reminderData.map(item => [item._id.toString(), item]));
+
+        const result = user.scheduleList.map(item => {
+            let data = null;
+            
+            switch(item.itemType) {
+                case 'Event':
+                    data = eventMap.get(item.itemId.toString()) || null;
+                    break;
+                case 'Task':
+                    data = taskMap.get(item.itemId.toString()) || null;
+                    break;
+                case 'Reminder':
+                    data = reminderMap.get(item.itemId.toString()) || null;
+                    break;
+            }
+
+            return {
+                scheduleItemId: item._id,
+                itemType: item.itemType,
+                data: data
+            };
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Schedule retrieved successfully',
+            result: result
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            success:false,
+            message:`Invalid server error - ${error}`
+        })
+    }
+}   
 module.exports = {
-    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll, getInvoice, recentOrders, getCustomer
+    index, signUp, login, deleteAllUsers, getTask, getProduct, userAll, getInvoice, recentOrders, getCustomer, getSchedule
 }

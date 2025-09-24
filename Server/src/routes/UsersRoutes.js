@@ -12,4 +12,5 @@ router.get('/userall/:userId', UsersController.userAll);
 router.get('/getinvoice/:userId', UsersController.getInvoice);
 router.get('/recentorders/:userId', UsersController.recentOrders);
 router.get('/getcustomers/:userId', UsersController.getCustomer);
+router.get('/getschedule/:userId', UsersController.getSchedule);
 module.exports =  router
