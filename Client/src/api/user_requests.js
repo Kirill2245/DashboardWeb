@@ -86,12 +86,24 @@ export const fetch_customers = async(userId) => {
 }
 
 export const fetch_AllUsers = async() => {
-        try{
+    try{
         const response = await api.get(`/`)
         return response.data
     }
     catch(error) {
         console.error('Error receiving data:', error.response?.data || error.message);
         throw error;
+    }
+}
+
+export const fetch_schedule = async(userId) => {
+    try{
+        console.log(`/getschedule/${userId}`)
+        const response = await api.get(`/getschedule/${userId}`)
+        return response.data
+    }
+    catch(error){
+        console.error('Error receiving data:', error.response?.data || error.message)
+        throw error
     }
 }

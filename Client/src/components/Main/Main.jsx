@@ -60,8 +60,8 @@ const Main = ({isOut}) => {
             {button == 0 && <Dashboard idUser = {userId}/>}
             {button == 1 && <Analytics isOverlay={(i) => isOverlay(i)} idUser={userId}/>}
             {button == 2 && <Invoice idUser={userId}/>}
-            {button == 3 && <Schedule/>}
-            {button == 4 && <Calendar/>}
+            {button == 3 && <Schedule />}
+            {button == 4 && <Calendar userId = {userId}/>}
             {button == 5 && <Messages userId={userId}/>}
             {button == 7 && <Settings/>}
         </main>

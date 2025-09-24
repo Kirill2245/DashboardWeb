@@ -3,20 +3,21 @@ import styles from './styles.module.css';
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import EventsContainer from './EventsContainer/EventsContainer';
-const CalendarMonth = () => {
+import { useEffect } from 'react';
+const CalendarMonth = ({list}) => {
     const [date, setDate] = useState(new Date());
-    const testDate = [
-        {name:"Free day", type:"rem", date: '2025-09-29'},
-        {name:"Meeting", type:"event", date: '2025-09-25'},
-        {name:"Meeting", type:"event", date: '2025-09-25'},
-        {name:"Meeting", type:"event", date: '2025-09-25'},
-        {name:"Free day", type:"event", date: '2025-09-29'},
-        {name:"Fre21e day", type:"task", date: '2025-09-24'},
-        {name:"Free day", type:"task", date: '2025-09-29'},
-        {name:"Free day", type:"rem", date: '2025-09-29'},
-        {name:"Free day", type:"task", date: '2025-09-29'},
-        {name:"Fre21e day", type:"rem", date: '2025-09-27'},
-    ];
+    // const testDate = [
+    //     {name:"Free day", type:"rem", date: '2025-09-29'},
+    //     {name:"Meeting", type:"event", date: '2025-09-25'},
+    //     {name:"Meeting", type:"event", date: '2025-09-25'},
+    //     {name:"Meeting", type:"event", date: '2025-09-25'},
+    //     {name:"Free day", type:"event", date: '2025-09-29'},
+    //     {name:"Fre21e day", type:"task", date: '2025-09-24'},
+    //     {name:"Free day", type:"task", date: '2025-09-29'},
+    //     {name:"Free day", type:"rem", date: '2025-09-29'},
+    //     {name:"Free day", type:"task", date: '2025-09-29'},
+    //     {name:"Fre21e day", type:"rem", date: '2025-09-27'},
+    // ];
     const formatShortWeekday = (locale, date) => {
         const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         return weekdays[date.getDay()];
@@ -54,8 +55,8 @@ const tileContent = ({ date, view }) => {
     if (view === 'month') {
         const currentDateString = date.toLocaleDateString('en-CA');
         
-        const eventsForDate = testDate.filter(item => {
-            const dateItem = new Date(item.date);
+        const eventsForDate = list.filter(item => {
+            const dateItem = new Date(item.data.date);
             const itemDateString = dateItem.toISOString().split('T')[0];
             return itemDateString === currentDateString;
         });
@@ -68,6 +69,7 @@ const tileContent = ({ date, view }) => {
     }
     return null;
 };
+useEffect(() => {console.log('Schedule', list)},[list])
     return(
         <div className= {styles.calendar}>
             <Calendar

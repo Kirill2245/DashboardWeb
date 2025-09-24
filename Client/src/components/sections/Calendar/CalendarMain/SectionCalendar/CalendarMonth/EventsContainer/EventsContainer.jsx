@@ -2,30 +2,32 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
 import  Button  from '@common/Button/Button.jsx';
+import { useEffect } from 'react';
 const EventsContainer = ({data, len}) => {
     const [moreActive, isMoreActive] = useState(false)
     const typeClassMap = {
         'rem': styles.reminder,
-        'event': styles.event,
-        'task': styles.task
+        'Event': styles.event,
+        'Task': styles.task
     };
+    useEffect(() => {console.log('elem',data)},[data])
     return(
         <div className={styles.eventsContainer}>
             {moreActive ?
                 data.map((item, index) => {
-                    const typeClass = typeClassMap[item.type] || styles.default;
+                    const typeClass = typeClassMap[item.itemType] || styles.default;
                     return (
                         <div key={index} className={`${styles.eventMarker} ${typeClass}`}>
-                            <p>{item.name}</p>
+                            <p>{item.data.title}</p>
                         </div>
                     );
                 }) 
             :
                 data.slice(0,2).map((item, index) => {
-                    const typeClass = typeClassMap[item.type] || styles.default;
+                    const typeClass = typeClassMap[item.itemType] || styles.default;
                     return (
                         <div key={index} className={`${styles.eventMarker} ${typeClass}`}>
-                            <p>{item.name}</p>
+                            <p>{item.data.title}</p>
                         </div>
                     );
                 }) 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import CalendarMain from './CalendarMain/CalendarMain';
 import CreateSchedule from './CreateSchedule/CreateSchedule';
 
-const Calendar = () => {
+const Calendar = ({userId}) => {
     const [activeBtnIndex, setActiveBtnIndex] = useState(null);
     const [activeCreateBtn, isActiveCreateBtn] = useState(false)
     const listBtnName = ["Day", "Week", "Month", "Year"]
@@ -21,7 +21,7 @@ const Calendar = () => {
                     ))}
                 </nav>
             </header>
-            <CalendarMain calendarId={activeBtnIndex} isActiveCreateBtn={() => isActiveCreateBtn(true)}/>
+            <CalendarMain calendarId={activeBtnIndex} isActiveCreateBtn={() => isActiveCreateBtn(true)} userId={userId}/>
             {activeCreateBtn && <div className={styles.bgActive}><CreateSchedule isCloseFrame={() => isActiveCreateBtn(false)}/></div>}
             
         </section>
