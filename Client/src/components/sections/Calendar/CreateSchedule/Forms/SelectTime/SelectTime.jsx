@@ -1,10 +1,16 @@
 // import { useState } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import TimeCircle from '@image/TimeCircle.svg'
 import FindTime from './FindTime/FindTime';
-const SelectTime = () => {
+const SelectTime = ({SetTimeRange}) => {
     const [findTime, isFindTime] = useState(false)
+    const [selectTimeRange,SetRange] = useState({startTime:'12:00', endTime:'1:00'})
+    const handleSelectRange = (rangeTime) => {
+        SetRange(rangeTime);
+        SetTimeRange(rangeTime)
+    }
+    useEffect(() => {SetTimeRange(selectTimeRange)},[SetTimeRange, selectTimeRange])
     return(
         <div className={styles.contain}>
             <div className={styles.box}>
@@ -15,11 +21,11 @@ const SelectTime = () => {
                     </svg>
                 </div>
                 <article>
-                    <h4>Thursday. December 5      12:00pm    -    1:00pm</h4>
+                    <h4>{`Thursday. December 5      ${selectTimeRange.startTime}pm    -    ${selectTimeRange.endTime}pm`}</h4>
                     <p>Time zone - Does not repeat</p>
                 </article>
             </div>
-            {findTime ? <FindTime isSave={() => isFindTime(false)}/> : <span onClick={() => isFindTime(true)}>Find a  time</span>}
+            {findTime ? <FindTime isSave={() => isFindTime(false)} SelectRange={handleSelectRange}/> : <span onClick={() => isFindTime(true)}>Find a  time</span>}
         </div>
     );
 

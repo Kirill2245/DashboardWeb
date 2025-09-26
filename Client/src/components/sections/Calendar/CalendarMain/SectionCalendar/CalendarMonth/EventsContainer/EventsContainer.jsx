@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const EventsContainer = ({data, len}) => {
     const [moreActive, isMoreActive] = useState(false)
     const typeClassMap = {
-        'rem': styles.reminder,
+        'Reminder': styles.reminder,
         'Event': styles.event,
         'Task': styles.task
     };

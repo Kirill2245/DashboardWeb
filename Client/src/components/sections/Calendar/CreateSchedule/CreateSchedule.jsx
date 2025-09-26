@@ -6,14 +6,14 @@ import { useState } from 'react';
 import FormEvent from './Forms/FormEvent/FormEvent';
 import FormReminder from './Forms/FormReminder/FormReminder';
 import FormTask from './Forms/FormTask/FormTask';
-const CreateSchedule = ({isCloseFrame}) => {
+const CreateSchedule = ({isCloseFrame, selectDate}) => {
     const [typeSchedule, setType] = useState(0)
     const setDataType = (typeId) => {
         setType(typeId)
     }
     const renderFormSchedule = () => {
         switch(typeSchedule){
-            case 0: return <FormEvent/>
+            case 0: return <FormEvent selectDate={selectDate}/>
             case 1: return <FormReminder/>
             case 2: return <FormTask/>
         }

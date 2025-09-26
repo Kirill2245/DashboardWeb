@@ -5,8 +5,8 @@ import Plus from '@image/Plus.svg'
 import People from './People/People';
 import  Button  from '@common/Button/Button.jsx';
 import Calendar from 'react-calendar';
-import { useState } from 'react';
-const SectionCreate = ({isActiveCreateBtn}) => {
+import { useEffect, useState } from 'react';
+const SectionCreate = ({isActiveCreateBtn, SetDate}) => {
 
     const [value, onChange] = useState(new Date())
     const formatShortWeekday = (locale, date) => {
@@ -42,6 +42,9 @@ const SectionCreate = ({isActiveCreateBtn}) => {
         }
         return null;
     };
+    useEffect(() => {
+        SetDate(value)
+    },[SetDate, value])
     return(
         <section className= {styles.section}>
             <ButtonLogo text = "Create Schedule" image = {Plus} styles = "createSchedule-calendar" onClick = {isActiveCreateBtn}/>

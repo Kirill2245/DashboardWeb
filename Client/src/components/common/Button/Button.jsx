@@ -3,7 +3,7 @@ import  './Button.css'
 const Button = ({text ,styles, onClick = () => {console.log('b')}}) => {
     
     return(
-        <button className= {`button ${styles}`} onClick={onClick} type="button">
+        <button className= {`button ${styles}`} onClick={onClick} >
             {text}
         </button>
     )
