@@ -31,7 +31,7 @@ const Calendar = ({userId}) => {
                 </nav>
             </header>
             <CalendarMain calendarId={activeBtnIndex} isActiveCreateBtn={() => isActiveCreateBtn(true)} userId={userId} SetDate={handleSetDate}/>
-            {activeCreateBtn && <div className={styles.bgActive}><CreateSchedule isCloseFrame={() => isActiveCreateBtn(false)} selectDate={valueDate}/></div>}
+            {activeCreateBtn && <div className={styles.bgActive}><CreateSchedule isCloseFrame={() => isActiveCreateBtn(false)} selectDate={valueDate} userId={userId}/></div>}
             
         </section>
     );

@@ -12,6 +12,7 @@ const ProductRoute = require('./src/routes/ProductRoutes');
 const CustomerRoute = require('./src/routes/CustomerRoutes');
 const InvoiceRoute = require('./src/routes/InvoiceRoutes');
 const EventRoutes = require('./src/routes/EventRoutes');
+const ReminderRoutes = require('./src/routes/ReminderRoutes')
 const axios = require('axios');
 const PORT = 5000;
 
@@ -81,6 +82,7 @@ app.use('/api/product', ProductRoute);
 app.use('/api/customer', CustomerRoute);
 app.use('/api/invoice', InvoiceRoute);
 app.use('/api/event', EventRoutes);
+app.use('/api/reminder', ReminderRoutes);
 app.use('/api/chat', async (req, res) => {
     try {
         const response = await axiosInstance({

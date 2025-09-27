@@ -7,7 +7,8 @@ import SelectTime from '../SelectTime/SelectTime';
 import styles from './styles.module.css';
 import MapModal from '@common/MapModal/MapModal';
 import FrameAddPeople from '../FrameAddPeople/FrameAddPeople';
-const FormEvent = ({selectDate}) => {
+import { fetch_addEvent } from '@api/event_request';
+const FormEvent = ({selectDate, userId}) => {
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [isAddPeopleOpen, setIsAddPeople] = useState(false)
     const [formData, setFormData] = useState({
@@ -40,6 +41,21 @@ const FormEvent = ({selectDate}) => {
             [name]: value
         }));
     };
+    const fetch_data = async(data) => {
+        try{
+            const result = await fetch_addEvent(data, userId)
+            if (result && result.success){
+                alert('Created event successfully !!!')
+            }
+            else{
+                alert('Error created event :(')
+            }
+        }
+        catch(error){
+            alert('Invalid error -',{error})
+            console.error(error)
+        }
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         
@@ -64,6 +80,7 @@ const FormEvent = ({selectDate}) => {
         };
 
         console.log('Данные для отправки:', submitData);
+        fetch_data(submitData)
     };
 
     return(
