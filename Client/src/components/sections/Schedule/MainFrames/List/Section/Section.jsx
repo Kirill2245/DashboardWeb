@@ -1,14 +1,14 @@
 // import { useEffect, useState } from 'react';
 import Table from '../Table/Table';
 import styles from './styles.module.css';
-const ToDo = () => {
+const Section = ({name, type}) => {
 
     return(
         <section className= {styles.contain}>
-            <header><h3>To Do </h3><p>See More</p></header>
-            <Table/>
+            <header><h3>{name}</h3><p>See More</p></header>
+            <Table type = {type}/>
         </section>
     );
 };
 
-export default ToDo
+export default Section
