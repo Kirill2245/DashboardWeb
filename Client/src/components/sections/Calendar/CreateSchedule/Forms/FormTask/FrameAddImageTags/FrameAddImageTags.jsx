@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 import styles from './styles.module.css';
 import addImageIcon from '@image/addImageIcon.png'
-const FrameAddImageTags = () => {
+import { useEffect } from 'react';
+const FrameAddImageTags = ({Change, value, ChangeImage}) => {
     const fileInputRef = useRef(null);
-    // const [image, setImage] = useState(null);
+    const [image, setImage] = useState(null);
     const [preview, setPreview] = useState('');
     const handleFileChange = (e) => {
         if (!e.target.files || e.target.files.length === 0) {
@@ -18,7 +19,7 @@ const FrameAddImageTags = () => {
             return;
         }
 
-        // setImage(file);
+        setImage(file);
 
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -29,6 +30,9 @@ const FrameAddImageTags = () => {
     const handleImageClick = () => {
         fileInputRef.current.click();
     };
+    useEffect(() => {
+        ChangeImage(image)
+    },[ChangeImage, image])
     return(
         <div className= {styles.frame}>
             <input
@@ -44,7 +48,7 @@ const FrameAddImageTags = () => {
                 onClick={handleImageClick}
                 alt="Upload"
             />
-            <input type='text' className={styles.input} placeholder='Tags...'/>
+            <input type='text' className={styles.input} placeholder='Tags...' name = 'tags' onChange={Change} value={value}/>
         </div>
     );
 };

@@ -7,16 +7,20 @@ import SelectTime from '../SelectTime/SelectTime';
 import MapModal from '@common/MapModal/MapModal';
 import FrameAddPeople from '../FrameAddPeople/FrameAddPeople';
 import FrameAddImageTags from './FrameAddImageTags/FrameAddImageTags';
-const FormTask = ({selectDate}) => {
+import { fetch_addTask } from '@api/task_request';
+const FormTask = ({selectDate, userId}) => {
     const [isMapOpen, setIsMapOpen] = useState(false);
-    const [isAddPeopleOpen, setIsAddPeople] = useState(false)
+    const [isAddPeopleOpen, setIsAddPeople] = useState(false);
     const [formData, setFormData] = useState({
         userId:'',
         address: '',
         usersList: [],
         timeRange: { startTime: '', endTime: '' },
         title: '',
-        date:selectDate
+        description:'',
+        date:selectDate,
+        tags:'',
+        image:null
     });
     const handleAddressSelect = (selectedAddress) => {
         setFormData(prev => ({ ...prev, address: selectedAddress }));
@@ -40,6 +44,28 @@ const FormTask = ({selectDate}) => {
             [name]: value
         }));
     };
+    const handleImageChange = useCallback((image) => {
+        setFormData(prev => ({
+            ...prev,
+            'image': image
+        }));
+    }, []);
+    const fetch_data = async(data) => {
+        try{
+            const result = await fetch_addTask(data, userId)
+            console.log('Result --',result)
+            if (result && result.success){
+                alert('Created event successfully !!!')
+            }
+            else{
+                alert('Error created task :(')
+            }
+        }
+        catch(error){
+            alert('Invalid error -',{error})
+            console.error(error)
+        }
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         
@@ -57,21 +83,24 @@ const FormTask = ({selectDate}) => {
         const submitData = {
             title: formData.title,
             location: formData.address,
-            userList: formData.usersList,
+            memberList: formData.usersList,
             date: formData.date,
             startTime: formData.timeRange.startTime,
             endTime: formData.timeRange.endTime,
+            description:formData.description,
+            tags:formData.tags,
+            image:formData.image
         };
-
+        fetch_data(submitData)
         console.log('Данные для отправки:', submitData);
     };
     return(
         <form className= {styles.form} onSubmit={handleSubmit}>
             <Input Change = {handleInputChange} name = 'title' value = {formData.title}/>
-            <Input Change = {handleInputChange} name = 'title' value = {formData.title} placeholder='Description'/>
+            <Input Change = {handleInputChange} name = 'description' value = {formData.description} placeholder='Description'/>
             <SelectTime SetTimeRange = {handleSelectRange}/>
             <BtnContain IsMapOpen = {() => setIsMapOpen(true)} IsAddPeopleOpen = {() => setIsAddPeople(true)}/>
-            <FrameAddImageTags/>
+            <FrameAddImageTags Change={handleInputChange} value={formData.tags} ChangeImage={handleImageChange}/>
             <BtnSaveClose/>
             <MapModal
                 isOpen={isMapOpen} 

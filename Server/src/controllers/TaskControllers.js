@@ -59,13 +59,13 @@ exports.addTask = async(req,res) => {
         let participantIds = [userId]; 
 
         if (parsedUserList && parsedUserList.length > 0) {
-            if (!Array.isArray(memberList)) {
+            if (!Array.isArray(parsedUserList)) {
                 return res.status(400).json({
                     success: false,
                     message: 'userList must be an array'
                 });
             }
-            for (const userIdFromList of memberList) {
+            for (const userIdFromList of parsedUserList) {
                 if (mongoose.Types.ObjectId.isValid(userIdFromList)) {
                     const userExists = await Users.findById(userIdFromList);
                     if (userExists) {
