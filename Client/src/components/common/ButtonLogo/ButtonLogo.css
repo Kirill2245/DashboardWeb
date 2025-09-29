@@ -99,3 +99,14 @@
     color: #605BFF;
     background-color: white;
 }
+.filter{
+    width: 103px;
+    height: 44px;
+    color: white;
+    background-color: #605BFF;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+.filter img{
+    order: 2;
+}
