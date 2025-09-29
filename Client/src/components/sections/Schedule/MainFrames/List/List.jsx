@@ -1,11 +1,12 @@
 // import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
+import ToDo from './ToDo/ToDo';
 const TimeLine = () => {
 
     return(
-        <div className= {styles.contain}>
-            0
-        </div>
+        <section className= {styles.section}>
+            <ToDo/>
+        </section>
     );
 };
 
