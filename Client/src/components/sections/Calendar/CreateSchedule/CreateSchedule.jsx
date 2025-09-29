@@ -14,8 +14,8 @@ const CreateSchedule = ({isCloseFrame, selectDate, userId}) => {
     const renderFormSchedule = () => {
         switch(typeSchedule){
             case 0: return <FormEvent selectDate={selectDate} userId={userId}/>
-            case 1: return <FormReminder/>
-            case 2: return <FormTask/>
+            case 1: return <FormReminder selectDate={selectDate} userId={userId}/>
+            case 2: return <FormTask />
         }
     }
     return(

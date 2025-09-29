@@ -1,133 +1,119 @@
 const Users = require('../models/Users');
 const Task = require('../models/Task');
 const mongoose = require('mongoose');
-
-const addTask = async (req, res) => {
-    try {
-        const { name, description, tags, status, startDate, endDate, memberList, likeCount, userId } = req.body;
-        const task = new Task({
-            name,
-            description,
-            tags,
-            status,
-            startDate,
-            endDate,
-            memberList,
-            likeCount
-        });
-        const savedTask = await task.save();
-        await Users.updateOne(
-            { _id: userId },  
-            { $push: { taskList: savedTask._id } }
-        );
-        res.status(201).json({
-            message: 'Task created successfully',
-            task: savedTask
-        });
-    } catch (error) {
-        console.error('Error creating task:', error);
-        res.status(500).json({ message: 'Failed to create task', error: error.message });
-    }
-};
-
-const deleteTask = async (req, res) => {
-    try {
-        const { taskId } = req.body; 
-
-        if (!mongoose.Types.ObjectId.isValid(taskId)) {
-            return res.status(400).json({ message: 'Invalid task ID format' });
-        }
-
-        const deletedTask = await Task.findByIdAndDelete(taskId);
-        if (!deletedTask) {
-            return res.status(404).json({ message: 'Task not found' });
-        }
-
-        await Users.updateMany(
-            { taskList: taskId },
-            { $pull: { taskList: taskId } }
-        );
-
-        res.status(200).json({
-            message: 'Task deleted and removed from all users',
-            deletedTask
-        });
-    } 
-    catch (error) {
-        console.error('Error deleting task:', error);
-        res.status(500).json({ 
-            message: 'Server error', 
-            error: error.message 
-    });
-    }
-};
-
-const updateTask = async (req, res) => {
-    try {
-        const { idTask, ...updateData } = req.body; 
-
-        if (!idTask || !mongoose.Types.ObjectId.isValid(idTask)) {
-            return res.status(400).json({ 
-                message: 'Invalid or missing task ID'
+const upload = require('../settings/uploadConfig');
+exports.addTask = async(req,res) => {
+    try{
+        await new Promise((resolve, reject) => {
+            upload.single('image')(req, res, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
             });
+        });
+        const {userId} = req.params;
+        const {title, date, description, tags, startTime, endTime,  memberList, location} = req.body
+        if (!mongoose.Types.ObjectId.isValid(userId)){
+            return res.status(400).json({
+                success:false,
+                message:'Invalid user ID format',
+            })
         }
-
-        if (updateData.likeCount !== undefined) {
-            delete updateData.likeCount;
+        const user = await Users.findById(userId)
+        if (!user){
+            return res.status(404).json({
+                success:false,
+                message:'User not found'
+            })
         }
-
-        const updatedTask = await Task.findByIdAndUpdate(
-            idTask,
-            updateData,
-            { 
-                new: true,
-                runValidators: true 
+        if (!title ){
+            return res.status(400).json({
+                success:false,
+                message:"Missing required fields"
+            })
+        }
+        let parsedUserList = [];
+        if (memberList) {
+            try {
+                parsedUserList = typeof memberList === 'string' 
+                    ? JSON.parse(memberList) 
+                    : memberList;
+                if (!Array.isArray(parsedUserList)) {
+                    return res.status(400).json({
+                        success: false,
+                        error: 'Invalid userList format',
+                        details: 'userList must be an array'
+                    });
+                }
+            } catch (parseError) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'Invalid userList format',
+                    details: 'userList must be a valid JSON array'
+                });
             }
+        }
+
+        let participantIds = [userId]; 
+
+        if (parsedUserList && parsedUserList.length > 0) {
+            if (!Array.isArray(memberList)) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'userList must be an array'
+                });
+            }
+            for (const userIdFromList of memberList) {
+                if (mongoose.Types.ObjectId.isValid(userIdFromList)) {
+                    const userExists = await Users.findById(userIdFromList);
+                    if (userExists) {
+                        participantIds.push(userIdFromList);
+                    }
+                }
+            }
+
+            participantIds = [...new Set(participantIds)];
+        }
+        const taskData = {
+            title: title,
+            date: date,
+            description:description,
+            startTime: startTime,
+            endTime: endTime,
+            memberList: participantIds,
+            location: location,
+            image: req.file ? `/uploads/${req.file.filename}` : null,
+            tags:tags,
+            owner: userId
+        };
+        const newTask = await Task.create(taskData);
+    
+        const updatePromises = participantIds.map(userId => 
+            Users.findByIdAndUpdate(
+                userId,
+                { 
+                    $addToSet: { 
+                        scheduleList: { 
+                            itemType: "Task", 
+                            itemId: newTask._id 
+                        } 
+                    } 
+                }
+            )
         );
-
-        if (!updatedTask) {
-            return res.status(404).json({ 
-                message: 'Task not found'
-            });
-        }
-
-        res.status(200).json({
-            status: 'success',
-            message: 'Task updated successfully',
-            data: updatedTask
-        });
-
-    } catch (error) {
-        console.error('Error updating task:', error);
-        
-        if (error.name === 'ValidationError') {
-            return res.status(422).json({
-                status: 'error',
-                message: 'Validation failed',
-                details: error.errors
-            });
-        }
-
-        res.status(500).json({
-            status: 'error',
-            message: 'Internal server error',
-            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        await Promise.all(updatePromises);
+        return res.status(201).json({
+            success: true,
+            message: 'Task created successfully',
+            result: newTask
         });
     }
-};
-
-const likeTask = async (req, res) => {
-    const { idTask } = req.body;
-    
-    const updatedTask = await Task.findByIdAndUpdate(
-        idTask,
-        { $inc: { likeCount: 1 } }, 
-        { new: true }
-    );
-    
-    res.json(updatedTask);
-};
-
-module.exports = {
-    addTask, deleteTask, updateTask, likeTask
+    catch(error){
+        res.status(500).json({
+            success:false,
+            message:`Interval server error - ${error}`
+        })
+    }
 }

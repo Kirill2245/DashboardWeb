@@ -3,34 +3,50 @@ const Schema = mongoose.Schema;
 const currentDate = new Date();
 
 const TaskSchema = new Schema({
-    name:{
+    title:{
         type:String
     },
     description:{
         type:String
     },
     tags:{
-        type: [String], 
-        default: []
+        type: String
     },
     status:{
         type:String,
         default:"Pending"
     },
-    startDate:{
-        type:Date,
-        default:currentDate
+    startTime: {
+        type: String,  
+        default: '12:00'
     },
-    endDate:{
-        type:Date,
+    endTime: {
+        type: String,
+        default: '13:00'
     },
     memberList:{
         type: Array,
         default: []
+    },    
+    date:{
+        type:Date,
+        require:true,
+        default:currentDate
     },
     likeCount:{
         type: Number,
         default: 0
+    },
+    location:{
+        type:String
+    },
+    image:{
+        type:String
+    },
+    owner:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users', 
+        required: true 
     }
 });
 
