@@ -1,10 +1,10 @@
-import  ButtonLogo  from '@common/ButtonLogo/ButtonLogo';
+import ButtonLogo  from '@common/ButtonLogo/ButtonLogo';
 import styles from './styles.module.css';
 import Filter from '@image/Filter.svg'
 import HeaderContain from './HeaderContain/HeaderContain';
 import { useState } from 'react';
 import List from './MainFrames/List/List';
-import Board from './MainFrames/Board/TimeLine';
+import Board from './MainFrames/Board/Board';
 import TimeLine from './MainFrames/TimeLine/TimeLine';
 const Schedule = () => {
     const [FrameIndex, setIndex] = useState(0)

@@ -1,0 +1,19 @@
+.contain{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    gap: 25px;
+}
+.header h3{
+    margin: 0;
+    opacity: 0.7;
+    color: #030229;
+    font-weight: 600;
+}
+.cardBox{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
