@@ -1,13 +1,25 @@
-// import { useEffect, useState } from 'react';
+
+import { useEffect } from 'react';
 import CardTask from './CardTask/CardTask';
 import styles from './styles.module.css';
-import test from '@image/2.jpg';
-const BoardSection = ({name}) => {
+
+const BoardSection = ({name, data}) => {
+    useEffect(() => {console.log('Task --',data)},[data])
     return(
         <div className= {styles.contain}>
             <header className= {styles.header}><h3>{name}</h3></header>
             <div className={styles.cardBox}>
-                <CardTask title={'Dashboard Design '} tag = {'Low'} description={'Discussion for management dashboard ui design'} countMember={5} image={test}/>
+                {data.map((item, index)=>(
+                    <CardTask 
+                        title={item.data.title} 
+                        tag = {item.data.tags} 
+                        description={item.data.description} 
+                        countMember={item.data.memberList?.length || 0} 
+                        image={item.data.image}
+                        key = {index}
+                        likeCount={item.data.likeCount || 0}
+                    />
+                ))}
             </div>
         </div>
     );

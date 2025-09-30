@@ -5,7 +5,7 @@ import AddUser from '@image/AddUser.svg';
 import test from '@image/2.jpg';
 import Chat from '@image/Chat.svg';
 import Heart from '@image/Heart.svg'
-const CardTask = ({title, tag, description, countMember, image}) => {
+const CardTask = ({title, tag, description = 'None', countMember = 0, image, likeCount = 0}) => {
     const imgList = [Chat, Heart]
     const IndexZ = 1000
     return(
@@ -13,7 +13,7 @@ const CardTask = ({title, tag, description, countMember, image}) => {
             <header><input type='checkbox'/><h4>{title}</h4><img src={Menu}/></header>
             {tag && <div className={styles.tag}>{tag}</div>}
             {description && <p>{description}</p>}
-            {image && <img src={image} className={styles.imgTask}/>}
+            {image && <img src={`https://localhost:5000${image}`} className={styles.imgTask}/>}
             <footer>
                 <figure style={{width:28 + (15 * countMember)}}>
                     {Array.from({ length: countMember }).map((_, index) => (
@@ -25,11 +25,10 @@ const CardTask = ({title, tag, description, countMember, image}) => {
                     {imgList.map((item, index) => (
                         <div>
                             <img src = {item} key={index}/>
-                            <p>{item == Chat ? '11221' : '221321'}</p>
+                            <p>{item == Chat ? '123' : likeCount }</p>
                         </div>
                     ))}
                 </div>
-
             </footer>
         </div>
     );
