@@ -31,7 +31,7 @@ const Schedule = ({userId}) => {
     },[userId])
     const isShowFrame = () => {
         switch (FrameIndex){
-            case 0:return(<List/>)
+            case 0:return(<List data={scheduleListTask}/>)
             case 1:return(<Board data={scheduleListTask}/>)
             case 2:return(<TimeLine/>)
         }

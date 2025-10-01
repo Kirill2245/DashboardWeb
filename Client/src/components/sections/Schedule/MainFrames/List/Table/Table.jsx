@@ -3,32 +3,48 @@ import styles from './styles.module.css';
 import testTb from '@image/testTb.jpg';
 import editTask from '@image/editTask.svg';
 import deleticon from '@image/deleticon.svg'
-const Table = ({type}) => {
+import {  useState } from 'react';
+const Table = ({  data = [] }) => {
     const headerList = ["Check Box", "Task Name", "Start Date", "End Date", "Member", "Status", "Actions"]
-    const testKist1 = [{title:'Ui Design', image:testTb, startTime:'03/12/2021',endTime:'5/12/2021',member:5,status:'Pending'},{title:'Ui Design', image:testTb, startTime:'03/12/2021',endTime:'5/12/2021',member:5,status:'Pending'},{title:'Ui Design', image:testTb, startTime:'03/12/2021',endTime:'5/12/2021',member:5,status:'Pending'}]
-    const testKist2 = [{title:'Ui Design', image:testTb, startTime:'03/12/2021',endTime:'5/12/2021',member:5,status:'Doing'}]
-    const testKist3 = [{title:'Ui Design', image:testTb, startTime:'03/12/2021',endTime:'5/12/2021',member:5,status:'Done'},{title:'Ui Design', image:testTb, startTime:'03/12/2021',endTime:'5/12/2021',member:5,status:'Done'}]
-    const mainList = () => {
-        switch(type){
-            case 'ToDo':return testKist1
-            case 'Doing':return testKist2
-            case 'Done':return testKist3
-        }
-    }
-    const stylesForStatus = (status) => {
-        switch (status) {
-            case 'ToDo':
+    const status = ["Pending", "Running", "Review", "Done"]
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const [editActive, setEditActive] = useState(null) 
+
+    const stylesForStatus = (statusType) => {
+        switch (statusType) {
+            case 'Pending':
                 return { backgroundColor: 'orange' };
-            case 'Doing':
+            case 'Running':
                 return { backgroundColor: '#605BFF' };
             case 'Done':
                 return { backgroundColor: '#2B9943' };
+            case 'Review':
+                return {backgroundColor: '#FF6A77'}
             default:
                 return {};
         }
     }
-    return(
-        <table className= {styles.table}>
+
+    const handleStatusClick = (itemIndex) => {
+        if (editActive === itemIndex) {
+            setCurrentIndex((prev) => (prev + 1) % status.length)
+        } else {
+            setEditActive(itemIndex)
+            setCurrentIndex(0) 
+        }
+    }
+
+    const handleSaveClick = () => {
+        setEditActive(null) 
+    }
+
+    const handleEditClick = (itemIndex) => {
+        setEditActive(itemIndex)
+        setCurrentIndex(status.findIndex(s => s === data[itemIndex]?.data?.status) || 0)
+    }
+
+    return (
+        <table className={styles.table}>
             <thead>
                 <tr>
                     {headerList.map((item, index) => (
@@ -37,18 +53,81 @@ const Table = ({type}) => {
                 </tr>
             </thead>
             <tbody>
-                {mainList().map((item,index)=>(
-                    <tr key = {index}>
+                {data?.map((item, index) => (
+                    <tr key={index}>
                         <td><input type='checkbox'/></td>
-                        <td><div><img src = {item.image}/><p>{item.title}</p></div></td>
-                        <td>{item.startTime}</td>
-                        <td>{item.endTime}</td>
-                        <td>{`${item.member} Member`}</td>
-                        <td><div style={stylesForStatus(type)}>{item.status}</div></td>
-                        <td><div><img src = {editTask}/><img src = {deleticon}/></div></td>
+                        <td>
+                            <div>
+                                {item.data?.image ? (
+                                    <img 
+                                        src={`https://localhost:5000${item.data.image}`} 
+                                        alt={item.data?.title || 'Task image'} 
+                                    />
+                                ) : (
+                                    <img 
+                                        src={testTb} 
+                                        alt={item.data?.title || 'Task image'} 
+                                    />
+                                )}
+                                <p>{item.data?.title || 'No Title'}</p>
+                            </div>
+                        </td>
+                        <td>{item.data?.startTime || 'N/A'}</td>
+                        <td>{item.data?.endTime || 'N/A'}</td>
+                        <td>{`${item.data?.memberList?.length || 0} Member`}</td>
+                        <td>
+                            <div 
+                                style = {stylesForStatus(editActive === index ? status[currentIndex] : item.data?.status)} 
+                                onClick={() => handleStatusClick(index)}
+                            >
+                                {editActive === index ? status[currentIndex] : item.data?.status}
+                            </div>
+                        </td>
+                        <td>
+                            <div className={styles.actions}>
+                                {editActive === index ? (
+                                    <svg 
+                                        width="28" 
+                                        height="28" 
+                                        viewBox="0 0 28 28" 
+                                        fill="none" 
+                                        onClick={handleSaveClick}
+                                        className={styles.saveIcon}
+                                    >
+                                        <path 
+                                            d="M20.5 24.5H7.5C6.94772 24.5 6.5 24.0523 6.5 23.5V8.5C6.5 7.94772 6.94772 7.5 7.5 7.5H17L21.5 12V23.5C21.5 24.0523 21.0523 24.5 20.5 24.5Z" 
+                                            stroke="#605BFF" 
+                                            strokeWidth="1.5" 
+                                            strokeLinecap="round" 
+                                            strokeLinejoin="round"
+                                        />
+                                        <path 
+                                            d="M19.5 24.5V15.5H8.5V24.5" 
+                                            stroke="#605BFF" 
+                                            strokeWidth="1.5" 
+                                            strokeLinecap="round" 
+                                            strokeLinejoin="round"
+                                        />
+                                        <path 
+                                            d="M8.5 7.5V12H16.5" 
+                                            stroke="#605BFF" 
+                                            strokeWidth="1.5" 
+                                            strokeLinecap="round" 
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg> 
+                                ) : (
+                                    <img 
+                                        src={editTask} 
+                                        onClick={() => handleEditClick(index)}
+                                        alt="Edit task"
+                                    />
+                                )}
+                                <img src={deleticon} alt="Delete task"/>
+                            </div>
+                        </td>
                     </tr>
                 ))}
-
             </tbody>
         </table>
     );
