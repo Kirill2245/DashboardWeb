@@ -117,3 +117,49 @@ exports.addTask = async(req,res) => {
         })
     }
 }
+exports.updateStatusTask = async(req, res) => {
+    try{
+        const {taskId} = req.params
+        const {status} = req.body
+
+        if (!status || !taskId){
+            return res.status(400).json({
+                success:false,
+                message:'Missing required fields'
+            })
+        }
+        const validStatuses = ['Done', 'Running', 'Pending', 'Review'];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid status format',
+            })
+        }
+        if (!mongoose.Types.ObjectId.isValid(taskId)){
+            return res.status(400).json({
+                success:false,
+                message:'Invalid task ID format',
+            })
+        }
+        const task = await Task.findById(taskId)
+        if(!task){
+            return res.status(404).json({
+                success:false,
+                message:'Task not found'
+            })
+        }
+        task.status = status
+        await task.save()
+        return res.status(200).json({
+            success: true,
+            message: 'Task status updated successfully',
+            result: task
+        })
+    }
+    catch(error){
+        res.status(500).json({
+            success:false,
+            message:`Interval server error - ${error}`
+        })
+    }
+}

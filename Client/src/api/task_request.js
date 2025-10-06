@@ -20,3 +20,17 @@ export const fetch_addTask = async(data, IdUser) =>{
         throw error
     }
 }
+export const fetch_updateStatusTask = async(data, taskId) =>{
+    try{
+        const response = await api.patch(`/updatestatus/${taskId}`, data, { 
+            headers: {
+                'Content-Type': 'application/json'
+            }}
+        )
+        return response.data
+    }
+    catch(error){
+        console.error('Error create Task', error);
+        throw error
+    }
+}

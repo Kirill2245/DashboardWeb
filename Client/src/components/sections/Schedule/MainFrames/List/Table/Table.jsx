@@ -4,6 +4,7 @@ import testTb from '@image/testTb.jpg';
 import editTask from '@image/editTask.svg';
 import deleticon from '@image/deleticon.svg'
 import {  useState } from 'react';
+import { fetch_updateStatusTask } from '@api/task_request';
 const Table = ({  data = [] }) => {
     const headerList = ["Check Box", "Task Name", "Start Date", "End Date", "Member", "Status", "Actions"]
     const status = ["Pending", "Running", "Review", "Done"]
@@ -24,7 +25,21 @@ const Table = ({  data = [] }) => {
                 return {};
         }
     }
-
+    const fetch_data = async(taskId, status) => {
+        try{
+            const result = await fetch_updateStatusTask({status:status}, taskId)
+            if (result.success){
+                alert(result.message)
+            }
+            else{
+                alert(result.message)
+            }
+        }
+        catch(error){
+            console.error('Invalid update task status-',error)
+            alert('Invalid update task status')
+        }
+    }
     const handleStatusClick = (itemIndex) => {
         if (editActive === itemIndex) {
             setCurrentIndex((prev) => (prev + 1) % status.length)
@@ -34,8 +49,9 @@ const Table = ({  data = [] }) => {
         }
     }
 
-    const handleSaveClick = () => {
+    const handleSaveClick = (taskId, status) => {
         setEditActive(null) 
+        fetch_data(taskId, status)
     }
 
     const handleEditClick = (itemIndex) => {
@@ -91,7 +107,7 @@ const Table = ({  data = [] }) => {
                                         height="28" 
                                         viewBox="0 0 28 28" 
                                         fill="none" 
-                                        onClick={handleSaveClick}
+                                        onClick={() => handleSaveClick(item.data?._id, status[currentIndex])}
                                         className={styles.saveIcon}
                                     >
                                         <path 
