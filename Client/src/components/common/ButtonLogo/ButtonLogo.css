@@ -110,3 +110,28 @@
 .filter img{
     order: 2;
 }
+.TimeLineBtn{
+    height: 39px;
+    background-color: white;
+    color: #030229;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid rgba(96, 91, 255, 0.1);
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.TimeLineBtn img , .TimeLineBtn-active img{
+    order: 2;
+    margin-left: auto;
+}
+.TimeLineBtn-active{
+    height: 39px;
+    background-color: #605BFF;
+    color: white;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0 20px;
+    box-sizing: border-box;
+}

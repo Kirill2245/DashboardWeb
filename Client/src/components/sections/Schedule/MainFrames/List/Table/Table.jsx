@@ -5,6 +5,7 @@ import editTask from '@image/editTask.svg';
 import deleticon from '@image/deleticon.svg'
 import {  useState } from 'react';
 import { fetch_updateStatusTask } from '@api/task_request';
+import { fetch_deleteTask } from '@api/task_request';
 const Table = ({  data = [] }) => {
     const headerList = ["Check Box", "Task Name", "Start Date", "End Date", "Member", "Status", "Actions"]
     const status = ["Pending", "Running", "Review", "Done"]
@@ -38,6 +39,21 @@ const Table = ({  data = [] }) => {
         catch(error){
             console.error('Invalid update task status-',error)
             alert('Invalid update task status')
+        }
+    }
+    const fetch_delete = async(taskId) => {
+        try{
+            const result = await fetch_deleteTask( taskId)
+            if (result.success){
+                alert(result.message)
+            }
+            else{
+                alert(result.message)
+            }
+        }
+        catch(error){
+            console.error('Invalid delete task-',error)
+            alert('Invalid delete task')
         }
     }
     const handleStatusClick = (itemIndex) => {
@@ -139,7 +155,7 @@ const Table = ({  data = [] }) => {
                                         alt="Edit task"
                                     />
                                 )}
-                                <img src={deleticon} alt="Delete task"/>
+                                <img src={deleticon} alt="Delete task" onClick={() => fetch_delete(item.data?._id)}/>
                             </div>
                         </td>
                     </tr>

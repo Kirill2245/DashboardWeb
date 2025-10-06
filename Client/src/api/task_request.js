@@ -34,3 +34,13 @@ export const fetch_updateStatusTask = async(data, taskId) =>{
         throw error
     }
 }
+export const fetch_deleteTask = async(taskId) => {
+    try{
+        const response = await api.delete(`/deletetask/${taskId}`)
+        return response.data
+    }
+    catch(error){
+        console.error('Error create Task', error);
+        throw error
+    }
+}

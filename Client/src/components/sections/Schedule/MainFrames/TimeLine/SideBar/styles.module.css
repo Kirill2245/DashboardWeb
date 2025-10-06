@@ -1,0 +1,17 @@
+.sideBar{
+    width: clamp(216px, 17%, 300px);
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.sideBar nav{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}

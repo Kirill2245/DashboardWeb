@@ -168,8 +168,6 @@ exports.updateStatusTask = async(req, res) => {
 exports.deleteTask = async(req,res) => {
     try{
         const {taskId} = req.params
-        console.log('Deleting task with ID:', taskId);
-        
         if (!mongoose.Types.ObjectId.isValid(taskId)){
             return res.status(400).json({
                 success:false,
@@ -188,12 +186,8 @@ exports.deleteTask = async(req,res) => {
         const taskImage = task.image;
         
         await Task.findByIdAndDelete(taskId)
-        console.log('Task deleted from Task collection');
-        
         if (taskImage) {
             const imagePath = path.join(__dirname, '../../public', taskImage);
-            console.log('Image path:', imagePath);
-            
             try {
                 if (fs.existsSync(imagePath)) {
                     fs.unlinkSync(imagePath);
@@ -207,10 +201,6 @@ exports.deleteTask = async(req,res) => {
         } else {
             console.log('No image to delete');
         }
-        
-        // Удаляем из scheduleList по itemId (правильное поле)
-        console.log('Removing from scheduleList with itemId:', taskId);
-        
         const result = await Users.updateMany(
             { 
                 "scheduleList.itemType": "Task",
@@ -225,9 +215,6 @@ exports.deleteTask = async(req,res) => {
                 }
             }
         );
-        
-        console.log('Users update result:', result);
-        
         return res.status(200).json({
             success: true,
             message: 'Task deleted successfully'
