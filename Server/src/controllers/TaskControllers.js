@@ -2,6 +2,8 @@ const Users = require('../models/Users');
 const Task = require('../models/Task');
 const mongoose = require('mongoose');
 const upload = require('../settings/uploadConfig');
+const fs = require('fs');
+const path = require('path');
 exports.addTask = async(req,res) => {
     try{
         await new Promise((resolve, reject) => {
@@ -160,6 +162,82 @@ exports.updateStatusTask = async(req, res) => {
         res.status(500).json({
             success:false,
             message:`Interval server error - ${error}`
+        })
+    }
+}
+exports.deleteTask = async(req,res) => {
+    try{
+        const {taskId} = req.params
+        console.log('Deleting task with ID:', taskId);
+        
+        if (!mongoose.Types.ObjectId.isValid(taskId)){
+            return res.status(400).json({
+                success:false,
+                message:'Invalid task ID format',
+            })
+        }
+        
+        const task = await Task.findById(taskId)
+        if(!task){
+            return res.status(404).json({
+                success:false,
+                message:'Task not found'
+            })
+        }
+        
+        const taskImage = task.image;
+        
+        await Task.findByIdAndDelete(taskId)
+        console.log('Task deleted from Task collection');
+        
+        if (taskImage) {
+            const imagePath = path.join(__dirname, '../../public', taskImage);
+            console.log('Image path:', imagePath);
+            
+            try {
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                    console.log('Image file deleted successfully:', taskImage);
+                } else {
+                    console.log('Image file not found:', imagePath);
+                }
+            } catch (err) {
+                console.error('Error deleting image file:', err);
+            }
+        } else {
+            console.log('No image to delete');
+        }
+        
+        // Удаляем из scheduleList по itemId (правильное поле)
+        console.log('Removing from scheduleList with itemId:', taskId);
+        
+        const result = await Users.updateMany(
+            { 
+                "scheduleList.itemType": "Task",
+                "scheduleList.itemId": taskId
+            },
+            {
+                $pull: {
+                    scheduleList: {
+                        itemType: "Task",
+                        itemId: taskId
+                    }
+                }
+            }
+        );
+        
+        console.log('Users update result:', result);
+        
+        return res.status(200).json({
+            success: true,
+            message: 'Task deleted successfully'
+        })
+    }
+    catch(error){
+        console.error('Error deleting task:', error);
+        res.status(500).json({
+            success:false,
+            message: 'Internal server error'            
         })
     }
 }
