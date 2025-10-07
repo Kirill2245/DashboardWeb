@@ -1,0 +1,43 @@
+.section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding-bottom: 1px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.aside{
+    height:100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 15px;
+    box-sizing: border-box;
+}
+.aside .boxItem{
+    width: auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.aside .boxItem .item {
+    width: auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.aside .containCardTask{
+    width: 100%;
+    height: 72px;
+    border-bottom: 1px solid rgba(3, 2, 41, 0.05);
+    position: relative;
+}
+.aside .boxItem span{
+    width: auto;
+    height: 14px;
+    color: rgba(3, 2, 41, 0.6);
+    font-size: 0.75rem;
+    font-weight: 600;
+}

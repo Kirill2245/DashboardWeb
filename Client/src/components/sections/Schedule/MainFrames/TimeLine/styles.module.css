@@ -5,4 +5,5 @@
     height: 100%;
     padding-bottom: 29px;
     box-sizing: border-box;
+    overflow-y: hidden;
 }
