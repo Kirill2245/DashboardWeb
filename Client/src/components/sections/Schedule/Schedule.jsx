@@ -33,7 +33,7 @@ const Schedule = ({userId}) => {
         switch (FrameIndex){
             case 0:return(<List data={scheduleListTask}/>)
             case 1:return(<Board data={scheduleListTask}/>)
-            case 2:return(<TimeLine/>)
+            case 2:return(<TimeLine data={scheduleListTask}/>)
         }
     }
     return(

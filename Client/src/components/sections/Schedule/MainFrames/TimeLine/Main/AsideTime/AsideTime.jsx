@@ -19,8 +19,13 @@ const AsideTime = ({data}) => {
         <div className= {styles.section}>
             <div className={styles.aside}>
             {timeList.map((item, index) => {
-                const cleanTime = item.replace(' AM', '').replace(' PM', '').replace('.', ':');
-                const tasksForThisTime = data.filter(elem => cleanTime == elem.startTime);
+            const cleanTime = item.replace(' AM', '').replace(' PM', '').replace('.', ':');
+            const cleanHours = cleanTime.split(':')[0]; 
+
+            const tasksForThisTime = data.filter(elem => {
+                const elemHours = elem.data.startTime.split(':')[0]; 
+                return cleanHours === elemHours;
+            });
                 return (
                     <div key={index} className={styles.boxItem}>
                         <div className={styles.item}>
@@ -29,9 +34,9 @@ const AsideTime = ({data}) => {
                         <div className={styles.containCardTask}>
                             {tasksForThisTime.map((elem, id) => (
                                 <CardTask 
-                                    title={elem.title} 
-                                    tag={elem.tag} 
-                                    countMember={elem.countMember} 
+                                    title={elem.data.title} 
+                                    tag={elem.data.tags} 
+                                    countMember={elem.data.memberList.length} 
                                     key={`${index}-${id}`}
                                 />
                             ))}                     
