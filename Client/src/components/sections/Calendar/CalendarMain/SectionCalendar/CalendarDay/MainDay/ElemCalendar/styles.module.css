@@ -1,0 +1,21 @@
+.elem{
+    min-width: 163px;
+    max-width: auto;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: orange;
+    position: absolute;
+    top: 0;
+    margin: 5px 0;
+}
+.elem p{
+    margin: 0;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 19px;
+    color: #FFFFFF;
+}
