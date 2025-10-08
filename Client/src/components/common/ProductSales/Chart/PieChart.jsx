@@ -7,14 +7,14 @@ const PieChart = ({ values = [30, 40, 30], width = 176, height = 176 }) => {
     const innerHeight = height - margin.top - margin.bottom;
     const radius = Math.min(innerWidth, innerHeight) / 2;
     const center = { x: width / 2, y: height / 2 };
-
+    console.log('Chart', values)
     const colors = ['#FF8F6B', '#5B93FF', '#FFD66B'];
 
     const data = [
-        { label: 'Item 1', value: values[0] },
-        { label: 'Item 2', value: values[1] },
-        { label: 'Item 3', value: values[2] }
-    ].filter(d => d.value > 0);
+        { label: 'Cancel', value: values[0] },
+        { label: 'Sales', value: values[1] },
+        { label: 'Order', value: values[2] }
+    ].filter(d => d.value >= 0);
 
     const pie = d3.pie()
         .value(d => d.value)

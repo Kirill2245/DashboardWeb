@@ -6,8 +6,8 @@ import location from '@image/location.svg';
 const BtnContain = ({IsMapOpen, IsAddPeopleOpen}) => {
     return(
         <div className={styles.contain}>
-            <ButtonLogo text = "Add People" image = {user3} styles = "addPeople" onClick = {IsAddPeopleOpen}/>
-            <ButtonLogo text = "Add location" image = {location} styles = "addLocation" onClick = {IsMapOpen} />
+            <ButtonLogo text = "Add People" image = {user3} styles = "addPeople" onClick = {IsAddPeopleOpen} type = "button"/>
+            <ButtonLogo text = "Add location" image = {location} styles = "addLocation" onClick = {IsMapOpen} type = "button"/>
         </div>
     );
 

@@ -35,8 +35,8 @@ const ProductSales = ({idUser, title, widthChart , heightChart, flagSection}) =>
                 listProduct.forEach((item) => {
                     const soldCount = item.salesInfo?.reduce((sum, sale) => sum + (sale.count || 0), 0) || 0;
                     totalSales += (parseFloat(item.price?.$numberDecimal || 0) * soldCount);
-                    totalOrder += (item.numberOrders || 0);
-                    orderCancel += (item.numberCancel || 0);
+                    totalOrder += (parseFloat(item.price?.$numberDecimal || 0) * item.numberOrders || 0);
+                    orderCancel += (parseFloat(item.price?.$numberDecimal || 0) * item.numberCancel || 0);
                 });
                 
                 const data = [orderCancel,totalSales,totalOrder];
