@@ -8,7 +8,7 @@ import icon from '@image/icon-grup.svg'
 import icon1 from '@image/icon1.png'
 import TopSelling from './TopSelling/TopSelling';
 import ProductAdd from './ProductAdd/ProductAdd';
-import ProductSales from './ProductSales/ProductSales';
+import ProductSales from '@common/ProductSales/ProductSales'
 const ProductMain = ({startDate, endDate, idUser}) => {
     const [listProduct1, setProduct] = useState([]);
     const [listProduct2, setProduct2] = useState([]);
@@ -86,7 +86,7 @@ const ProductMain = ({startDate, endDate, idUser}) => {
             </div>
             <div className= {styles.containTwo}>
                 <ProductAdd/>
-                <ProductSales idUser={idUser}/>
+                <ProductSales idUser={idUser} title = "Product Sales Analytics"  flagSection = {true}  widthChart = {176} heightChart = {176}/>
             </div>
         </div>
     );

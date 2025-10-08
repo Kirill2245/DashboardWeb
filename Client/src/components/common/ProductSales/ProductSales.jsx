@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import PieChart from './Chart/PieChart';
 import styles from './styles.module.css'
 import image from '@image/dot.svg';
-const ProductSales = ({idUser}) => {
+const ProductSales = ({idUser, title, widthChart , heightChart, flagSection}) => {
     const [listProduct, setList] = useState([])
     const [chartData, setChartData] = useState([]);
     useEffect(() => {
@@ -49,11 +49,11 @@ const ProductSales = ({idUser}) => {
 
     return(
         <section className = {styles.section}>
-            <div className= {styles.header}>
-                <h3>Product Sales Analytics</h3>
+            <header className= {styles.header} style={flagSection ? {width:'318px'} : {}}>
+                <h3>{title}</h3>
                 <img src = {image}></img>
-            </div>
-                <PieChart values={chartData}/>
+            </header>
+            <PieChart values={chartData} width={widthChart} height={heightChart}/>
             <div className={styles.containLabel}>
                 <svg width="14px" height="14px">
                     <circle r = "7" cx = "7" cy = "7" fill='#5B93FF'/>
