@@ -2,9 +2,19 @@ import { useState } from 'react';
 import MainDay from './MainDay/MainDay';
 import styles from './styles.module.css';
 import ArrowLeft from '@image/ArrowLeft.svg';
-const CalendarDay = () => {
+const CalendarDay = ({list}) => {
     const [currentDate, setCurrentDate] = useState(new Date());
-    
+    const filterByMonthDay = ( targetDate) => {
+        const target = new Date(targetDate);
+        const targetMonth = target.getMonth(); 
+        const targetDay = target.getDate();    
+        
+        return list.filter(item => {
+            const itemDate = new Date(item.data.date);
+            return itemDate.getMonth() === targetMonth && 
+                itemDate.getDate() === targetDay;
+        });
+    };
     const nextDay = () => {
         const next = new Date(currentDate);
         next.setDate(currentDate.getDate() + 1);
@@ -34,7 +44,7 @@ const CalendarDay = () => {
                     <img src = {ArrowLeft} onClick={nextDay}/>
                 </figure>
             </header>
-            <MainDay/>
+            <MainDay list={filterByMonthDay(currentDate)}/>
         </div>
     );
 };

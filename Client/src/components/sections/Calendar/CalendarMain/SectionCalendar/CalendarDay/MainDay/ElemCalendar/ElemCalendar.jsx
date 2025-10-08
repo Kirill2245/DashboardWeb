@@ -1,9 +1,7 @@
 
 import styles from './styles.module.css';
-const ElemCalendar= ({title, type}) => {
-    const getRandomNumber = () => {
-        return Math.floor(Math.random() * 81) ;
-    }; 
+const ElemCalendar= ({title, type, left}) => {
+
     const getColorType = () => {
         switch(type){
             case 'Event':
@@ -17,9 +15,9 @@ const ElemCalendar= ({title, type}) => {
             
     }
     return(
-        <div className= {styles.elem} style={{left: `${getRandomNumber()}%`,backgroundColor:getColorType()}}>
-            <p>{title}</p>
-        </div>
+            <div className= {styles.elem} style={{left: `${left}%`,backgroundColor:getColorType()}}>
+                <p>{title}</p>
+            </div>
     );
 };
 

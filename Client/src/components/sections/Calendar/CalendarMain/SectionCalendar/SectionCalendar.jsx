@@ -28,7 +28,7 @@ const SectionCalendar = ({calendarId, userId}) => {
     const calendarType = () => {
         switch (calendarId){
             case 0:
-                return (<CalendarDay/>)
+                return (<CalendarDay list={scheduleList}/>)
 
             case 1:
                 return (<CalendarWeek/>)
