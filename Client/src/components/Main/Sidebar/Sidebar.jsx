@@ -4,6 +4,7 @@ import Profile from './Profile/Profile';
 import styles from './styles.module.css';
 import logo from '@image/Logo.svg'
 import { useEffect, useState } from 'react';
+import Update from './Update/Update';
 const Sidebar = ({isOut , user, isButton}) => {
     const safeUser = user || { 
         name: '',
@@ -37,7 +38,7 @@ const Sidebar = ({isOut , user, isButton}) => {
                         <h3>Base</h3>
                     </div>
                     <Menu onButtonClick={handleButtonClick}/>
-                    <Button text = "Upgrade Now" styles = "update"/>
+                    <Update/>
                     <Profile name= {safeUser.name} fullname = {safeUser.fullName} isOut={isOut} />
                 </section>
                 )
