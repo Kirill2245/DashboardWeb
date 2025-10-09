@@ -98,7 +98,6 @@ export const fetch_AllUsers = async() => {
 
 export const fetch_schedule = async(userId) => {
     try{
-        console.log(`/getschedule/${userId}`)
         const response = await api.get(`/getschedule/${userId}`)
         return response.data
     }

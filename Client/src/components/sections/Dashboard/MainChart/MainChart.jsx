@@ -1,16 +1,40 @@
 
 import styles from './styles.module.css';
-import menu from '@image/Menu.svg'
 import ProductSales from '@common/ProductSales/ProductSales'
+import Reports from './Reports/Reports';
+import {fetch_productUser} from '@api/user_requests.js'
+import { useEffect, useState } from 'react';
 const MainChart = ({idUser}) => {
+    const [listProduct, SetListProduct] = useState([])
+    const [listSales, SetListSales] = useState([])
+    const sortByTime = (array) => {
+        return [...array].sort((a, b) => {
+            const timeA = a.dateSales.split('T')[1].split('.')[0]; 
+            const timeB = b.dateSales.split('T')[1].split('.')[0]; 
+            return timeA.localeCompare(timeB);
+            });
+    };
+    useEffect(() => {
+        const fetch_data = async() => {
+            try{
+                const result = await fetch_productUser(idUser)
+                SetListProduct(result.product )
+            }
+            catch(error){
+                alert('Error get product information :(', error)
+                console.error(error)
+            }
+        }
+        fetch_data()
+    },[idUser])
+    useEffect(() => {
+        console.log(listProduct, "rep")
+        SetListSales(sortByTime(listProduct.flatMap(item => item.salesInfo)))
+    },[listProduct])
+    useEffect(() => {console.log(listSales, 'Sale')},[listSales])
     return(
         <div className= {styles.contain}>
-            <div className={styles.boxChart}>
-                <header>
-                    <h4>Reports</h4>
-                    <img src = {menu}/>
-                </header>
-            </div>
+            <Reports salesData = {listSales}/>
             <ProductSales idUser = {idUser} title = "Analytics" flagSection = {false}  widthChart = {216} heightChart = {216}/>
         </div>
     );
