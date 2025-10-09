@@ -25,7 +25,12 @@
     font-size: 1rem;
     font-weight: 400;
     opacity: 0.4;
+    transition: all 0.3s ease;
 } 
+.section header nav button:hover{
+    opacity: 1;
+    color: #605BFF;
+}
 .contain{
     display: flex;
     align-items: center;

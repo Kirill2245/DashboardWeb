@@ -2,6 +2,7 @@
     text-align: center;
     border-radius: 10px;
     border: none;
+    transition: all 0.2s ease;
 }
 .create{
     width: 348px;
@@ -55,6 +56,9 @@
     font-size: 0.875rem;
     font-weight: bold;
 }
+.customer:hover{
+    color: #605BFF;
+}
 .customerActive{
     width: 101px;
     height: 40px;
@@ -98,6 +102,14 @@
     font-size: 1rem;
     font-weight: 600px;
     border: 1px solid #615bff2d;
+    transition: all 0.35s ease;
+}
+.sendInvoice:hover{
+    background-color: #605BFF;
+    color: white;
+}
+.sendInvoice:active{
+    background-color: white;
 }
 .createInvoice{
     width: 238px;
@@ -106,6 +118,15 @@
     color: white;
     font-size: 1rem;
     font-weight: 600px;
+    transition: all 0.35s ease;
+}
+.createInvoice:hover{
+    background-color: white;
+    color: #605BFF;
+    border: 1px solid #615bff2d;
+}
+.createInvoice:active{
+    background-color: #605BFF;
 }
 .createCustomer{
     width: 100%;
@@ -124,6 +145,13 @@
     font-weight: 600px;
     opacity: 0.7;
     color: #030229;
+    transition: all 0.35s ease;
+}
+.calendarNav:hover{
+    opacity: 1;
+    color: #605BFF;
+    border: 1px solid #605BFF;
+    background-color: rgb(245, 245, 255);
 }
 .calendarNav.active{
     background-color: #605BFF;
@@ -156,6 +184,12 @@
     color: #605BFF;
     width: 93px;
     height: 40px;
+}
+.createSchedule-close:hover{
+    border: 1px solid #605BFF;
+}
+.createSchedule-save:hover{
+    background-color: #5B93FF;
 }
 .createSchedule-save{
     background-color: #605BFF;

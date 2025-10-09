@@ -5,6 +5,7 @@
     justify-content: center;
     gap: 10px;
     border: none;
+    transition: all 0.2s ease;
 }
 .googleButton{
     width: 164px;
@@ -30,6 +31,10 @@
     color: white;
     background-color: #605BFF;
 }
+.addProduct:hover{
+    background-color: #5B93FF;
+}
+
 .saveProduct{
     width: 309px;
     height: 50px;
@@ -40,7 +45,9 @@
     box-sizing: border-box;
     margin-top: 51px;
 }
-
+.saveProduct:hover{
+    background-color: #5B93FF;
+}
 .addNew{
     width: 122px;
     height: 40px;
@@ -49,6 +56,9 @@
     font-weight: 600;
     color: white;
     box-sizing: border-box;
+}
+.addNew:hover{
+    background-color: #5B93FF;
 }
 .EditInvoice{
     width: 90px;
@@ -79,6 +89,9 @@
     font-size: 1rem;
     color: white;
 }
+.addCustomer:hover{
+    background-color: #5B93FF;
+}
 .createSchedule-calendar{
     width: 100%;
     height: 45px;
@@ -86,11 +99,17 @@
     color:white;
     gap: 12px;
 }
+.createSchedule-calendar:hover{
+    background-color: #5B93FF;
+}
 .addPeople{
     width: 154px;
     height: 40px;
     background-color: #605BFF;
     color: white;
+}
+.addPeople:hover{
+    background-color: #5B93FF;
 }
 .addLocation{
     width: 154px;
@@ -98,6 +117,9 @@
     border: 1px solid rgba(96, 91, 255, 0.1);
     color: #605BFF;
     background-color: white;
+}
+.addLocation:hover{
+    border: 1px solid #605BFF;
 }
 .filter{
     width: 103px;

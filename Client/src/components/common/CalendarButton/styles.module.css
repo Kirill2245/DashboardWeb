@@ -22,6 +22,7 @@
 .container{
     position: relative; 
     display: inline-block; 
+    border-radius: 5px;
 }
 .button{
     display: flex;
@@ -35,6 +36,12 @@
     border: none;
     background-color: white;
     border-radius: 10px;
+    transition: all 0.25s ease;
+    
+}
+.button:hover{
+    background-color: #615bff;
+    color: white;
 }
 .button img{
     width: 8px;

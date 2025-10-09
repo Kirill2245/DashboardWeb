@@ -23,6 +23,7 @@
     display: flex;
     gap: 20px;
 }
+
 .bgActive{
     position: fixed;
     top: 0;
