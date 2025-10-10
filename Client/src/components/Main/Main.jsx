@@ -14,7 +14,7 @@ const Main = ({isOut}) => {
     const [userId, setId] = useState(null)
     const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
-    const [button, setButton ]= useState(0)
+    const [button, setButton ]= useState(null)
     const [overlay, isOverlay] = useState(false)
     const handleButtonClick = (buttonName) => {
         setButton(buttonName)

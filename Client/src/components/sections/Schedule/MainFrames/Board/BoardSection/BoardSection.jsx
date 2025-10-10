@@ -1,10 +1,9 @@
 
-import { useEffect } from 'react';
+
 import CardTask from './CardTask/CardTask';
 import styles from './styles.module.css';
 
 const BoardSection = ({name, data}) => {
-    useEffect(() => {console.log('Task --',data)},[data])
     return(
         <div className= {styles.contain}>
             <header className= {styles.header}><h3>{name}</h3></header>

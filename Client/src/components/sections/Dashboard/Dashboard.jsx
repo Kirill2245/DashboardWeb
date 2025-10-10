@@ -19,7 +19,6 @@ const Dashboard = ({idUser}) => {
                 const response = await fetch_productUser(idUser);
                 if (response){
                     setProduct(response.product)
-                    console.log(response.product)
                 }
                 else{
                     alert("List product is void")

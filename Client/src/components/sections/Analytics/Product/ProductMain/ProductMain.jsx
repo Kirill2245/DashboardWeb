@@ -21,7 +21,6 @@ const ProductMain = ({startDate, endDate, idUser}) => {
     useEffect(() => {
         const fetch_data = async () => {
             try {
-                console.log(typeof(idUser), idUser)
                 const response = await fetch_productUser(idUser);
                 if (Array.isArray(response?.product)) {
                     setList(response.product);
@@ -51,7 +50,6 @@ const ProductMain = ({startDate, endDate, idUser}) => {
             }
             setListSales(arr)
             
-            console.log(arr)
         }
         catch(err){
             console.error(err)

@@ -29,7 +29,6 @@ const Chats = ({ userId , isVisibleChat, listChats}) => {
             }
         };
     }, [userId]);
-    useEffect(() => {console.log(listChats,'hduhusdds')},[listChats])
     const list = listChats.length !== 0 ? listChats : chats
     return (
         <div className= {styles.Chats}>

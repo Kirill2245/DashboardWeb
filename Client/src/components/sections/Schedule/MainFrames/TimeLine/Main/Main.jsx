@@ -10,7 +10,6 @@ const Main = ({selectIdNav, data}) => {
     useEffect(() => {
         setObjTask(sortTasksByStatus(data))
     },[data])
-    useEffect(() => {console.log('Main-', data); console.log('MainS-', sortedObjTask); console.log('Date-',isDate)},[data,sortedObjTask,isDate])
     const groupByStatus = () => {
         switch(selectIdNav){
             case 0:

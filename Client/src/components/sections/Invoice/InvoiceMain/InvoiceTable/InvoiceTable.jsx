@@ -23,7 +23,6 @@ const InvoiseTable = ({idUser, listInvoiceSearch}) => {
             try{
                 const response = await fetch_invoiceUser(idUser)
                 setInvoice(response)
-                console.log(response)
             }catch (err) {
                 console.error('Ошибка при загрузке:', err);
                 setInvoice([]);

@@ -8,7 +8,6 @@ const List = ({data}) => {
     useEffect(() => {
         setObjTask(sortTasksByStatus(data))
     },[data])
-    useEffect(() => {console.log(sortedObjTask)},[sortedObjTask])
     return(
         <section className= {styles.section}>
             <Section name = 'To Do'  data={sortedObjTask.Pending || []}/>

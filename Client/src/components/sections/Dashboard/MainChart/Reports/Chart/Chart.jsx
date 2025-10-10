@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import SvgUnion from './SvgUnion/SvgUnion';
-
+import styles from './styles.module.css';
 const Chart = ({ salesData }) => {
 const svgRef = useRef();
     const [activePoint, setActivePoint] = useState(null);
@@ -181,14 +181,9 @@ const svgRef = useRef();
 
 
     return (
-        <div style={{ width: '100%', height: 'calc(100% - 40px)', padding: '10px 0 30px 24px', boxSizing: 'border-box' }} >
-            <svg 
+        <div className={styles.contain}>
+            <svg className={styles.svg}
                 ref={svgRef} 
-                style={{ 
-                    width: '100%', 
-                    height: '100%',
-                    display: 'block' 
-                }}
             ></svg>
             
             {activePoint && (

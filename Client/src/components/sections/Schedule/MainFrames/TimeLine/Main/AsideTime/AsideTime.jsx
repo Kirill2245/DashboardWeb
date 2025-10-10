@@ -1,7 +1,7 @@
 
 import styles from './styles.module.css';
 import CardTask from '../CardTask/CardTask';
-import { useEffect } from 'react';
+
 const AsideTime = ({data}) => {
     const generateTimeList = () => {
     const times = [];
@@ -14,7 +14,6 @@ const AsideTime = ({data}) => {
     };
 
     const timeList = generateTimeList();
-    useEffect(() => {console.log(data)},[data])
     return(
         <div className= {styles.section}>
             <div className={styles.aside}>

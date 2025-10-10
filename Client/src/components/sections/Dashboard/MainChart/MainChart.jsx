@@ -28,10 +28,8 @@ const MainChart = ({idUser}) => {
         fetch_data()
     },[idUser])
     useEffect(() => {
-        console.log(listProduct, "rep")
         SetListSales(sortByTime(listProduct.flatMap(item => item.salesInfo)))
     },[listProduct])
-    useEffect(() => {console.log(listSales, 'Sale')},[listSales])
     return(
         <div className= {styles.contain}>
             <Reports salesData = {listSales}/>

@@ -9,7 +9,6 @@ const StatsProduct = ({idUser, listProduct}) => {
     const [topProduct, setTopProduct] = useState([])
     useEffect(() => {
         const sort = sortProduct(listProduct)
-        console.log(sort, "---sort")
         setTopProduct(sort)
     }, [listProduct])
     return(

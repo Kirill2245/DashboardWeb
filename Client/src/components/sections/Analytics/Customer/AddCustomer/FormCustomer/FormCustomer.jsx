@@ -63,13 +63,11 @@ const FormCustomer = ({idUser}) => {
             });
             
             if (image) {
-                console.log('Adding image to FormData:', image.name, image.type, image.size);
                 formDataToSend.append('image', image);
             } else {
                 console.log('No image to add');
             }
             const response = await fetch_addCustomer(formDataToSend, idUser);
-            console.log(response.data);
             if (response.success === true){
                 alert("Customer created successfully");
                 setFormData({

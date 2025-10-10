@@ -8,7 +8,6 @@ const Table = ({showProfile, onDataSend, userId}) => {
         const fetch_data = async() => {
             try{
                 const response = await fetch_customers(userId)
-                console.log(response, response.customers)
                 if (response.success === true){
                     setCustomer(response.customers)
                 }
@@ -22,9 +21,6 @@ const Table = ({showProfile, onDataSend, userId}) => {
         }
         fetch_data()
     },[userId])
-    useEffect(() => {
-        console.log(customerList)
-    })
     return(
         <div>
             <table className= {styles.table}>

@@ -38,7 +38,6 @@ const InputMessage = ({dataUser, userId, sendMessage}) => {
     }, [userId, sendMessage]);
     const handleSendMessage = () => {
         if (inputText.trim() && dataUser.chatId) {
-            console.log("Chat id--" , dataUser.chatId)
             SocketService.sendMessage(dataUser.chatId, inputText, userId);
             setInputText('');
         }

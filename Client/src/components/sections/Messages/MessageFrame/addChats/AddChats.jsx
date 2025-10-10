@@ -15,7 +15,6 @@ const AddChats = ({isClose, userId}) => {
         const fetch_data = async() => {
             try{
                 const result = await fetch_AllUsers();
-                console.log(result)
                 setDataUsers(result.response)
             }
             catch(error){

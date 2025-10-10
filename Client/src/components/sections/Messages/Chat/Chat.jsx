@@ -32,7 +32,6 @@ const Chat = ({dataUser, userId}) => {
         };
     }, [userId, dataUser]);
     useEffect(() => {
-        console.log(messageHistory)
         setMessages(messageHistory.history)
     },[messageHistory])
 

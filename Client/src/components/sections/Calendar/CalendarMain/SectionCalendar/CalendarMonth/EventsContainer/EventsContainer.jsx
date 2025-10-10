@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
 import  Button  from '@common/Button/Button.jsx';
-import { useEffect } from 'react';
+
 const EventsContainer = ({data, len}) => {
     const [moreActive, isMoreActive] = useState(false)
     const typeClassMap = {
@@ -10,7 +10,6 @@ const EventsContainer = ({data, len}) => {
         'Event': styles.event,
         'Task': styles.task
     };
-    useEffect(() => {console.log('elem',data)},[data])
     return(
         <div className={styles.eventsContainer}>
             {moreActive ?

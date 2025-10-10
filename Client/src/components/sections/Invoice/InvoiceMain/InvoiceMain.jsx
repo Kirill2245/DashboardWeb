@@ -14,7 +14,6 @@ const InvoiseMain = ({idUser, isCreate}) => {
             }
             else{
                 const result = await fetch_searchInvoice(idUser, nameId)
-                console.log(result.data)
                 setInvoice(result.data.invoice)
                 if (result.data.invoice.length == 0){
                     alert("Nothing was found.")

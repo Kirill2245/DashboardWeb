@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import Calendar from 'react-calendar';
 import { useState } from 'react';
 import EventsContainer from './EventsContainer/EventsContainer';
-import { useEffect } from 'react';
+
 const CalendarMonth = ({list}) => {
     const [date, setDate] = useState(new Date());
     const formatShortWeekday = (locale, date) => {
@@ -57,7 +57,7 @@ const tileContent = ({ date, view }) => {
     }
     return null;
 };
-useEffect(() => {console.log('Schedule', list)},[list])
+
     return(
         <div className= {styles.calendar}>
             <Calendar
